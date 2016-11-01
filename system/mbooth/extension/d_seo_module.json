@@ -1,0 +1,57 @@
+{
+    "codename": "d_seo_module",
+    "version": "2.0.0",
+    "name": "SEO Module",
+    "description": "SEO Module description",
+	"index": "module/d_seo_module",
+	
+    "author": {
+        "name": "Dreamvention",
+        "email": "info@dreamvention.com",
+        "url": "https://dreamvention.com"
+    },
+    "opencart_version": [
+        "2.3.0.2"
+    ],
+    "mbooth_version": "^4.0.0",
+    "type": "module",
+    "license": {
+        "type": "free",
+        "url": "https://shopunity.net/licenses/free"
+    },
+    "install": {
+        "url": "extension/module/install&extension=d_seo_module" 
+    },
+	"uninstall": {
+        "url": "extension/module/uninstall&extension=d_seo_module"
+    },
+    "support": {
+        "email": "support@dreamvention.com",
+        "url": "https:/dreamvention.com/support"
+    },
+    "required": {
+        "d_simple_html_dom": ">= 1.0.0",
+        "d_shopunity": ">= 3.0.0"
+    },
+    "files": [
+        "system/mbooth/extension/d_seo_module.json",
+		"system/mbooth/xml/mbooth_d_seo_module.xml",
+						
+		"admin/controller/extension/module/d_seo_module.php",
+		"admin/model/extension/module/d_seo_module.php",
+		"admin/language/en-gb/extension/module/d_seo_module.php",
+		"admin/view/template/extension/module/d_seo_module.tpl",
+		
+		"catalog/controller/extension/module/d_seo_module.php",
+		"catalog/model/extension/module/d_seo_module.php"
+    ],
+    "dirs": [
+        "admin/view/template/extension/module/d_seo_module"
+    ],
+    "changelog": [
+        {
+            "version": "2.0.0",
+            "change": ""
+        }
+    ]
+}

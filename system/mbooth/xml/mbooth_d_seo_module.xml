@@ -1,0 +1,28 @@
+<extension>
+    <id>d_seo_module</id>
+    <name>SEO Module</name>
+    <description>Need description</description>
+    <type>module</type>
+    <version>1.0</version>
+	<opencart_version>2.3.0.2</opencart_version>
+    <mbooth_version>3.2</mbooth_version>
+    <author>Dreamvention (Artem)</author>
+    <files>
+		<file>system/mbooth/xml/mbooth_d_seo_module.xml</file>
+						
+		<file>admin/controller/extension/module/d_seo_module.php</file>
+		<file>admin/model/extension/module/d_seo_module.php</file>
+		<file>admin/language/en-gb/extension/module/d_seo_module.php</file>
+		<file>admin/view/template/extension/module/d_seo_module.tpl</file>
+		
+		<file>catalog/controller/extension/module/d_seo_module.php</file>
+		<file>catalog/model/extension/module/d_seo_module.php</file>		
+	</files>
+	<required>
+        <require version="2.1.0">shopunity</require>
+		<require version="1.0.0">d_simple_html_dom</require>
+    </required>
+	<updates>
+        <update version="2.0"></update>
+    </updates>
+</extension>
