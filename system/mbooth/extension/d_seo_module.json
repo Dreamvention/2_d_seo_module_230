@@ -45,9 +45,6 @@
 		"catalog/controller/extension/module/d_seo_module.php",
 		"catalog/model/extension/module/d_seo_module.php"
     ],
-    "dirs": [
-        "admin/view/template/extension/module/d_seo_module"
-    ],
     "changelog": [
         {
             "version": "2.0.0",
