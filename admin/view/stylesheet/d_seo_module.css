@@ -1,0 +1,21 @@
+/**************************************************/
+/*                  G E N E R A L                 */
+/**************************************************/
+.label-top {
+	padding-top: 0px !important;
+}
+.text-center  {
+	text-align: center !important;
+}
+.text-left  {
+	text-align: left !important;
+}
+.text-right  {
+	text-align: right !important;
+}
+.text-error {
+	color: #F56B6B;
+}
+.clear {
+	clear: both;
+}

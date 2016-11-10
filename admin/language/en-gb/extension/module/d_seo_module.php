@@ -8,6 +8,9 @@ $_['text_edit']            				= 'Edit SEO Module settings';
 $_['text_modules']         				= 'Modules';
 $_['text_settings']       				= 'Settings';
 $_['text_instructions']   				= 'Instructions';
+$_['text_basic_settings'] 				= 'Basic Settings';
+$_['text_htaccess'] 					= 'htaccess';
+$_['text_robots'] 						= 'robots';
 $_['text_success']        				= 'Success: You have modified module SEO Module!';
 $_['text_module']              			= 'Module';
 $_['text_all_stores']     				= 'All Stores';
@@ -29,6 +32,7 @@ $_['text_not_found'] = '
 
 // Entry
 $_['entry_status']        				= 'Status';
+$_['entry_text']						= 'Text';
 
 // Button		
 $_['button_save'] 						= 'Save';

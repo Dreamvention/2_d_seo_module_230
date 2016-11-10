@@ -44,11 +44,71 @@
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_setting">
 							<div class="tab-body">
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
-									<div class="col-sm-8">
-										<input type="hidden" name="<?php echo $codename; ?>_status" value="0" />
-										<input type="checkbox" name="<?php echo $codename; ?>_status" <?php echo $status ? 'checked="checked"' : ''; ?> value="1"/>
+								<div class="row">
+									<div class="col-sm-2">
+										<ul class="nav nav-pills nav-stacked">
+											<li class="active">
+												<a href="#vtab_basic_settings" data-toggle="tab"><span><?php echo $text_basic_settings; ?></span></a>
+											</li>
+											<li>
+												<a href="#vtab_htaccess" data-toggle="tab"><span><?php echo $text_htaccess; ?></span></a>
+											</li>
+											<li>
+												<a href="#vtab_robots" data-toggle="tab"><span><?php echo $text_robots; ?></span></a>
+											</li>
+										</ul>
+									</div>
+									<div class="col-sm-10">
+										<div class="tab-content">
+											<div id="vtab_basic_settings" class="tab-pane active">
+												<div class="page-header">
+													<h3><span><?php echo $text_basic_settings; ?></span></h3>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+													<div class="col-sm-8">
+														<input type="hidden" name="<?php echo $codename; ?>_status" value="0" />
+														<input type="checkbox" name="<?php echo $codename; ?>_status" <?php echo $status ? 'checked="checked"' : ''; ?> value="1"/>
+													</div>
+												</div>
+											</div>
+											<div id="vtab_htaccess" class="tab-pane">
+												<div class="page-header">
+													<h3><span><?php echo $text_htaccess; ?></span></h3>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+													<div class="col-sm-10">
+														<input type="hidden" name="htaccess[status]" value="0" />
+														<input type="checkbox" name="htaccess[status]" <?php echo $htaccess['status'] ? 'checked="checked"' : ''; ?> value="1"/>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" for="input-text"><?php echo $entry_text; ?></label>
+													<div class="col-sm-10">
+														<textarea name="htaccess[text]" class="form-control" rows="20"><?php echo $htaccess['text']; ?></textarea>
+													</div>
+												</div>
+											</div>
+											<div id="vtab_robots" class="tab-pane">
+												<div class="page-header">
+													<h3><span><?php echo $text_robots; ?></span></h3>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+													<div class="col-sm-10">
+														<input type="hidden" name="robots[status]" value="0" />
+														<input type="checkbox" name="robots[status]" <?php echo $robots['status'] ? 'checked="checked"' : ''; ?> value="1"/>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" for="input-text"><?php echo $entry_text; ?></label>
+													<div class="col-sm-10">
+														<textarea name="robots[text]" class="form-control" rows="20"><?php echo $robots['text']; ?></textarea>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -3,6 +3,68 @@ class ModelExtensionModuleDSEOModule extends Model {
 	private $codename = 'd_seo_module';
 	
 	/*
+	*	Save File Manager.
+	*/
+	public function saveFileData($file, $data) {
+		$dir =  str_replace("system/", "", DIR_SYSTEM);
+		if ($file=='htaccess') {
+			$file_on = $dir . '.htaccess';
+			$file_off = $dir . '.htaccess.txt'; 
+		}
+		if ($file=='robots') {
+			$file_on = $dir . 'robots.txt';
+			$file_off = $dir . '_robots.txt'; 
+		}
+		
+		if ($data['status']) {
+			if (file_exists($file_off)) unlink($file_off);
+			$fh = fopen($file_on, "w");
+			fwrite($fh, html_entity_decode($data['text']));
+			fclose($fh);
+		} else {
+			if (file_exists($file_on)) unlink($file_on);
+			$fh = fopen($file_off, "w");
+			fwrite($fh, html_entity_decode($data['text']));
+			fclose($fh);
+		}
+	}
+	
+	/*
+	*	Return htaccess.
+	*/
+	public function getFileData($file) {
+		$dir =  str_replace("system/", "", DIR_SYSTEM);
+		if ($file=='htaccess') {
+			$file_on = $dir . '.htaccess';
+			$file_off = $dir . '.htaccess.txt'; 
+		}
+		if ($file=='robots') {
+			$file_on = $dir . 'robots.txt';
+			$file_off = $dir . '_robots.txt'; 
+		}
+		
+		$data = array();
+		if (file_exists($file_on)) { 
+			$data['status'] = true;
+			$fh = fopen($file_on, "r");
+			$data['text'] = fread($fh, filesize($file_on)+1);
+			fclose($fh);
+		} else {
+			if (file_exists($file_off)) {
+				$data['status'] = false;
+				$fh = fopen($file_off, "r");
+				$data['text'] = fread($fh, filesize($file_off)+1);
+				fclose($fh);
+			} else {
+				$data['status'] = false;
+				$data['text'] = '';
+			}
+		}
+				
+		return $data;
+	}
+	
+	/*
 	*	Add Language.
 	*/
 	public function addLanguage($data) {

@@ -48,6 +48,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
 		$this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
 		$this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
+		$this->document->addStyle('view/stylesheet/' . $this->codename . '.css');
 				
 		// Heading
 		$this->document->setTitle($this->language->get('heading_title_main'));
@@ -80,6 +81,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$data['text_settings'] = $this->language->get('text_settings');
 		$data['text_instructions'] = $this->language->get('text_instructions');
 		$data['text_instructions_full'] = $this->language->get('text_instructions_full');
+		$data['text_basic_settings'] = $this->language->get('text_basic_settings');
+		$data['text_htaccess'] = $this->language->get('text_htaccess');
+		$data['text_robots'] = $this->language->get('text_robots');
 		
 		// Button
 		$data['button_save'] = $this->language->get('button_save');
@@ -88,6 +92,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 				
 		// Entry
 		$data['entry_status'] = $this->language->get('entry_status');
+		$data['entry_text'] = $this->language->get('entry_text');
 				
 		// Text
 		$data['text_edit'] = $this->language->get('text_edit');
@@ -132,6 +137,8 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
 		
 		$data['status'] = $status;
+		$data['htaccess'] = $this->{'model_extension_module_' . $this->codename}->getFileData('htaccess');
+		$data['robots'] = $this->{'model_extension_module_' . $this->codename}->getFileData('robots');
 		
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -148,6 +155,13 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting($this->codename, $this->request->post);
+			
+			if (isset($this->request->post['htaccess'])) {
+				$this->{'model_extension_module_' . $this->codename}->saveFileData('htaccess', $this->request->post['htaccess']);
+			}
+			if (isset($this->request->post['robots'])) {
+				$this->{'model_extension_module_' . $this->codename}->saveFileData('robots', $this->request->post['robots']);
+			}
 
 			$this->session->data['success'] = $this->language->get('text_success');
 		}
@@ -671,8 +685,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 	public function install() {
 		$this->load->model($this->route);
 		$this->load->model('extension/event');
-		
-		//$this->model_extension_event->addEvent($this->codename, 'admin/view/common/menu/after', 'extension/module/d_seo_module/menu_after');	
+			
 		$this->model_extension_event->addEvent($this->codename, 'admin/view/common/column_left/before', 'extension/module/d_seo_module/column_left_before');	
 		$this->model_extension_event->addEvent($this->codename, 'admin/view/setting/setting/after', 'extension/module/d_seo_module/setting_after');		
 		$this->model_extension_event->addEvent($this->codename, 'admin/view/setting/store_form/after', 'extension/module/d_seo_module/setting_after');
