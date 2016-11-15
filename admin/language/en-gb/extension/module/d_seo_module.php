@@ -5,6 +5,7 @@ $_['heading_title_main']  				= 'SEO Module';
 
 // Text
 $_['text_edit']            				= 'Edit SEO Module settings';
+$_['text_install']              		= 'Install Module';
 $_['text_modules']         				= 'Modules';
 $_['text_settings']       				= 'Settings';
 $_['text_instructions']   				= 'Instructions';
@@ -12,6 +13,8 @@ $_['text_basic_settings'] 				= 'Basic Settings';
 $_['text_htaccess'] 					= 'htaccess';
 $_['text_robots'] 						= 'robots';
 $_['text_success']        				= 'Success: You have modified module SEO Module!';
+$_['text_success_install']        		= 'Success: You have installed module SEO Module!';
+$_['text_success_uninstall']			= 'Success: You have uninstalled module SEO Module!';
 $_['text_module']              			= 'Module';
 $_['text_all_stores']     				= 'All Stores';
 $_['text_all_languages']  				= 'All Languages';
@@ -32,15 +35,19 @@ $_['text_not_found'] = '
 
 // Entry
 $_['entry_status']        				= 'Status';
+$_['entry_uninstall']					= 'Uninstall Module';
 $_['entry_text']						= 'Text';
 
 // Button		
 $_['button_save'] 						= 'Save';
 $_['button_save_and_stay'] 				= 'Save and Stay';
 $_['button_cancel'] 					= 'Cancel';
+$_['button_install'] 					= 'Install';
+$_['button_uninstall'] 					= 'Uninstall';
 
 // Error
 $_['error_warning']          			= 'Warning: Please check the form carefully for errors!';
 $_['error_permission']    				= 'Warning: You do not have permission to modify module SEO Module!';
+$_['error_dependencies']    			= 'Warning: You can not uninstall this module until you uninstall dependencies modules!';
 
 ?>

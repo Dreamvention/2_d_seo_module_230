@@ -71,6 +71,12 @@
 														<input type="checkbox" name="<?php echo $codename; ?>_status" <?php echo $status ? 'checked="checked"' : ''; ?> value="1"/>
 													</div>
 												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" for="input-uninstall"><?php echo $entry_uninstall; ?></label>
+													<div class="col-sm-8">
+														<a action="<?php echo $uninstall; ?>" id="button_uninstall" class="btn btn-danger btn-lg"><?php echo $button_uninstall; ?></a>
+													</div>
+												</div>											
 											</div>
 											<div id="vtab_htaccess" class="tab-pane">
 												<div class="page-header">
@@ -159,8 +165,30 @@ function showAlert(json) {
 </script> 
 <script type="text/javascript">
 
+$('body').on('click', '#button_uninstall', function(event){
+	$.ajax({
+		type: 'post',
+		url: $(this).attr('action'),
+		data: '',
+		dataType: 'json',
+		beforeSend: function() {
+			$('#content').fadeTo('slow', 0.5);
+		},
+		complete: function() {
+			$('#content').fadeTo('slow', 1);   
+		},
+		success: function(json) {
+			showAlert(json);
+			if (json['success']) location = '<?php echo str_replace('&amp;', '&', $module_link); ?>';
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+    });  
+});
+
 $('body').on('click', '#save_and_stay', function(){
-    $.ajax( {
+    $.ajax({
 		type: 'post',
 		url: $('#form').attr('action'),
 		data: $('#form').serialize(),
@@ -181,7 +209,7 @@ $('body').on('click', '#save_and_stay', function(){
 });
 	
 $('body').on('click', '#save_and_exit', function(){
-    $.ajax( {
+    $.ajax({
 		type: 'post',
 		url: $('#form').attr('action'),
 		data: $('#form').serialize(),

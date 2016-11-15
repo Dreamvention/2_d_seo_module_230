@@ -19,6 +19,9 @@
 		<file>catalog/controller/extension/module/d_seo_module.php</file>
 		<file>catalog/model/extension/module/d_seo_module.php</file>		
 	</files>
+	<dirs>
+		<dir>admin/view/template/extension/module/d_seo_module</dir>
+	</dirs>
 	<required>
         <require version="2.1.0">shopunity</require>
 		<require version="1.0.0">d_simple_html_dom</require>
