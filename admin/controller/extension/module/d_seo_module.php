@@ -110,6 +110,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_module'] = $this->language->get('text_module');
+		$data['text_uninstall_confirm'] = $this->language->get('text_uninstall_confirm');
 				
 		// Notification
 		foreach($this->error as $key => $error){
@@ -392,10 +393,10 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#tab-server', 0)->outertext .= '<div class="tab-pane" id="tab-seo">' . $html_tab_seo . '</div>';
 		}
 		if ($html_style) {
-			$html_dom->find('#content', 0)->innertext .= '<style type="text/css">' . $html_style . '</style>';	
+			$html_dom->find('#content', 0)->innertext .= $html_style;	
 		}
 		if ($html_script) {
-			$html_dom->find('#footer', 0)->outertext .= '<script type="text/javascript">' . $html_script . '</script>';	
+			$html_dom->find('#content', 0)->innertext .= $html_script;	
 		}
 		
 		$output = $html_dom;
@@ -446,10 +447,10 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#tab-design', 0)->outertext .= '<div class="tab-pane" id="tab-seo">' . $html_tab_seo . '</div>';
 		}
 		if ($html_style) {
-			$html_dom->find('#content', 0)->innertext .= '<style type="text/css">' . $html_style . '</style>';	
+			$html_dom->find('#content', 0)->innertext .= $html_style;	
 		}
 		if ($html_script) {
-			$html_dom->find('#footer', 0)->outertext .= '<script type="text/javascript">' . $html_script . '</script>';	
+			$html_dom->find('#content', 0)->innertext .= $html_script;	
 		}
 		
 		$output = $html_dom;
@@ -464,7 +465,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 				
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/category_form_save', $data);
+			$this->load->controller('extension/module/' . $seo_extension . '/category_form_add', $data);
 		}
 	}
 	
@@ -478,7 +479,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 				
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/category_form_save', $data);
+			$this->load->controller('extension/module/' . $seo_extension . '/category_form_edit', $data);
 		}
 	}
 		
@@ -532,10 +533,10 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#tab-design', 0)->outertext .= '<div class="tab-pane" id="tab-seo">' . $html_tab_seo . '</div>';
 		}
 		if ($html_style) {
-			$html_dom->find('#content', 0)->innertext .= '<style type="text/css">' . $html_style . '</style>';	
+			$html_dom->find('#content', 0)->innertext .= $html_style;	
 		}
 		if ($html_script) {
-			$html_dom->find('#footer', 0)->outertext .= '<script type="text/javascript">' . $html_script . '</script>';	
+			$html_dom->find('#content', 0)->innertext .= $html_script;	
 		}
 		
 		$output = $html_dom;
@@ -550,7 +551,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 				
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/product_form_save', $data);
+			$this->load->controller('extension/module/' . $seo_extension . '/product_form_add', $data);
 		}
 	}
 	
@@ -564,7 +565,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 				
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/product_form_save', $data);
+			$this->load->controller('extension/module/' . $seo_extension . '/product_form_edit', $data);
 		}
 	}
 	
@@ -633,10 +634,10 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#tab-data', 0)->outertext .= '<div class="tab-pane" id="tab-seo">' . $html_tab_seo . '</div>';
 		}
 		if ($html_style) {
-			$html_dom->find('#content', 0)->innertext .= '<style type="text/css">' . $html_style . '</style>';	
+			$html_dom->find('#content', 0)->innertext .= $html_style;	
 		}
 		if ($html_script) {
-			$html_dom->find('#footer', 0)->outertext .= '<script type="text/javascript">' . $html_script . '</script>';	
+			$html_dom->find('#content', 0)->innertext .= $html_script;	
 		}
 		
 		$output = $html_dom;
@@ -651,7 +652,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 				
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_save', $data);
+			$this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_add', $data);
 		}
 	}
 	
@@ -665,7 +666,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 				
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_save', $data);
+			$this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_edit', $data);
 		}
 	}
 				
@@ -714,10 +715,10 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#tab-design', 0)->outertext .= '<div class="tab-pane" id="tab-seo">' . $html_tab_seo . '</div>';
 		}
 		if ($html_style) {
-			$html_dom->find('#content', 0)->innertext .= '<style type="text/css">' . $html_style . '</style>';	
+			$html_dom->find('#content', 0)->innertext .= $html_style;	
 		}
 		if ($html_script) {
-			$html_dom->find('#footer', 0)->outertext .= '<script type="text/javascript">' . $html_script . '</script>';		
+			$html_dom->find('#content', 0)->innertext .= $html_script;	
 		}
 		
 		$output = $html_dom;
@@ -732,7 +733,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 				
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/information_form_save', $data);
+			$this->load->controller('extension/module/' . $seo_extension . '/information_form_add', $data);
 		}
 	}
 	
@@ -746,7 +747,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 				
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/information_form_save', $data);
+			$this->load->controller('extension/module/' . $seo_extension . '/information_form_edit', $data);
 		}
 	}
 			
@@ -776,10 +777,10 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->{'model_extension_module_' . $this->codename}->deleteLanguage($data);
 	}
 	
-	public function manufacturer_form_save($data) {
+	public function manufacturer_form_add($data) {
 		$this->load->model($this->route);
 		
-		$this->{'model_extension_module_' . $this->codename}->saveManufacturerDescription($data);
+		$this->{'model_extension_module_' . $this->codename}->addManufacturerDescription($data);
 	}
 					
 	public function install() {		

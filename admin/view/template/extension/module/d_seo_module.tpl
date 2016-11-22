@@ -166,25 +166,27 @@ function showAlert(json) {
 <script type="text/javascript">
 
 $('body').on('click', '#button_uninstall', function(event){
-	$.ajax({
-		type: 'post',
-		url: $(this).attr('action'),
-		data: '',
-		dataType: 'json',
-		beforeSend: function() {
-			$('#content').fadeTo('slow', 0.5);
-		},
-		complete: function() {
-			$('#content').fadeTo('slow', 1);   
-		},
-		success: function(json) {
-			showAlert(json);
-			if (json['success']) location = '<?php echo str_replace('&amp;', '&', $module_link); ?>';
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-    });  
+	if (confirm("<?php echo $text_uninstall_confirm; ?>")){		
+		$.ajax({
+			type: 'post',
+			url: $(this).attr('action'),
+			data: '',
+			dataType: 'json',
+			beforeSend: function() {
+				$('#content').fadeTo('slow', 0.5);
+			},
+			complete: function() {
+				$('#content').fadeTo('slow', 1);   
+			},
+			success: function(json) {
+				showAlert(json);
+				if (json['success']) location = '<?php echo str_replace('&amp;', '&', $module_link); ?>';
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});  
+	}
 });
 
 $('body').on('click', '#save_and_stay', function(){

@@ -22,10 +22,90 @@ $_['text_yes'] 							= 'Yes';
 $_['text_no'] 							= 'No';
 $_['text_enabled']          			= 'Enabled';
 $_['text_disabled']          			= 'Disabled';
+$_['text_uninstall_confirm']          	= 'After uninstalling of SEO Module will delete all additional fields in the product, category, manufacturer and information that have been added after installation.\nYou sure you want to uninstall SEO Module? ';
 $_['text_general']						= 'General';
 $_['text_data']							= 'Data';
 $_['text_seo']            				= 'SEO';
-$_['text_instructions_full'] 			= '';
+$_['text_instructions_full'] 			= '
+<div class="row">
+	<div class="col-sm-2">
+		<ul class="nav nav-pills nav-stacked">
+			<li class="active"><a href="#vtab_instruction_install"  data-toggle="tab">Installation and Updating</a></li>
+			<li><a href="#vtab_instruction_setting" data-toggle="tab">Settings</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-10">
+		<div class="tab-content">
+			<div id="vtab_instruction_install" class="tab-pane active">
+				<div class="tab-body">
+					<h3>Installation</h3>
+					<ol>
+						<li>Unzip distribution file.</li>
+						<li>Upload everything from the folder <code>UPLOAD</code> into the root folder of you shop.</li>
+						<li>Goto admin of your shop and navigate to extensions -> modules -> SEO Module.</li>
+						<li>Click install button.</li>
+					</ol>
+					<div class="bs-callout bs-callout-info">
+						<h4>Note!</h4>
+						<p>Our installation process requires you to have access to the internet because we will install all the required dependencies before we install the module.</p>
+					</div>
+					<div class="bs-callout bs-callout-warning">
+						<h4>Warning!</h4>
+						<p>If you get an error on this step, be sure to make you <code>DOWNLOAD</code> folder (usually in system folder of you shop) writable.</p>
+					</div>
+					<h3>Updating</h3>
+					<ol>
+						<li>Unzip distribution file.</li>
+						<li>Upload everything from the folder <code>UPLOAD</code> into the root folder of you shop.</li>
+						<li>Click overwrite for all files.</li>
+					</ol>
+					<div class="bs-callout bs-callout-info">
+						<h4>Note!</h4>
+						<p>Although we follow strict standards that do not allow feature updates to cause a full reinstall of the module, still it may happen that major releases require you to uninstall/install the module again before new feature take place.</p>
+					</div>
+					<div class="bs-callout bs-callout-warning">
+						<h4>Warning!</h4>
+						<p>If you have made custom corrections to the code, your code will be rewritten and lost once you update the module.</p>
+					</div>
+				</div>
+			</div>
+			<div id="vtab_instruction_setting" class="tab-pane">
+				<div class="tab-body">
+					<h3>Basic Settings</h3>
+					<p>Here you can:</p>
+					<ol>
+						<li>Enable/Disable SEO Module on the pages of your shop by click Status.</li>
+						<li>Uninstall SEO Module.</li>
+					</ol>
+					<div class="bs-callout bs-callout-info">
+						<h4>Note!</h4>
+						<p>Uninstall SEO Module is possible only after uninstalling all other SEO modules.</p>
+					</div>
+					<div class="bs-callout bs-callout-warning">
+						<h4>Warning!</h4>
+						<p>After uninstalling of SEO Module will delete all additional fields in the product, category, manufacturer and information that have been added after installation.</p>
+					</div>
+					<h3>htaccess</h3>
+					<p>Here you can edit, enable, disable file .htaccess.</p>
+					<div class="bs-callout bs-callout-info">
+						<h4>Note!</h4>
+						<p>.htaccess - the configuration file of Apache web server that allows you to manage the work through a variety of options the web server and website settings (directives) without changing the basic configuration of web server files.</p>
+					</div>
+					<div class="bs-callout bs-callout-warning">
+						<h4>Warning!</h4>
+						<p>Please be careful when editing the .htaccess file! The errors in this file can completely destroy your shop.</p>
+					</div>
+					<h3>robots</h3>
+					<p>Here you can edit, enable, disable file robots.txt.</p>
+					<div class="bs-callout bs-callout-info">
+						<h4>Note!</h4>
+						<p>robots.txt - the text file located in the root directory of the site, which recorded special instructions for search engine robots. The file contains directives, describing access to sections of the site and indicates which pages of data and should not be indexed.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>';
 $_['text_not_found'] = '
 <div class="jumbotron">
 <h1>Please install Shopunity</h1>

@@ -87,9 +87,9 @@ class ModelExtensionModuleDSEOModule extends Model {
 	}
 	
 	/*
-	*	Save Manufacturer Description.
+	*	Add Manufacturer Description.
 	*/
-	public function saveManufacturerDescription($data) {
+	public function addManufacturerDescription($data) {
 		foreach ($data['manufacturer_description'] as $language_id => $manufacturer_description) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer_description SET manufacturer_id = '" . (int)$data['manufacturer_id'] . "', language_id = '" . (int)$language_id . "'");
 		}
