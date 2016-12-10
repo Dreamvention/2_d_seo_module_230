@@ -43,7 +43,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 				
 		$this->model_d_shopunity_mbooth->validateDependencies($this->codename);
 		
-		// styles and scripts
+		// Styles and Scripts
 		$this->document->addLink('//fonts.googleapis.com/css?family=PT+Sans:400,700,700italic,400italic&subset=latin,cyrillic-ext,latin-ext,cyrillic', "stylesheet");
 		$this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
 		$this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
@@ -109,7 +109,6 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$data['text_no'] = $this->language->get('text_no');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
-		$data['text_module'] = $this->language->get('text_module');
 		$data['text_uninstall_confirm'] = $this->language->get('text_uninstall_confirm');
 				
 		// Notification
@@ -142,7 +141,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			'href' => $this->url->link($this->route, 'token=' . $this->session->data['token'], true)
 		);
 				
-		// setting		
+		// Setting		
 		$setting = $this->model_setting_setting->getSetting($this->codename);
 		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
 		

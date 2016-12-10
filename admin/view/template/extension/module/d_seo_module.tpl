@@ -74,7 +74,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label" for="input-uninstall"><?php echo $entry_uninstall; ?></label>
 													<div class="col-sm-8">
-														<a action="<?php echo $uninstall; ?>" id="button_uninstall" class="btn btn-danger btn-lg"><?php echo $button_uninstall; ?></a>
+														<a action="<?php echo $uninstall; ?>" id="button_uninstall" class="btn btn-danger"><?php echo $button_uninstall; ?></a>
 													</div>
 												</div>											
 											</div>
