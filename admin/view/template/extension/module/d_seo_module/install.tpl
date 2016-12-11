@@ -29,6 +29,7 @@
 				<h3 class="panel-title"><?php echo $text_install; ?></h3>
 			</div>
 			<div class="panel-body text-center">
+				<?php echo $help_install; ?>
 				<a action="<?php echo $install; ?>" id="button_install" class="btn btn-success btn-lg"><?php echo $button_install; ?></a>
 			</div>
 		</div>
@@ -39,30 +40,30 @@
 function showAlert(json) {
 	$('.alert, .text-danger').remove();
 	$('.form-group').removeClass('has-error');
-						
+
 	if (json['error']) {
 		if (json['error']['warning']) {
 			$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-		}				
-				
+		}
+
 		for (i in json['error']) {
 			var element = $('#input_' + i);
-					
+
 			if (element.parent().hasClass('input-group')) {
                 $(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
 			} else {
 				$(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
 			}
-		}				
-				
+		}
+
 		$('.text-danger').parents('.form-group').addClass('has-error');
 	}
-			
+
 	if (json['success']) {
 		$('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 	}
 }
-</script> 
+</script>
 <script type="text/javascript">
 
 $('body').on('click', '#button_install', function(){
@@ -75,7 +76,7 @@ $('body').on('click', '#button_install', function(){
 			$('#content').fadeTo('slow', 0.5);
 		},
 		complete: function() {
-			$('#content').fadeTo('slow', 1);   
+			$('#content').fadeTo('slow', 1);
 		},
 		success: function(json) {
 			showAlert(json);
@@ -84,7 +85,7 @@ $('body').on('click', '#button_install', function(){
 		error: function(xhr, ajaxOptions, thrownError) {
 			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
-    });  
+    });
 });
 
 </script>

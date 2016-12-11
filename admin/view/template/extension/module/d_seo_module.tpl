@@ -40,7 +40,7 @@
 							<a href="#tab_instruction" data-toggle="tab"><span class="fa fa-graduation-cap"></span> <?php echo $text_instructions; ?></a>
 						</li>
 					</ul>
-		
+
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_setting">
 							<div class="tab-body">
@@ -76,12 +76,13 @@
 													<div class="col-sm-8">
 														<a action="<?php echo $uninstall; ?>" id="button_uninstall" class="btn btn-danger"><?php echo $button_uninstall; ?></a>
 													</div>
-												</div>											
+												</div>
 											</div>
 											<div id="vtab_htaccess" class="tab-pane">
 												<div class="page-header">
 													<h3><span><?php echo $text_htaccess; ?></span></h3>
 												</div>
+
 												<div class="form-group">
 													<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
 													<div class="col-sm-10">
@@ -90,9 +91,16 @@
 													</div>
 												</div>
 												<div class="form-group">
+													<div class="col-sm-10 col-sm-offset-2">
+														<p><a href="<?php echo $store_setting?>" class="btn btn-primary"><i class="fa fa-cog fw"></i> <?php echo $button_edit_store_setting; ?></a></p>
+														<div class="bs-callout bs-callout-info"><?php echo $help_htaccess_setting; ?></div>
+													</div>
+												</div>
+												<div class="form-group">
 													<label class="col-sm-2 control-label" for="input-text"><?php echo $entry_text; ?></label>
 													<div class="col-sm-10">
-														<textarea name="htaccess[text]" class="form-control" rows="20"><?php echo $htaccess['text']; ?></textarea>
+														<p><textarea name="htaccess[text]" class="form-control" rows="20"><?php echo $htaccess['text']; ?></textarea></p>
+														<div class="bs-callout bs-callout-info"><?php echo $help_htaccess_subfolder; ?></div>
 													</div>
 												</div>
 											</div>
@@ -110,7 +118,8 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label" for="input-text"><?php echo $entry_text; ?></label>
 													<div class="col-sm-10">
-														<textarea name="robots[text]" class="form-control" rows="20"><?php echo $robots['text']; ?></textarea>
+														<p><textarea name="robots[text]" class="form-control" rows="20"><?php echo $robots['text']; ?></textarea></p>
+														<div class="bs-callout bs-callout-info"><?php echo $help_robots; ?></div>
 													</div>
 												</div>
 											</div>
@@ -139,34 +148,34 @@ $('[type=checkbox]').bootstrapSwitch({
 function showAlert(json) {
 	$('.alert, .text-danger').remove();
 	$('.form-group').removeClass('has-error');
-						
+
 	if (json['error']) {
 		if (json['error']['warning']) {
 			$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-		}				
-				
+		}
+
 		for (i in json['error']) {
 			var element = $('#input_' + i);
-					
+
 			if (element.parent().hasClass('input-group')) {
                 $(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
 			} else {
 				$(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
 			}
-		}				
-				
+		}
+
 		$('.text-danger').parents('.form-group').addClass('has-error');
 	}
-			
+
 	if (json['success']) {
 		$('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 	}
 }
-</script> 
+</script>
 <script type="text/javascript">
 
 $('body').on('click', '#button_uninstall', function(event){
-	if (confirm("<?php echo $text_uninstall_confirm; ?>")){		
+	if (confirm("<?php echo $text_uninstall_confirm; ?>")){
 		$.ajax({
 			type: 'post',
 			url: $(this).attr('action'),
@@ -176,7 +185,7 @@ $('body').on('click', '#button_uninstall', function(event){
 				$('#content').fadeTo('slow', 0.5);
 			},
 			complete: function() {
-				$('#content').fadeTo('slow', 1);   
+				$('#content').fadeTo('slow', 1);
 			},
 			success: function(json) {
 				showAlert(json);
@@ -185,7 +194,7 @@ $('body').on('click', '#button_uninstall', function(event){
 			error: function(xhr, ajaxOptions, thrownError) {
 				console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
-		});  
+		});
 	}
 });
 
@@ -199,7 +208,7 @@ $('body').on('click', '#save_and_stay', function(){
 			$('#content').fadeTo('slow', 0.5);
 		},
 		complete: function() {
-			$('#content').fadeTo('slow', 1);   
+			$('#content').fadeTo('slow', 1);
 		},
 		success: function(json) {
 			showAlert(json);
@@ -207,9 +216,9 @@ $('body').on('click', '#save_and_stay', function(){
 		error: function(xhr, ajaxOptions, thrownError) {
 			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
-    });  
+    });
 });
-	
+
 $('body').on('click', '#save_and_exit', function(){
     $.ajax({
 		type: 'post',
@@ -220,7 +229,7 @@ $('body').on('click', '#save_and_exit', function(){
 			$('#content').fadeTo('slow', 0.5);
 		},
 		complete: function() {
-			$('#content').fadeTo('slow', 1);   
+			$('#content').fadeTo('slow', 1);
 		},
 		success: function(json) {
 			showAlert(json);
@@ -229,7 +238,7 @@ $('body').on('click', '#save_and_exit', function(){
 		error: function(xhr, ajaxOptions, thrownError) {
 			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
-    });  
+    });
 });
 
 </script>

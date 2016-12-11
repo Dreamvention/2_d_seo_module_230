@@ -1,31 +1,31 @@
 <?php
 // Heading
-$_['heading_title']       				= '<span style="color:#449DD0; font-weight:bold">SEO Module</span><span style="font-size:0.9em; color:#999"> by <a href="http://www.opencart.com/index.php?route=extension/extension&filter_username=Dreamvention" style="font-size:1em; color:#999" target="_blank">Dreamvention</a></span>'; 
-$_['heading_title_main']  				= 'SEO Module';
+$_['heading_title']								= '<span style="color:#449DD0; font-weight:bold">SEO Module</span><span style="font-size:0.9em; color:#999"> by <a href="http://www.opencart.com/index.php?route=extension/extension&filter_username=Dreamvention" style="font-size:1em; color:#999" target="_blank">Dreamvention</a></span>';
+$_['heading_title_main']					= 'SEO Module';
 
 // Text
-$_['text_edit']            				= 'Edit SEO Module settings';
-$_['text_install']              		= 'Install Module';
-$_['text_modules']         				= 'Modules';
-$_['text_settings']       				= 'Settings';
-$_['text_instructions']   				= 'Instructions';
+$_['text_edit']										= 'Edit SEO Module settings';
+$_['text_install']								= 'Install';
+$_['text_modules']								= 'Modules';
+$_['text_settings']								= 'Settings';
+$_['text_instructions']						= 'Instructions';
 $_['text_basic_settings'] 				= 'Basic Settings';
-$_['text_htaccess'] 					= 'htaccess';
-$_['text_robots'] 						= 'robots';
-$_['text_success']        				= 'Success: You have modified module SEO Module!';
-$_['text_success_install']        		= 'Success: You have installed module SEO Module!';
-$_['text_success_uninstall']			= 'Success: You have uninstalled module SEO Module!';
-$_['text_module']              			= 'Module';
-$_['text_all_stores']     				= 'All Stores';
-$_['text_all_languages']  				= 'All Languages';
-$_['text_yes'] 							= 'Yes';
-$_['text_no'] 							= 'No';
-$_['text_enabled']          			= 'Enabled';
-$_['text_disabled']          			= 'Disabled';
-$_['text_uninstall_confirm']          	= 'After uninstalling of SEO Module will delete all additional fields in the product, category, manufacturer and information that have been added after installation.\nYou sure you want to uninstall SEO Module? ';
-$_['text_general']						= 'General';
-$_['text_data']							= 'Data';
-$_['text_seo']            				= 'SEO';
+$_['text_htaccess'] 							= '.htaccess';
+$_['text_robots'] 								= 'robots.txt';
+$_['text_success']								= 'Success: You have modified SEO Module!';
+$_['text_success_install']				= 'Success: You have installed SEO Module!';
+$_['text_success_uninstall']			= 'Success: You have uninstalled SEO Module!';
+$_['text_module']									= 'Module';
+$_['text_all_stores']			 				= 'All Stores';
+$_['text_all_languages']					= 'All Languages';
+$_['text_yes'] 										= 'Yes';
+$_['text_no'] 										= 'No';
+$_['text_enabled']								= 'Enabled';
+$_['text_disabled']								= 'Disabled';
+$_['text_uninstall_confirm']			= 'After deinstallation is compleate the SEO Module will delete all additional fields in the product, category, manufacturer and information that have been added after installation.\nAre you sure you want to uninstall the SEO Module? ';
+$_['text_general']								= 'General';
+$_['text_data']										= 'Data';
+$_['text_seo']										= 'SEO';
 $_['text_instructions_full'] 			= '
 <div class="row">
 	<div class="col-sm-2">
@@ -111,23 +111,74 @@ $_['text_not_found'] = '
 <h1>Please install Shopunity</h1>
 <p>Before you can use this module you will need to install Shopunity. Simply download the archive for your version of opencart and install it view Extension Installer or unzip the archive and upload all the files into your root folder from the UPLOAD folder.</p>
 <p><a class="btn btn-primary btn-lg" href="https://shopunity.net/download" target="_blank">Download</a></p>
-</div>';	
+</div>';
 
 // Entry
-$_['entry_status']        				= 'Status';
-$_['entry_uninstall']					= 'Uninstall Module';
-$_['entry_text']						= 'Text';
+$_['entry_status']								= 'Status';
+$_['entry_uninstall']							= 'Uninstall Module';
+$_['entry_text']									= 'Text';
 
-// Button		
-$_['button_save'] 						= 'Save';
+// Button
+$_['button_save'] 								= 'Save';
 $_['button_save_and_stay'] 				= 'Save and Stay';
-$_['button_cancel'] 					= 'Cancel';
-$_['button_install'] 					= 'Install';
-$_['button_uninstall'] 					= 'Uninstall';
+$_['button_cancel'] 							= 'Cancel';
+$_['button_install'] 							= 'Install';
+$_['button_uninstall'] 						= 'Uninstall';
+$_['button_edit_store_setting'] 	= 'Edit store settings';
 
-// Error
+// help
+$_['help_install']								= '<div class="row">
+																			<div class="col-md-6 col-md-offset-3 text-center">
+																				<br/>
+																				<h1>Install SEO Module now</h1>
+																				<br/>
+																				<p>You are one step away from installing the best SEO extension on the market. SEO module is just the begining. It will set ground features and an API for ther SEO modules that you can install. they will improve your Store search ranking and help you mamange your SEO like a pro. Click install! </p>
+																				<br/>
+																			</div>
+																		</div>';
+$_['help_htaccess_setting']				= '<h4>Important!</h4>
+																		<p>Turning this option on  will uncomment the file .htaccess on apache server. But for the SEO urls to start working, you must visit Opencart Store Settings / tab Server and activate "Use SEO URLs"</p>';
+$_['help_htaccess_subfolder']			= '<h4>If you have a subfolder!</h4>
+																		<p>You your store is located in a subfolder (ex. http://myshop.com/store/) then you are required to set the RewriteBase (ex. from  <code>RewriteBase /</code> to <code>RewriteBase /store/</code> in the file above)</p>';
+
+$_['help_robots']									= '<h4>Important!</h4>
+																		<p>Robots.txt is a recomendation to the Search bot. You can start with the following default settings. Just copy paste into the textarea above:</p>
+																		<pre>
+## Dreamvention * Seo module * robots.txt
+
+User-agent: *
+Disallow: /*route=account/
+Disallow: /*route=affiliate/
+Disallow: /*route=checkout/
+Disallow: /*route=product/search
+Disallow: /index.php?route=product/product*&manufacturer_id=
+Disallow: /admin
+Disallow: /catalog
+Disallow: /system
+Disallow: /*?sort=
+Disallow: /*&sort=
+Disallow: /*?order=
+Disallow: /*&order=
+Disallow: /*?limit=
+Disallow: /*&limit=
+Disallow: /*?tracking=
+Disallow: /*&tracking=
+Disallow: /*?page=
+Disallow: /*&page=
+Disallow: /*?filter=
+Disallow: /*&filter=
+Disallow: /*?filter_name=
+Disallow: /*&filter_name=
+Disallow: /*?filter_sub_category=
+Disallow: /*&filter_sub_category=
+Disallow: /*?filter_description=
+Disallow: /*&filter_description=
+
+Sitemap: %ssitemap.xml
+Host: %s
+</pre>';
+
 $_['error_warning']          			= 'Warning: Please check the form carefully for errors!';
 $_['error_permission']    				= 'Warning: You do not have permission to modify module SEO Module!';
 $_['error_dependencies']    			= 'Warning: You can not uninstall this module until you uninstall dependencies modules!';
-
 ?>
