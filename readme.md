@@ -40,17 +40,17 @@ Here is an example of add a new item to the SEO module Menu:
 ```
 private $route = 'extension/module/d_seo_module_myfeature';
 public function menu($menu_data) {
-		$this->load->language($this->route);
-		if ($this->user->hasPermission('access', $this->route)) {
-			$menu_data[] = array(
-				'name'	   => $this->language->get('heading_title_main'),
-				'href'     => $this->url->link($this->route, 'token=' . $this->session->data['token'], true),
-				'children' => array()		
-			);
-		}
-
-		return $menu_data;
+	$this->load->language($this->route);
+	if ($this->user->hasPermission('access', $this->route)) {
+		$menu_data[] = array(
+			'name'	   => $this->language->get('heading_title_main'),
+			'href'     => $this->url->link($this->route, 'token=' . $this->session->data['token'], true),
+			'children' => array()		
+		);
 	}
+
+	return $menu_data;
+}
 ```
 
 ##Admin list of events and their functions
@@ -58,11 +58,11 @@ public function menu($menu_data) {
 ####1. view/common/column_left/before
 _add a item in admin to seo menu_
 
-* **method:** ```public function menu($menu_data)```
-* **parameters:** ```$menu_data = array( 'name' => ..., 'href' => ..., 'children' => ...);```
+* **method:** `public function menu($menu_data)`
+* **received parameters:** `$menu_data[] = array( 'name' => ..., 'href' => ..., 'children' => ...);`
 
 
-####Exemple
+Exemple
 ```
 private $route = 'extension/module/d_seo_module_myfeature';
 public function menu($menu_data) {
@@ -81,12 +81,54 @@ public function menu($menu_data) {
 ```
 
 ###setting
-1. view/setting/setting/after
-2. view/setting/store_form/after
+####1. view/setting/setting/after
+_modify the output of store settings list_
+
+* **method:** ```public function menu($menu_data)```
+* **parameters:** ```$menu_data = array( 'name' => ..., 'href' => ..., 'children' => ...);```
+
+Exemple
+```
+code
+```
+
+####2. view/setting/store_form/after
+_modify the output of a store setting form_
+
+* **method:** ```public function menu($menu_data)```
+* **parameters:** ```$menu_data = array( 'name' => ..., 'href' => ..., 'children' => ...);```
+
+Exemple
+```
+code
+```
 
 ###localisation
-1. model/localisation/language/addLanguage/after
+####1. model/localisation/language/addLanguage/after
+_after a new language has been added, you can preform your own actions like add a new column to a table_
+
+* **method:** ```public function language_add($data)```
+* **received parameters:** ```$data = array( 'language_id' => ...);```
+
+Exemple
+```
+/* admin/controller/extension/module/d_seo_module_myfeature.php  */
+public function language_add($data) {
+	$this->load->model($this->route);
+	$this->{'model_extension_module_' . $this->codename}->addLanguage($data);
+}
+```
+
+```
+/* admin/model/extension/module/d_seo_module_myfeature.php */
+public function addLanguage($data) {
+	$this->db->query("ALTER TABLE " . DB_PREFIX . "url_redirect ADD (url_to_" . (int)$data['language_id'] . " VARCHAR(512) NOT NULL)");
+
+	$this->db->query("UPDATE " . DB_PREFIX . "url_redirect SET url_to_" . (int)$data['language_id'] . " = url_to_" . (int)$this->config->get('config_language_id'));
+	}
+```
 2. model/localisation/language/deleteLanguage/after
+language_delete
 
 ###catalog
 1. view/catalog/category_form/after
