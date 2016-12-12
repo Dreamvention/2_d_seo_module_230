@@ -2,13 +2,20 @@
 The fist professional SEO extension for opencart
 
 ##### Table of content
-1. [Installation & Update](#Installation)
-2. [API](#API)
-2. [Example2](#example2)
-3. [Example2](#example2)
+1. [Installation & Update](#installation-&-update)
+2. [API](#api)
+	1. [Admin events](#admin-list-of-events-and-their-methods)
+		* [common](#common)
+		* [setting](#setting)
+		* [localisation](#localisation)
+		* [catalog](#catalog)
+	2. [Catalog events](#catalog-list-of-events-and-their-methods)
+		* [common](#catalog-common)
+		* [product](#product)
 
 
-##Installation & Update
+Installation & Update
+==================
 The easiest way is to use Shopunity.net extension to install the module.
 
 ###[Shopunity](https://shopunity.net) (recomended)
@@ -35,7 +42,8 @@ The easiest way is to use Shopunity.net extension to install the module.
 ###Update
 You can update practically the same way as you have install the module. Only you will not need to click the final install inside the module since the module has already been installed. Though if the new version of the module locates missing parts, it will display an update button.
 
-#API
+API
+===
 You can extend the SEO Module functionality by using the built-in API. The SEO module will look inside the ```admin/controller/extension/module/``` for ```d_seo_module_*.php``` and if found, will call specially named methods. The result will be used to modify the output using Opencart Event Methods.
 
 ####For the API to work you will need
@@ -399,7 +407,7 @@ _after a product has been edited, you can preform your own actions like update p
 
 ---
 
-##Catalog (frontend) list of events and their methods
+##Catalog list of events and their methods
 > ####How to use it?
 > For the frontend you have two basic events:
 > -`data` (before event - here you modify the data array)
@@ -409,7 +417,7 @@ _after a product has been edited, you can preform your own actions like update p
 > 2. To subsribe you will need to add the method `public function home_data($data)` to your controller file `catalog/controller/extension/module/d_seo_module_myfeature.php` with a parameter `$data`
 > 3.  You will modify `$data` accordingly and `return $data;`
 
-###common
+###catalog common
 1. view/common/home/before
 _modify the data that will be rendered to the `home.tpl`_
 * **method:** `public function home_data($data)`
