@@ -1,6 +1,13 @@
 #Seo Module
 The fist professional SEO extension for opencart
 
+##### Table of content
+1. [Installation & Update](#Installation)
+2. [API](#API)
+2. [Example2](#example2)
+3. [Example2](#example2)
+
+
 ##Installation & Update
 The easiest way is to use Shopunity.net extension to install the module.
 
@@ -52,13 +59,15 @@ public function menu($menu_data) {
 	return $menu_data;
 }
 ```
+---
 
 ##Admin list of events and their methods
 > ####How to use it?
 > This is how you should understand the following events:
 > 1. ` admin/view/common/column_left/before` is called before the `column_left.tpl` is rendered to the screen.
-> 2. To subsribe your will add the method `public function menu($menu_data)` to your controller file `admin/controller/extension/module/d_seo_module_myfeature.php` with a parameter `$menu_data`
+> 2. To subsribe you will need to add the method `public function menu($menu_data)` to your controller file `admin/controller/extension/module/d_seo_module_myfeature.php` with a parameter `$menu_data`
 > 3.  You will populate `$menu_data` with your menu item `array('name' => ..., 'href' => ..., 'children' => ...)` and `return $menu_data;`
+
 
 ###common
 ####1. view/common/column_left/before
@@ -85,7 +94,7 @@ public function menu($menu_data) {
 	return $menu_data;
 }
 ```
-
+---
 ###setting
 ####1. view/setting/setting/after & view/setting/store_form/after
 _modify the output of store setting form and new store create form. You simply return an HTML of the input or anything else that you want to place into the form and tab_
@@ -145,6 +154,7 @@ _after a new language has been added, you can preform your own actions like add 
 
 * **method:** ```public function language_add($data)```
 * **parameters:** ```$data = array( 'language_id' => ...);```
+* **output:** `none`
 
 Exemple
 **admin/controller/extension/module/d_seo_module_myfeature.php**
@@ -166,7 +176,9 @@ public function addLanguage($data) {
 _called when a language is deleted. Similar to `language_add($data)`_
 * **method:** ```public function language_delete($data)```
 * **parameters:** ```$data = array( 'language_id' => ...);```
+* **output:** `none`
 
+---
 ###catalog
 ####1. view/catalog/category_form/after
 _modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab_
@@ -189,7 +201,6 @@ Exemple
 ```
 code
 ```
-
 
 * **method:** `public function category_form_tab_data()`
 * **parameters:** `none`
@@ -233,28 +244,342 @@ code
 ```
 
 ####4. view/catalog/product_form/after
-####5. model/catalog/product/addProduct/after
-####6. model/catalog/product/editProduct/after
-####7. view/catalog/manufacturer_form/after
-####8. model/catalog/manufacturer/addManufacturer/after
-####9. model/catalog/manufacturer/editManufacturer/after
-####10. view/catalog/information_form/after
-####11. model/catalog/information/addInformation/after
-####12. model/catalog/information/editInformation/after
+_modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab_
 
-##Catalog list of events and their methods
+* **method:** `public function product_form_tab_general()`
+* **parameters:** `none`
+* **output:** `html`
+
+_You can add html to a language tab, by using the `$language_id`_
+* **method:** `public function product_form_tab_general_language($language_id)`
+* **parameters:** `$language_id`
+* **output:** `html`
+
+* **method:** `public function product_form_tab_data()`
+* **parameters:** `none`
+* **output:** `html`
+
+* **method:** `public function product_form_tab_links()`
+* **parameters:** `none`
+* **output:** `html`
+
+_This is a custom seo tab. It will be visible if your module adds html to it._
+* **method:** `public function product_form_tab_seo()`
+* **parameters:** `none`
+* **output:** `html`
+
+_This is a style input. You can use this for adding CSS to the form. We recommended using the default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+* **method:** `public function product_form_style()`
+* **parameters:** `none`
+* **output:** `html`
+
+_Add js scripts to the form_
+* **method:** `public function product_form_script()`
+* **parameters:** `none`
+* **output:** `html`
+
+####5. model/catalog/product/addProduct/after
+_after a new product has been added, you can preform your own actions like generate empty seo url_
+* **method:** `public function product_form_add($data)`
+* **parameters:** `$data = array( 'product_id' => ... )`
+* **output:** `none`
+
+
+####6. model/catalog/product/editProduct/after
+_after a product has been edited, you can preform your own actions like update product url cache_
+* **method:** `public function product_form_edit($data)`
+* **parameters:** `$data = array( 'product_id' => ... )`
+* **output:** `none`
+
+####7. view/catalog/manufacturer_form/after
+_modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab_
+
+* **method:** `public function manufacturer_form_tab_general()`
+* **parameters:** `none`
+* **output:** `html`
+
+_You can add html to a language tab, by using the `$language_id`_
+* **method:** `public function manufacturer_form_tab_general_language($language_id)`
+* **parameters:** `$language_id`
+* **output:** `html`
+
+* **method:** `public function manufacturer_form_tab_data()`
+* **parameters:** `none`
+* **output:** `html`
+
+_this is a custom seo tab. It will be visible if your module adds html to it._
+* **method:** `public function manufacturer_form_tab_seo()`
+* **parameters:** `none`
+* **output:** `html`
+
+_This is a style input. You can use this for adding CSS to the form. We recommended using the default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+* **method:** `public function manufacturer_form_style()`
+* **parameters:** `none`
+* **output:** `html`
+
+
+_Add js scripts to the form_
+* **method:** `public function manufacturer_form_script()`
+* **parameters:** `none`
+* **output:** `html`
+
+####8. model/catalog/manufacturer/addManufacturer/after
+_after a new product has been added, you can preform your own actions like add manufacturer description_
+* **method:** `public function manufacturer_form_add($data)`
+* **parameters:** `$data = array('manufacturer_id' => ... )`
+* **output:** `none`
+
+Example:
+**controller/extension/module/d_seo_module_myfeature.php**
+```
+private $codename = 'd_seo_module_myfeature';
+private $route = '';
+
+public function manufacturer_form_add($data) {
+	$this->load->model('extension/module/d_seo_module_myfeature');
+	$this->model_extension_module_d_seo_module_myfeature->addManufacturerDescription($data);
+}
+```
+**model/extension/module/d_seo_module_myfeature.php**
+```
+public function addManufacturerDescription($data) {
+	foreach ($data['manufacturer_description'] as $language_id => $manufacturer_description) {
+		$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer_description SET manufacturer_id = '" . (int)$data['manufacturer_id'] . "', language_id = '" . (int)$language_id . "'");
+	}
+}
+```
+####9. model/catalog/manufacturer/editManufacturer/after
+_after a new product has been added, you can preform your own actions like generate seo url_
+* **method:** `public function manufacturer_form_edit($data)`
+* **parameters:** `$data = array('manufacturer_id' => ... )`
+* **output:** `none`
+
+####10. view/catalog/information_form/after
+_modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab_
+
+* **method:** `public function information_form_tab_general()`
+* **parameters:** `none`
+* **output:** `html`
+
+_You can add html to a language tab, by using the `$language_id`_
+* **method:** `public function information_form_tab_general_language($language_id)`
+* **parameters:** `$language_id`
+* **output:** `html`
+
+* **method:** `public function information_form_tab_data()`
+* **parameters:** `none`
+* **output:** `html`
+
+_this is a custom seo tab. It will be visible if your module adds html to it._
+* **method:** `public function information_form_tab_seo()`
+* **parameters:** `none`
+* **output:** `html`
+
+_This is a style input. You can use this for adding CSS to the form. We recommended using the default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+* **method:** `public function information_form_style()`
+* **parameters:** `none`
+* **output:** `html`
+
+_Add js scripts to the form_
+* **method:** `public function information_form_script()`
+* **parameters:** `none`
+* **output:** `html`
+
+####11. model/catalog/information/addInformation/after
+_after a product has been edited, you can preform your own actions like update product url cache_
+* **method:** `public function information_add_after($data)`
+* **parameters:** `$data = array( 'information_id' => ... )`
+* **output:** `none`
+
+####12. model/catalog/information/editInformation/after
+_after a product has been edited, you can preform your own actions like update product url cache_
+* **method:** `public function information_edit_after($data)`
+* **parameters:** `$data = array( 'information_id' => ... )`
+* **output:** `none`
+
+---
+
+##Catalog (frontend) list of events and their methods
+> ####How to use it?
+> For the frontend you have two basic events:
+> -`data` (before event - here you modify the data array)
+> - `html` (after event - here you modify the HTML).
+> Example:
+> 1. `view/common/home/before` is called before the `home.tpl` is rendered to the screen.
+> 2. To subsribe you will need to add the method `public function home_data($data)` to your controller file `catalog/controller/extension/module/d_seo_module_myfeature.php` with a parameter `$data`
+> 3.  You will modify `$data` accordingly and `return $data;`
+
 ###common
 1. view/common/home/before
-2. view/*/template/common/home/after
+_modify the data that will be rendered to the `home.tpl`_
+* **method:** `public function home_data($data)`
+* **parameters:** `$data = array( ... )`
+* **output:** `$data = array( ... )`
 
+Example:
+```
+private $codename = 'd_seo_module_myfeature';
+private $route = 'extension/module/d_seo_module_myfeature';
+private $config_file = 'd_seo_module_myfeature';
+
+public function home_data($data) {
+	$this->load->model($this->route);
+	$this->load->model('setting/setting');
+
+	$store_id = (int)$this->config->get('config_store_id');
+	$language_id = (int)$this->config->get('config_language_id');
+
+	// Get settings of d_seo_module_myfeature
+	$this->config->load($this->config_file);
+	$config_setting = ($this->config->get($this->codename . '_setting')) ? $this->config->get($this->codename . '_setting') : array();
+
+	$setting = $this->model_setting_setting->getSetting($this->codename, $store_id);
+
+
+	$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+	$setting = isset($setting[$this->codename . '_setting']) ? $setting[$this->codename . '_setting'] : array();
+
+	if (!empty($setting)) {
+		$config_setting = array_replace_recursive($config_setting, $setting);
+	}
+
+	$setting = $config_setting;
+
+	//check for d_seo_module_myfeature_status
+	if ($status) {
+		if (isset($this->request->post['config_description'])) {
+			$description = $this->request->post['config_description'];
+			$meta_title = $description[$language_id]['meta_title'];
+			$meta_description= $description[$language_id]['meta_description'];
+			$meta_keyword = $description[$language_id]['meta_keyword'];
+		} elseif ($this->config->get('config_description')) {
+			$description = $this->config->get('config_description');
+			$meta_title = $description[$language_id]['meta_title'];
+			$meta_description = $description[$language_id]['meta_description'];
+			$meta_keyword = $description[$language_id]['meta_keyword'];
+		} else {
+			$meta_title = $this->config->get('config_meta_title');
+			$meta_description = $this->config->get('config_meta_description');
+			$meta_keyword = $this->config->get('config_meta_keyword');
+		}
+
+		$this->document->setTitle($meta_title);
+		$this->document->setDescription($meta_description);
+		$this->document->setKeywords($meta_keyword);
+
+		$data['header'] = $this->load->controller('common/header');
+	}
+
+	return $data;
+}
+```
+
+2. view/*/template/common/home/after
+_modify the HTML of the `home.tpl` before bowser renders it_
+* **method:** `public function home_html($output)`
+* **parameters:** `(string) $output`
+* **output:** `(string) $output`
+
+Example:
+```
+private $codename = 'd_seo_module_myfeature';
+private $route = 'extension/module/d_seo_module_myfeature';
+private $config_file = 'd_seo_module_myfeature';
+
+public function home_html($html) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+
+		$store_id = (int)$this->config->get('config_store_id');
+		$language_id = (int)$this->config->get('config_language_id');
+
+		// Setting
+		$this->config->load($this->config_file);
+		$config_setting = ($this->config->get($this->codename . '_setting')) ? $this->config->get($this->codename . '_setting') : array();
+
+		$setting = $this->model_setting_setting->getSetting($this->codename, $store_id);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		$setting = isset($setting[$this->codename . '_setting']) ? $setting[$this->codename . '_setting'] : array();
+
+		if (!empty($setting)) {
+			$config_setting = array_replace_recursive($config_setting, $setting);
+		}
+
+		$setting = $config_setting;
+
+		if ($status) {
+			if (isset($this->request->post['config_description'])) {
+				$description = $this->request->post['config_description'];
+				$meta_robots = $description[$language_id]['meta_robots'];
+			} elseif ($this->config->get('config_description')) {
+				$description = $this->config->get('config_description');
+				$meta_robots = $description[$language_id]['meta_robots'];
+			} else {
+				$meta_robots = 'index,follow';
+			}
+
+			$html_dom = new d_simple_html_dom();
+			$html_dom->load($html, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+
+			$html_dom->find('head', 0)->innertext .= '<meta name="robots" content="' . $meta_robots . '" />';
+
+			return $html_dom;
+		}
+
+		return $html;
+	}
+```
+
+---
 ###product
 1. view/product/category/before
-2. view/*/template/product/category/after
-3. view/product/product/before
-4. view/*/template/product/product/after
-5. view/product/manufacturer_info/before
-6. view/*/template/product/manufacturer_info/after
+_modify the data that will be rendered to the `category.tpl`_
+* **method:** `public function category_data($data)`
+* **parameters:** `$data = array( ... )`
+* **output:** `$data = array( ... )`
 
+2. view/*/template/product/category/after
+_modify the HTML of the `category.tpl` before bowser renders it_
+* **method:** `public function category_html($output)`
+* **parameters:** `(string) $output`
+* **output:** `(string) $output`
+
+3. view/product/product/before
+_modify the data that will be rendered to the `product.tpl`_
+* **method:** `public function product_data($data)`
+* **parameters:** `$data = array( ... )`
+* **output:** `$data = array( ... )`
+
+4. view/*/template/product/product/after
+_modify the HTML of the `product.tpl` before bowser renders it_
+* **method:** `public function product_html($output)`
+* **parameters:** `(string) $output`
+* **output:** `(string) $output`
+
+5. view/product/manufacturer_info/before
+_modify the data that will be rendered to the `manufacturer_info.tpl`_
+* **method:** `public function manufacturer_info_data($data)`
+* **parameters:** `$data = array( ... )`
+* **output:** `$data = array( ... )`
+
+6. view/*/template/product/manufacturer_info/after
+_modify the HTML of the `manufacturer_info.tpl` before bowser renders it_
+* **method:** `public function manufacturer_info_html($output)`
+* **parameters:** `(string) $output`
+* **output:** `(string) $output`
+
+---
 ###information
 1. view/information/information/before
+_modify the data that will be rendered to the `information.tpl`_
+* **method:** `public function information_data($data)`
+* **parameters:** `$data = array( ... )`
+* **output:** `$data = array( ... )`
+
 2. view/*/template/information/information/after
+_modify the HTML of the `information.tpl` before bowser renders it_
+* **method:** `public function information_html($output)`
+* **parameters:** `(string) $output`
+* **output:** `(string) $output`
+
+---
