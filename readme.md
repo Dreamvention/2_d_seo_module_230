@@ -117,8 +117,31 @@ _modify the output of store setting form and new store create form. You simply r
 * **output:** `html`
 
 Exemple
+**admin/controller/extension/module/d_seo_module_myfeature.php**
 ```
-code
+public function setting_tab_general() {
+	//load models and language files
+	$this->load->language('extension/module/d_seo_module_myfeature');
+	$this->load->model('extension/module/d_seo_module_myfeature');
+
+	//get language data
+	$data['entry_myfeature'] = $this->language->get('entry_myfeature');
+	$data['help_myfeature'] = $this->language->get('help_myfeature');
+
+	//load config file for module d_seo_module_myfeature and fetch default config values.
+	$this->config->load('d_seo_module_myfeature');
+	$data['setting'] = ($this->config->get('d_seo_module_myfeature_setting')) ? $this->config->get('d_seo_module_myfeature_setting') : array();
+
+	//add config_myfeature value to the $data for settings general tab
+	if (isset($this->request->post['config_myfeature'])) {
+		$data['config_myfeature'] = $this->request->post['config_myfeature'];
+	} else {
+		$data['config_myfeature'] = $this->config->get('config_myfeature');
+	}
+
+	//render the $data with the setting_tab_general_language.tpl. the HTML will be returned and added to the final HTML inside the Store Setting General tab.						
+	return $this->load->view('extension/module/d_seo_module_myfeature/setting_tab_general.tpl', $data);
+}
 ```
 
 #####setting_tab_general_language()
@@ -128,8 +151,37 @@ _You can add html to a language tab, by using the `$language_id`_
 * **output:** `html`
 
 Exemple
+**admin/controller/extension/module/d_seo_module_myfeature.php**
 ```
-code
+public function setting_tab_general_language($language_id) {
+	//load models and language files
+	$this->load->language('extension/module/d_seo_module_myfeature');
+	$this->load->model('extension/module/d_seo_module_myfeature');
+
+	//get required parameters
+	$data['language_id'] = $language_id;
+	$data['languages'] = $this->model_extension_module_d_seo_module_myfeature->getLanguages();
+
+	//get language data
+	$data['entry_myfeature'] = $this->language->get('entry_myfeature');
+	$data['help_myfeature'] = $this->language->get('help_myfeature');
+
+	//load config file for module d_seo_module_myfeature and fetch default config values.
+	$this->config->load('d_seo_module_myfeature');
+	$data['setting'] = ($this->config->get('d_seo_module_myfeature_setting')) ? $this->config->get('d_seo_module_myfeature_setting') : array();
+
+	//add config_myfeature value to the $data for settings general tab
+	if (isset($this->request->post['config_myfeature'])) {
+		$data['config_myfeature'] = $this->request->post['config_myfeature'];
+	} elseif ($this->config->get('config_myfeature')) {
+		$data['config_myfeature'] = $this->config->get('config_myfeature');
+	} else {
+		$data['config_myfeature'][$language_id]['myfeature_title'] = $this->config->get('config_myfeature_title');
+	}
+
+	//render the $data with the setting_tab_general_language.tpl. the HTML will be returned and added to the final HTML inside the Store Setting General tab.						
+	return $this->load->view('extension/module/d_seo_module_myfeature/setting_tab_general_language.tpl', $data);
+}
 ```
 
 #####setting_tab_store()
@@ -167,9 +219,8 @@ _Add js scripts to the form_
 
 ###localisation
 ####1. model/localisation/language/addLanguage/after
-_after a new language has been added, you can preform your own actions like add a new column to a table_
-
 #####language_add()
+_after a new language has been added, you can preform your own actions like add a new column to a table_
 * **method:** ```public function language_add($data)```
 * **parameters:** ```$data = array( 'language_id' => ...);```
 * **output:** `none`
@@ -178,8 +229,8 @@ Exemple
 **admin/controller/extension/module/d_seo_module_myfeature.php**
 ```
 public function language_add($data) {
-	$this->load->model($this->route);
-	$this->{'model_extension_module_' . $this->codename}->addLanguage($data);
+	$this->load->model('extension/module/d_seo_module_myfeature');
+	$this->model_extension_module_d_seo_module_myfeature->addLanguage($data);
 }
 ```
 **admin/model/extension/module/d_seo_module_myfeature.php**
@@ -207,21 +258,11 @@ _modify the HTML output of category form. You simply return an HTML of the input
 * **parameters:** `none`
 * **output:** `html`
 
-Exemple
-```
-code
-```
-
 #####category_form_tab_general_language()
 _You can add html to a language tab, by using the `$language_id`_
 * **method:** `public function category_form_tab_general_language($language_id)`
 * **parameters:** `$language_id`
 * **output:** `html`
-
-Exemple
-```
-code
-```
 
 #####category_form_tab_data()
 * **method:** `public function category_form_tab_data()`
@@ -254,8 +295,15 @@ _after a new category has been added, you can preform your own actions like upda
 * **parameters:** ```$data = array( 'category_id' => ...);```
 
 Example:
+**admin/controller/extension/module/d_seo_module_myfeature.php**
 ```
-code
+public function category_form_add($data) {
+	$this->load->model('extension/module/d_seo_module_myfeature');
+
+	//custom model method for updating category cache (it is up to you to implement it.
+	$this->model_extension_module_d_seo_module_myfeature->updateCategoryCache($data);
+}
+
 ```
 
 ####3. model/catalog/category/editCategory/after
@@ -263,11 +311,6 @@ code
 _after a new category has been edited, you can preform your own actions like update cache_
 * **method:** ```public function category_form_edit($data)```
 * **parameters:** ```$data = array( 'category_id' => ...);```
-
-Example:
-```
-code
-```
 
 ####4. view/catalog/product_form/after
 #####product_form_tab_general()
@@ -373,8 +416,6 @@ _after a new product has been added, you can preform your own actions like add m
 Example:
 **controller/extension/module/d_seo_module_myfeature.php**
 ```
-private $codename = 'd_seo_module_myfeature';
-private $route = '';
 
 public function manufacturer_form_add($data) {
 	$this->load->model('extension/module/d_seo_module_myfeature');
@@ -453,10 +494,10 @@ _after a product has been edited, you can preform your own actions like update p
 > For the frontend you have two basic events:
 > -`data` (before event - here you modify the data array)
 > - `html` (after event - here you modify the HTML).
-> Example:
-> 1. `view/common/home/before` is called before the `home.tpl` is rendered to the screen.
-> 2. To subsribe you will need to add the method `public function home_data($data)` to your controller file `catalog/controller/extension/module/d_seo_module_myfeature.php` with a parameter `$data`
-> 3.  You will modify `$data` accordingly and `return $data;`
+
+1. `view/common/home/before` is called before the `home.tpl` is rendered to the screen.
+2. To subsribe you will need to add the method `public function home_data($data)` to your controller file `catalog/controller/extension/module/d_seo_module_myfeature.php` with a parameter `$data`
+3.  You will modify `$data` accordingly and `return $data;`
 
 ###catalog common
 ####1. view/common/home/before
