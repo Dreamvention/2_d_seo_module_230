@@ -188,7 +188,7 @@ public function addLanguage($data) {
 	$this->db->query("ALTER TABLE " . DB_PREFIX . "url_redirect ADD (url_to_" . (int)$data['language_id'] . " VARCHAR(512) NOT NULL)");
 
 	$this->db->query("UPDATE " . DB_PREFIX . "url_redirect SET url_to_" . (int)$data['language_id'] . " = url_to_" . (int)$this->config->get('config_language_id'));
-	}
+}
 ```
 ####2. model/localisation/language/deleteLanguage/after
 #####language_delete()
