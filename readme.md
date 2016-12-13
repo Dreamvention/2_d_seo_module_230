@@ -678,6 +678,7 @@ modify the data that will be rendered to the `information.tpl`
 ####2. view/*/template/information/information/after
 #####information_html()
 modify the HTML of the `information.tpl` before bowser renders it
+
 * **method:** `public function information_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
