@@ -626,42 +626,42 @@ public function home_html($html) {
 ###product
 ####1. view/product/category/before
 #####category_data()
-_modify the data that will be rendered to the `category.tpl`_
+modify the data that will be rendered to the `category.tpl`
 * **method:** `public function category_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
 
 ####2. view/*/template/product/category/after
 #####category_html()
-_modify the HTML of the `category.tpl` before bowser renders it_
+modify the HTML of the `category.tpl` before bowser renders it
 * **method:** `public function category_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
 
 ####3. view/product/product/before
 #####product_data()
-_modify the data that will be rendered to the `product.tpl`_
+modify the data that will be rendered to the `product.tpl`
 * **method:** `public function product_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
 
 ####4. view/*/template/product/product/after
 #####product_html()
-_modify the HTML of the `product.tpl` before bowser renders it_
+modify the HTML of the `product.tpl` before bowser renders it
 * **method:** `public function product_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
 
 ####5. view/product/manufacturer_info/before
 #####manufacturer_info_data()
-_modify the data that will be rendered to the `manufacturer_info.tpl`_
+modify the data that will be rendered to the `manufacturer_info.tpl`
 * **method:** `public function manufacturer_info_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
 
 ####6. view/*/template/product/manufacturer_info/after
 #####manufacturer_info_html()
-_modify the HTML of the `manufacturer_info.tpl` before bowser renders it_
+modify the HTML of the `manufacturer_info.tpl` before bowser renders it
 * **method:** `public function manufacturer_info_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
@@ -670,14 +670,14 @@ _modify the HTML of the `manufacturer_info.tpl` before bowser renders it_
 ###information
 ####1. view/information/information/before
 #####information_data()
-_modify the data that will be rendered to the `information.tpl`_
+modify the data that will be rendered to the `information.tpl`
 * **method:** `public function information_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
 
 ####2. view/*/template/information/information/after
 #####information_html()
-_modify the HTML of the `information.tpl` before bowser renders it_
+modify the HTML of the `information.tpl` before bowser renders it
 * **method:** `public function information_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
