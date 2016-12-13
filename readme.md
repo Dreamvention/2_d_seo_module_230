@@ -1,6 +1,7 @@
 Seo Module
 ==========
-The fist professional SEO extension for opencart
+The fist professional SEO extension for opencart 2
+Opencart version supported 2.3.x (other versions are in developement)
 
 ##### Table of content
 1. [Installation & Update](#installation-and-update)
@@ -49,9 +50,9 @@ You can extend the SEO Module functionality by using the built-in API. The SEO m
 
 ####For the API to work you will need
 1. name your extension controller beginning with ```d_seo_module_```
-2. Add method, that corresponds to the event your want to subscribe to.
+2. Add method, that corresponds to the event you want to subscribe to.
 
-Here is an example of add a new item to the SEO module Menu:
+Here is an example of adding a new item to the SEO module Menu in admin panel:
 
 ```php
 private $route = 'extension/module/d_seo_module_myfeature';
@@ -84,7 +85,7 @@ public function menu($menu_data) {
 ###common
 ####1. view/common/column_left/before
 #####menu()
-_add a item in admin to seo menu. You will recieve the menu array, only to add your own menu item and return the menu array_
+_add an item in admin to seo menu. You will recieve the menu array, only to add your own menu item and return the menu array_
 
 * **method:** `public function menu($menu_data)`
 * **parameters:** `$menu_data[] = array( 'name' => ..., 'href' => ..., 'children' => ...);`
@@ -92,14 +93,13 @@ _add a item in admin to seo menu. You will recieve the menu array, only to add y
 
 Exemple
 ```php
-private $route = 'extension/module/d_seo_module_myfeature';
 public function menu($menu_data) {
-	$this->load->language($this->route);
+	$this->load->language('extension/module/d_seo_module_myfeature');
 
-	if ($this->user->hasPermission('access', $this->route)) {
+	if ($this->user->hasPermission('access', 'extension/module/d_seo_module_myfeature')) {
 		$menu_data[] = array(
 			'name'	   => $this->language->get('heading_title_main'),
-			'href'     => $this->url->link($this->route, 'token=' . $this->session->data['token'], true),
+			'href'     => $this->url->link('extension/module/d_seo_module_myfeature', 'token=' . $this->session->data['token'], true),
 			'children' => array()		
 		);
 	}
