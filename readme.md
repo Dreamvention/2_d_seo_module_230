@@ -53,7 +53,7 @@ You can extend the SEO Module functionality by using the built-in API. The SEO m
 
 Here is an example of add a new item to the SEO module Menu:
 
-```
+```php
 private $route = 'extension/module/d_seo_module_myfeature';
 public function menu($menu_data) {
 	$this->load->language($this->route);
@@ -91,7 +91,7 @@ _add a item in admin to seo menu. You will recieve the menu array, only to add y
 * **return:** `$menu_data = array()`
 
 Exemple
-```
+```php
 private $route = 'extension/module/d_seo_module_myfeature';
 public function menu($menu_data) {
 	$this->load->language($this->route);
@@ -119,7 +119,7 @@ _modify the output of store setting form and new store create form. You simply r
 
 Exemple
 **admin/controller/extension/module/d_seo_module_myfeature.php**
-```
+```php
 public function setting_tab_general() {
 	//load models and language files
 	$this->load->language('extension/module/d_seo_module_myfeature');
@@ -154,7 +154,7 @@ _You can add html to a language tab, by using the `$language_id`_
 
 Exemple
 **admin/controller/extension/module/d_seo_module_myfeature.php**
-```
+```php
 public function setting_tab_general_language($language_id) {
 	//load models and language files
 	$this->load->language('extension/module/d_seo_module_myfeature');
@@ -232,14 +232,14 @@ _after a new language has been added, you can preform your own actions like add 
 
 Exemple
 **admin/controller/extension/module/d_seo_module_myfeature.php**
-```
+```php
 public function language_add($data) {
 	$this->load->model('extension/module/d_seo_module_myfeature');
 	$this->model_extension_module_d_seo_module_myfeature->addLanguage($data);
 }
 ```
 **admin/model/extension/module/d_seo_module_myfeature.php**
-```
+```php
 public function addLanguage($data) {
 	$this->db->query("ALTER TABLE " . DB_PREFIX . "url_redirect ADD (url_to_" . (int)$data['language_id'] . " VARCHAR(512) NOT NULL)");
 
@@ -308,7 +308,7 @@ _after a new category has been added, you can preform your own actions like upda
 
 Example:
 **admin/controller/extension/module/d_seo_module_myfeature.php**
-```
+```php
 public function category_form_add($data) {
 	$this->load->model('extension/module/d_seo_module_myfeature');
 
@@ -439,15 +439,14 @@ _after a new product has been added, you can preform your own actions like add m
 
 Example:
 **controller/extension/module/d_seo_module_myfeature.php**
-```
-
+```php
 public function manufacturer_form_add($data) {
 	$this->load->model('extension/module/d_seo_module_myfeature');
 	$this->model_extension_module_d_seo_module_myfeature->addManufacturerDescription($data);
 }
 ```
 **model/extension/module/d_seo_module_myfeature.php**
-```
+```php
 public function addManufacturerDescription($data) {
 	foreach ($data['manufacturer_description'] as $language_id => $manufacturer_description) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer_description SET manufacturer_id = '" . (int)$data['manufacturer_id'] . "', language_id = '" . (int)$language_id . "'");
@@ -541,7 +540,7 @@ _modify the data that will be rendered to the `home.tpl`_
 * **output:** `$data = array( ... )`
 
 Example:
-```
+```php
 private $codename = 'd_seo_module_myfeature';
 private $route = 'extension/module/d_seo_module_myfeature';
 private $config_file = 'd_seo_module_myfeature';
@@ -607,7 +606,7 @@ _modify the HTML of the `home.tpl` before bowser renders it_
 * **output:** `(string) $output`
 
 Example:
-```
+```php
 private $codename = 'd_seo_module_myfeature';
 private $route = 'extension/module/d_seo_module_myfeature';
 private $config_file = 'd_seo_module_myfeature';
