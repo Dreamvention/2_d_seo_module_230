@@ -2,7 +2,7 @@
 The fist professional SEO extension for opencart
 
 ##### Table of content
-1. [Installation & Update](#installation-&-update)
+1. [Installation & Update](#installation-and-update)
 2. [API](#api)
 	1. [Admin events](#admin-list-of-events-and-their-methods)
 		* [common](#common)
@@ -14,7 +14,7 @@ The fist professional SEO extension for opencart
 		* [product](#product)
 
 
-Installation & Update
+Installation and Update
 ==================
 The easiest way is to use Shopunity.net extension to install the module.
 
