@@ -1,4 +1,5 @@
-#Seo Module
+Seo Module
+==========
 The fist professional SEO extension for opencart
 
 ##### Table of content
@@ -15,7 +16,7 @@ The fist professional SEO extension for opencart
 
 
 Installation and Update
-==================
+=======================
 The easiest way is to use Shopunity.net extension to install the module.
 
 ###[Shopunity](https://shopunity.net) (recomended)
@@ -82,9 +83,9 @@ public function menu($menu_data) {
 
 ###common
 ####1. view/common/column_left/before
+#####menu()
 _add a item in admin to seo menu. You will recieve the menu array, only to add your own menu item and return the menu array_
 
-#####menu()
 * **method:** `public function menu($menu_data)`
 * **parameters:** `$menu_data[] = array( 'name' => ..., 'href' => ..., 'children' => ...);`
 * **return:** `$menu_data = array()`
@@ -109,9 +110,9 @@ public function menu($menu_data) {
 ---
 ###setting
 ####1. view/setting/setting/after & view/setting/store_form/after
+#####setting_tab_general()
 _modify the output of store setting form and new store create form. You simply return an HTML of the input or anything else that you want to place into the form and tab_
 
-#####setting_tab_general()
 * **method:** `public function setting_tab_general()`
 * **parameters:** `none`
 * **output:** `html`
@@ -146,6 +147,7 @@ public function setting_tab_general() {
 
 #####setting_tab_general_language()
 _You can add html to a language tab, by using the `$language_id`_
+
 * **method:** `public function setting_tab_general_language($language_id)`
 * **parameters:** `$language_id`
 * **output:** `html`
@@ -201,12 +203,14 @@ public function setting_tab_general_language($language_id) {
 
 #####setting_tab_seo()
 _this is a custom seo tab. It will be visible if your module adds html to it._
+
 * **method:** `public function setting_tab_seo()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####setting_style()
-_This is a style input. You can use this for adding CSS to the form. Yet we recomend using he default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+_This is a style input. You can use this for adding CSS to the form. Yet we recommend using he default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+
 * **method:** `public function setting_style()`
 * **parameters:** `none`
 * **output:** `html`
@@ -221,6 +225,7 @@ _Add js scripts to the form_
 ####1. model/localisation/language/addLanguage/after
 #####language_add()
 _after a new language has been added, you can preform your own actions like add a new column to a table_
+
 * **method:** ```public function language_add($data)```
 * **parameters:** ```$data = array( 'language_id' => ...);```
 * **output:** `none`
@@ -244,6 +249,7 @@ public function addLanguage($data) {
 ####2. model/localisation/language/deleteLanguage/after
 #####language_delete()
 _called when a language is deleted. Similar to `language_add($data)`_
+
 * **method:** ```public function language_delete($data)```
 * **parameters:** ```$data = array( 'language_id' => ...);```
 * **output:** `none`
@@ -260,6 +266,7 @@ _modify the HTML output of category form. You simply return an HTML of the input
 
 #####category_form_tab_general_language()
 _You can add html to a language tab, by using the `$language_id`_
+
 * **method:** `public function category_form_tab_general_language($language_id)`
 * **parameters:** `$language_id`
 * **output:** `html`
@@ -271,18 +278,21 @@ _You can add html to a language tab, by using the `$language_id`_
 
 #####category_form_tab_seo()
 _this is a custom seo tab. It will be visible if your module adds html to it._
+
 * **method:** `public function category_form_tab_seo()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####category_form_style()
 _This is a style input. You can use this for adding CSS to the form. Yet we recomend using he default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+
 * **method:** `public function category_form_style()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####category_form_script()
 _Add js scripts to the form_
+
 * **method:** `public function category_form_script()`
 * **parameters:** `none`
 * **output:** `html`
@@ -291,8 +301,10 @@ _Add js scripts to the form_
 ####2. model/catalog/category/addCategory/after
 #####category_form_add()
 _after a new category has been added, you can preform your own actions like update cache_
+
 * **method:** ```public function category_form_add($data)```
 * **parameters:** ```$data = array( 'category_id' => ...);```
+* **output:** `none`
 
 Example:
 **admin/controller/extension/module/d_seo_module_myfeature.php**
@@ -309,8 +321,10 @@ public function category_form_add($data) {
 ####3. model/catalog/category/editCategory/after
 #####category_form_edit()
 _after a new category has been edited, you can preform your own actions like update cache_
+
 * **method:** ```public function category_form_edit($data)```
 * **parameters:** ```$data = array( 'category_id' => ...);```
+* **output:** `none`
 
 ####4. view/catalog/product_form/after
 #####product_form_tab_general()
@@ -322,6 +336,7 @@ _modify the HTML output of category form. You simply return an HTML of the input
 
 #####product_form_tab_general_language()
 _You can add html to a language tab, by using the `$language_id`_
+
 * **method:** `public function product_form_tab_general_language($language_id)`
 * **parameters:** `$language_id`
 * **output:** `html`
@@ -338,18 +353,21 @@ _You can add html to a language tab, by using the `$language_id`_
 
 #####product_form_tab_seo()
 _This is a custom seo tab. It will be visible if your module adds html to it._
+
 * **method:** `public function product_form_tab_seo()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####product_form_style()
 _This is a style input. You can use this for adding CSS to the form. We recommended using the default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+
 * **method:** `public function product_form_style()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####product_form_script()
 _Add js scripts to the form_
+
 * **method:** `public function product_form_script()`
 * **parameters:** `none`
 * **output:** `html`
@@ -357,6 +375,7 @@ _Add js scripts to the form_
 ####5. model/catalog/product/addProduct/after
 #####product_form_add()
 _after a new product has been added, you can preform your own actions like generate empty seo url_
+
 * **method:** `public function product_form_add($data)`
 * **parameters:** `$data = array( 'product_id' => ... )`
 * **output:** `none`
@@ -365,6 +384,7 @@ _after a new product has been added, you can preform your own actions like gener
 ####6. model/catalog/product/editProduct/after
 #####product_form_edit()
 _after a product has been edited, you can preform your own actions like update product url cache_
+
 * **method:** `public function product_form_edit($data)`
 * **parameters:** `$data = array( 'product_id' => ... )`
 * **output:** `none`
@@ -379,6 +399,7 @@ _modify the HTML output of category form. You simply return an HTML of the input
 
 #####manufacturer_form_tab_general_language()
 _You can add html to a language tab, by using the `$language_id`_
+
 * **method:** `public function manufacturer_form_tab_general_language($language_id)`
 * **parameters:** `$language_id`
 * **output:** `html`
@@ -390,12 +411,14 @@ _You can add html to a language tab, by using the `$language_id`_
 
 #####manufacturer_form_tab_seo()
 _this is a custom seo tab. It will be visible if your module adds html to it._
+
 * **method:** `public function manufacturer_form_tab_seo()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####manufacturer_form_style()
 _This is a style input. You can use this for adding CSS to the form. We recommended using the default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+
 * **method:** `public function manufacturer_form_style()`
 * **parameters:** `none`
 * **output:** `html`
@@ -409,6 +432,7 @@ _Add js scripts to the form_
 ####8. model/catalog/manufacturer/addManufacturer/after
 #####manufacturer_form_add()
 _after a new product has been added, you can preform your own actions like add manufacturer description_
+
 * **method:** `public function manufacturer_form_add($data)`
 * **parameters:** `$data = array('manufacturer_id' => ... )`
 * **output:** `none`
@@ -433,6 +457,7 @@ public function addManufacturerDescription($data) {
 ####9. model/catalog/manufacturer/editManufacturer/after
 #####manufacturer_form_edit()
 _after a new product has been added, you can preform your own actions like generate seo url_
+
 * **method:** `public function manufacturer_form_edit($data)`
 * **parameters:** `$data = array('manufacturer_id' => ... )`
 * **output:** `none`
@@ -440,12 +465,14 @@ _after a new product has been added, you can preform your own actions like gener
 ####10. view/catalog/information_form/after
 #####information_form_tab_general()
 _modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab_
+
 * **method:** `public function information_form_tab_general()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####information_form_tab_general_language()
 _You can add html to a language tab, by using the `$language_id`_
+
 * **method:** `public function information_form_tab_general_language($language_id)`
 * **parameters:** `$language_id`
 * **output:** `html`
@@ -457,18 +484,21 @@ _You can add html to a language tab, by using the `$language_id`_
 
 #####information_form_tab_seo()
 _this is a custom seo tab. It will be visible if your module adds html to it._
+
 * **method:** `public function information_form_tab_seo()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####information_form_style()
 _This is a style input. You can use this for adding CSS to the form. We recommended using the default `$this->document->addStyle($href, $rel = 'stylesheet', $media = 'screen')`;_
+
 * **method:** `public function information_form_style()`
 * **parameters:** `none`
 * **output:** `html`
 
 #####information_form_script()
 _Add js scripts to the form_
+
 * **method:** `public function information_form_script()`
 * **parameters:** `none`
 * **output:** `html`
@@ -476,6 +506,7 @@ _Add js scripts to the form_
 ####11. model/catalog/information/addInformation/after
 #####information_add_after()
 _after a product has been edited, you can preform your own actions like update product url cache_
+
 * **method:** `public function information_add_after($data)`
 * **parameters:** `$data = array( 'information_id' => ... )`
 * **output:** `none`
@@ -483,6 +514,7 @@ _after a product has been edited, you can preform your own actions like update p
 ####12. model/catalog/information/editInformation/after
 #####information_edit_after()
 _after a product has been edited, you can preform your own actions like update product url cache_
+
 * **method:** `public function information_edit_after($data)`
 * **parameters:** `$data = array( 'information_id' => ... )`
 * **output:** `none`
@@ -503,6 +535,7 @@ _after a product has been edited, you can preform your own actions like update p
 ####1. view/common/home/before
 #####home_data()
 _modify the data that will be rendered to the `home.tpl`_
+
 * **method:** `public function home_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
@@ -568,6 +601,7 @@ public function home_data($data) {
 ####2. view/*/template/common/home/after
 #####home_html()
 _modify the HTML of the `home.tpl` before bowser renders it_
+
 * **method:** `public function home_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
@@ -626,42 +660,48 @@ public function home_html($html) {
 ###product
 ####1. view/product/category/before
 #####category_data()
-modify the data that will be rendered to the `category.tpl`
+_modify the data that will be rendered to the `category.tpl`_
+
 * **method:** `public function category_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
 
 ####2. view/*/template/product/category/after
 #####category_html()
-modify the HTML of the `category.tpl` before bowser renders it
+_modify the HTML of the `category.tpl` before bowser renders it_
+
 * **method:** `public function category_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
 
 ####3. view/product/product/before
 #####product_data()
-modify the data that will be rendered to the `product.tpl`
+_modify the data that will be rendered to the `product.tpl`_
+
 * **method:** `public function product_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
 
 ####4. view/*/template/product/product/after
 #####product_html()
-modify the HTML of the `product.tpl` before bowser renders it
+_modify the HTML of the `product.tpl` before bowser renders it_
+
 * **method:** `public function product_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
 
 ####5. view/product/manufacturer_info/before
 #####manufacturer_info_data()
-modify the data that will be rendered to the `manufacturer_info.tpl`
+_modify the data that will be rendered to the `manufacturer_info.tpl`_
+
 * **method:** `public function manufacturer_info_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
 
 ####6. view/*/template/product/manufacturer_info/after
 #####manufacturer_info_html()
-modify the HTML of the `manufacturer_info.tpl` before bowser renders it
+_modify the HTML of the `manufacturer_info.tpl` before bowser renders it_
+
 * **method:** `public function manufacturer_info_html($output)`
 * **parameters:** `(string) $output`
 * **output:** `(string) $output`
@@ -670,7 +710,8 @@ modify the HTML of the `manufacturer_info.tpl` before bowser renders it
 ###information
 ####1. view/information/information/before
 #####information_data()
-modify the data that will be rendered to the `information.tpl`
+_modify the data that will be rendered to the `information.tpl`_
+
 * **method:** `public function information_data($data)`
 * **parameters:** `$data = array( ... )`
 * **output:** `$data = array( ... )`
