@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>SEO module by Dreamvention</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">SEO module</h1>
+      <h2 class="project-tagline">The fist professional SEO extension for opencart 2</h2>
+      <a href="https://github.com/Dreamvention/2_d_seo_module_230" class="btn">View on GitHub</a>
+      <a href="https://github.com/Dreamvention/2_d_seo_module_230/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Dreamvention/2_d_seo_module_230/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="seo-module" class="anchor" href="#seo-module" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Seo Module</h1>
+
+<p>The fist professional SEO extension for opencart 2
+Opencart version supported 2.3.x (other versions are in developement)</p>
+
+<h5>
+<a id="table-of-content" class="anchor" href="#table-of-content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of content</h5>
+
+<ol>
+<li><a href="#installation-and-update">Installation &amp; Update</a></li>
+<li>
+<a href="#api">API</a>
+
+<ol>
+<li>
+<a href="#admin-list-of-events-and-their-methods">Admin events</a>
+
+<ul>
+<li><a href="#common">common</a></li>
+<li><a href="#setting">setting</a></li>
+<li><a href="#localisation">localisation</a></li>
+<li><a href="#catalog">catalog</a></li>
+</ul>
+</li>
+<li>
+<a href="#catalog-list-of-events-and-their-methods">Catalog events</a>
+
+<ul>
+<li><a href="#catalog-common">common</a></li>
+<li><a href="#product">product</a></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+
+<h1>
+<a id="installation-and-update" class="anchor" href="#installation-and-update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation and Update</h1>
+
+<p>The easiest way is to use Shopunity.net extension to install the module.</p>
+
+<h3>
+<a id="shopunity-recomended" class="anchor" href="#shopunity-recomended" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://shopunity.net">Shopunity</a> (recomended)</h3>
+
+<ol>
+<li>In Shopunty module search for SEO module and click install</li>
+<li>After installation is complete click Admin</li>
+<li>Click install inside the SEO module to complete the installation.</li>
+</ol>
+
+<h3>
+<a id="extension-installer-shopunity-module-required" class="anchor" href="#extension-installer-shopunity-module-required" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extension Installer (shopunity module required)</h3>
+
+<ol>
+<li>Go to Admin / Extensions / Extension Installer</li>
+<li>Upload zip archive</li>
+<li>Go to Admin / Extensions / Modules</li>
+<li>Next to SEO module Click install</li>
+<li>Edit SEO module</li>
+<li>Click install to complete the installation process.</li>
+</ol>
+
+<h3>
+<a id="ftp-shopunity-module-required" class="anchor" href="#ftp-shopunity-module-required" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FTP (shopunity module required)</h3>
+
+<ol>
+<li>Upload all the files from the folder upload</li>
+<li>Go to Admin / Extensions / Modules</li>
+<li>Next to SEO module Click install</li>
+<li>Edit SEO module</li>
+<li>Click install to complete the installation process.</li>
+</ol>
+
+<h3>
+<a id="update" class="anchor" href="#update" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Update</h3>
+
+<p>You can update practically the same way as you have install the module. Only you will not need to click the final install inside the module since the module has already been installed. Though if the new version of the module locates missing parts, it will display an update button.</p>
+
+<h1>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API</h1>
+
+<p>You can extend the SEO Module functionality by using the built-in API. The SEO module will look inside the <code>admin/controller/extension/module/</code> for <code>d_seo_module_*.php</code> and if found, will call specially named methods. The result will be used to modify the output using Opencart Event Methods.</p>
+
+<h4>
+<a id="for-the-api-to-work-you-will-need" class="anchor" href="#for-the-api-to-work-you-will-need" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>For the API to work you will need</h4>
+
+<ol>
+<li>name your extension controller beginning with <code>d_seo_module_</code>
+</li>
+<li>Add method, that corresponds to the event you want to subscribe to.</li>
+</ol>
+
+<p>Here is an example of adding a new item to the SEO module Menu in admin panel:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">private</span> <span class="pl-smi">$route</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">menu</span>(<span class="pl-smi">$menu_data</span>) {</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>language(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">route</span>);</span>
+<span class="pl-s1">    <span class="pl-k">if</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">user</span><span class="pl-k">-&gt;</span>hasPermission(<span class="pl-s"><span class="pl-pds">'</span>access<span class="pl-pds">'</span></span>, <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">route</span>)) {</span>
+<span class="pl-s1">        <span class="pl-smi">$menu_data</span>[] <span class="pl-k">=</span> <span class="pl-c1">array</span>(</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>     <span class="pl-k">=&gt;</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">language</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>heading_title_main<span class="pl-pds">'</span></span>),</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>href<span class="pl-pds">'</span></span>     <span class="pl-k">=&gt;</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">url</span><span class="pl-k">-&gt;</span>link(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">route</span>, <span class="pl-s"><span class="pl-pds">'</span>token=<span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">session</span><span class="pl-k">-&gt;</span><span class="pl-smi">data</span>[<span class="pl-s"><span class="pl-pds">'</span>token<span class="pl-pds">'</span></span>], <span class="pl-c1">true</span>),</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>children<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">array</span>()       </span>
+<span class="pl-s1">        );</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">return</span> <span class="pl-smi">$menu_data</span>;</span>
+<span class="pl-s1">}</span></pre></div>
+
+<hr>
+
+<h2>
+<a id="admin-list-of-events-and-their-methods" class="anchor" href="#admin-list-of-events-and-their-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Admin list of events and their methods</h2>
+
+<blockquote>
+<h4>
+<a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use it?</h4>
+
+<p>This is how you should understand the following events:</p>
+
+<p><code>admin/view/common/column_left/before</code> is called before the <code>column_left.tpl</code> is rendered to the screen.</p>
+
+<p>To subsribe you will need to add the method <code>public function menu($menu_data)</code> to your controller file <code>admin/controller/extension/module/d_seo_module_myfeature.php</code> with a parameter <code>$menu_data</code></p>
+
+<p>You will populate <code>$menu_data</code> with your menu item <code>array('name' =&gt; ..., 'href' =&gt; ..., 'children' =&gt; ...)</code> and <code>return $menu_data;</code></p>
+</blockquote>
+
+<h3>
+<a id="common" class="anchor" href="#common" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>common</h3>
+
+<h4>
+<a id="1-viewcommoncolumn_leftbefore" class="anchor" href="#1-viewcommoncolumn_leftbefore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. view/common/column_left/before</h4>
+
+<h5>
+<a id="menu" class="anchor" href="#menu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>menu()</h5>
+
+<p><em>add an item in admin to seo menu. You will recieve the menu array, only to add your own menu item and return the menu array</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function menu($menu_data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$menu_data[] = array( 'name' =&gt; ..., 'href' =&gt; ..., 'children' =&gt; ...);</code>
+</li>
+<li>
+<strong>return:</strong> <code>$menu_data = array()</code>
+</li>
+</ul>
+
+<p>Exemple</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">menu</span>(<span class="pl-smi">$menu_data</span>) {</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>language(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">if</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">user</span><span class="pl-k">-&gt;</span>hasPermission(<span class="pl-s"><span class="pl-pds">'</span>access<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>)) {</span>
+<span class="pl-s1">        <span class="pl-smi">$menu_data</span>[] <span class="pl-k">=</span> <span class="pl-c1">array</span>(</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>     <span class="pl-k">=&gt;</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">language</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>heading_title_main<span class="pl-pds">'</span></span>),</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>href<span class="pl-pds">'</span></span>     <span class="pl-k">=&gt;</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">url</span><span class="pl-k">-&gt;</span>link(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>token=<span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">session</span><span class="pl-k">-&gt;</span><span class="pl-smi">data</span>[<span class="pl-s"><span class="pl-pds">'</span>token<span class="pl-pds">'</span></span>], <span class="pl-c1">true</span>),</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>children<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">array</span>()       </span>
+<span class="pl-s1">        );</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">return</span> <span class="pl-smi">$menu_data</span>;</span>
+<span class="pl-s1">}</span></pre></div>
+
+<hr>
+
+<h3>
+<a id="setting" class="anchor" href="#setting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting</h3>
+
+<h4>
+<a id="1-viewsettingsettingafter--viewsettingstore_formafter" class="anchor" href="#1-viewsettingsettingafter--viewsettingstore_formafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. view/setting/setting/after &amp; view/setting/store_form/after</h4>
+
+<h5>
+<a id="setting_tab_general" class="anchor" href="#setting_tab_general" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting_tab_general()</h5>
+
+<p><em>modify the output of store setting form and new store create form. You simply return an HTML of the input or anything else that you want to place into the form and tab</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function setting_tab_general()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<p>Exemple
+<strong>admin/controller/extension/module/d_seo_module_myfeature.php</strong></p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">setting_tab_general</span>() {</span>
+<span class="pl-s1">    <span class="pl-c">//load models and language files</span></span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>language(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//get language data</span></span>
+<span class="pl-s1">    <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>entry_myfeature<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">language</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>entry_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>help_myfeature<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">language</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>help_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//load config file for module d_seo_module_myfeature and fetch default config values.</span></span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>load(<span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>setting<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature_setting<span class="pl-pds">'</span></span>)) ? <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature_setting<span class="pl-pds">'</span></span>) : <span class="pl-c1">array</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//add config_myfeature value to the $data for settings general tab</span></span>
+<span class="pl-s1">    <span class="pl-k">if</span> (<span class="pl-c1">isset</span>(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">request</span><span class="pl-k">-&gt;</span><span class="pl-smi">post</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>])) {</span>
+<span class="pl-s1">        <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">request</span><span class="pl-k">-&gt;</span><span class="pl-smi">post</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">    } <span class="pl-k">else</span> {</span>
+<span class="pl-s1">        <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//render the $data with the setting_tab_general_language.tpl. the HTML will be returned and added to the final HTML inside the Store Setting General tab.                       </span></span>
+<span class="pl-s1">    <span class="pl-k">return</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>view(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature/setting_tab_general.tpl<span class="pl-pds">'</span></span>, <span class="pl-smi">$data</span>);</span>
+<span class="pl-s1">}</span></pre></div>
+
+<h5>
+<a id="setting_tab_general_language" class="anchor" href="#setting_tab_general_language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting_tab_general_language()</h5>
+
+<p><em>You can add html to a language tab, by using the <code>$language_id</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function setting_tab_general_language($language_id)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$language_id</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<p>Exemple
+<strong>admin/controller/extension/module/d_seo_module_myfeature.php</strong></p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">setting_tab_general_language</span>(<span class="pl-smi">$language_id</span>) {</span>
+<span class="pl-s1">    <span class="pl-c">//load models and language files</span></span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>language(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//get required parameters</span></span>
+<span class="pl-s1">    <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>language_id<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$language_id</span>;</span>
+<span class="pl-s1">    <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>languages<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">model_extension_module_d_seo_module_myfeature</span><span class="pl-k">-&gt;</span>getLanguages();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//get language data</span></span>
+<span class="pl-s1">    <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>entry_myfeature<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">language</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>entry_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>help_myfeature<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">language</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>help_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//load config file for module d_seo_module_myfeature and fetch default config values.</span></span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>load(<span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>setting<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature_setting<span class="pl-pds">'</span></span>)) ? <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature_setting<span class="pl-pds">'</span></span>) : <span class="pl-c1">array</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//add config_myfeature value to the $data for settings general tab</span></span>
+<span class="pl-s1">    <span class="pl-k">if</span> (<span class="pl-c1">isset</span>(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">request</span><span class="pl-k">-&gt;</span><span class="pl-smi">post</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>])) {</span>
+<span class="pl-s1">        <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">request</span><span class="pl-k">-&gt;</span><span class="pl-smi">post</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">    } <span class="pl-k">elseif</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>)) {</span>
+<span class="pl-s1">        <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    } <span class="pl-k">else</span> {</span>
+<span class="pl-s1">        <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>config_myfeature<span class="pl-pds">'</span></span>][<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>myfeature_title<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_myfeature_title<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//render the $data with the setting_tab_general_language.tpl. the HTML will be returned and added to the final HTML inside the Store Setting General tab.                       </span></span>
+<span class="pl-s1">    <span class="pl-k">return</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>view(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature/setting_tab_general_language.tpl<span class="pl-pds">'</span></span>, <span class="pl-smi">$data</span>);</span>
+<span class="pl-s1">}</span></pre></div>
+
+<h5>
+<a id="setting_tab_store" class="anchor" href="#setting_tab_store" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting_tab_store()</h5>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function setting_tab_store()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="setting_tab_local" class="anchor" href="#setting_tab_local" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting_tab_local()</h5>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function setting_tab_local()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="setting_tab_option" class="anchor" href="#setting_tab_option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting_tab_option()</h5>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function setting_tab_option()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="setting_tab_seo" class="anchor" href="#setting_tab_seo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting_tab_seo()</h5>
+
+<p><em>this is a custom seo tab. It will be visible if your module adds html to it.</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function setting_tab_seo()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="setting_style" class="anchor" href="#setting_style" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting_style()</h5>
+
+<p><em>This is a style input. You can use this for adding CSS to the form. Yet we recommend using he default <code>$this-&gt;document-&gt;addStyle($href, $rel = 'stylesheet', $media = 'screen')</code>;</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function setting_style()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="setting_script" class="anchor" href="#setting_script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setting_script()</h5>
+
+<p><em>Add js scripts to the form</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function setting_script()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h3>
+<a id="localisation" class="anchor" href="#localisation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>localisation</h3>
+
+<h4>
+<a id="1-modellocalisationlanguageaddlanguageafter" class="anchor" href="#1-modellocalisationlanguageaddlanguageafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. model/localisation/language/addLanguage/after</h4>
+
+<h5>
+<a id="language_add" class="anchor" href="#language_add" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>language_add()</h5>
+
+<p><em>after a new language has been added, you can preform your own actions like add a new column to a table</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function language_add($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( 'language_id' =&gt; ...);</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<p>Exemple
+<strong>admin/controller/extension/module/d_seo_module_myfeature.php</strong></p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">language_add</span>(<span class="pl-smi">$data</span>) {</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">model_extension_module_d_seo_module_myfeature</span><span class="pl-k">-&gt;</span>addLanguage(<span class="pl-smi">$data</span>);</span>
+<span class="pl-s1">}</span></pre></div>
+
+<p><strong>admin/model/extension/module/d_seo_module_myfeature.php</strong></p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">addLanguage</span>(<span class="pl-smi">$data</span>) {</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">db</span><span class="pl-k">-&gt;</span>query(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s1">ALTER TABLE </span><span class="pl-pds">"</span></span> <span class="pl-k">.</span> <span class="pl-c1">DB_PREFIX</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span>url_redirect ADD (url_to_<span class="pl-pds">"</span></span> <span class="pl-k">.</span> (<span class="pl-k">int</span>)<span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>language_id<span class="pl-pds">'</span></span>] <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span> VARCHAR(512) NOT NULL)<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">db</span><span class="pl-k">-&gt;</span>query(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s1"><span class="pl-k">UPDATE</span> </span><span class="pl-pds">"</span></span> <span class="pl-k">.</span> <span class="pl-c1">DB_PREFIX</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span>url_redirect SET url_to_<span class="pl-pds">"</span></span> <span class="pl-k">.</span> (<span class="pl-k">int</span>)<span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>language_id<span class="pl-pds">'</span></span>] <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span> = url_to_<span class="pl-pds">"</span></span> <span class="pl-k">.</span> (<span class="pl-k">int</span>)<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_language_id<span class="pl-pds">'</span></span>));</span>
+<span class="pl-s1">}</span></pre></div>
+
+<h4>
+<a id="2-modellocalisationlanguagedeletelanguageafter" class="anchor" href="#2-modellocalisationlanguagedeletelanguageafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. model/localisation/language/deleteLanguage/after</h4>
+
+<h5>
+<a id="language_delete" class="anchor" href="#language_delete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>language_delete()</h5>
+
+<p><em>called when a language is deleted. Similar to <code>language_add($data)</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function language_delete($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( 'language_id' =&gt; ...);</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a id="catalog" class="anchor" href="#catalog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>catalog</h3>
+
+<h4>
+<a id="1-viewcatalogcategory_formafter" class="anchor" href="#1-viewcatalogcategory_formafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. view/catalog/category_form/after</h4>
+
+<h5>
+<a id="category_form_tab_general" class="anchor" href="#category_form_tab_general" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_form_tab_general()</h5>
+
+<p><em>modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_form_tab_general()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="category_form_tab_general_language" class="anchor" href="#category_form_tab_general_language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_form_tab_general_language()</h5>
+
+<p><em>You can add html to a language tab, by using the <code>$language_id</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_form_tab_general_language($language_id)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$language_id</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="category_form_tab_data" class="anchor" href="#category_form_tab_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_form_tab_data()</h5>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_form_tab_data()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="category_form_tab_seo" class="anchor" href="#category_form_tab_seo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_form_tab_seo()</h5>
+
+<p><em>this is a custom seo tab. It will be visible if your module adds html to it.</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_form_tab_seo()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="category_form_style" class="anchor" href="#category_form_style" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_form_style()</h5>
+
+<p><em>This is a style input. You can use this for adding CSS to the form. Yet we recomend using he default <code>$this-&gt;document-&gt;addStyle($href, $rel = 'stylesheet', $media = 'screen')</code>;</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_form_style()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="category_form_script" class="anchor" href="#category_form_script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_form_script()</h5>
+
+<p><em>Add js scripts to the form</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_form_script()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h4>
+<a id="2-modelcatalogcategoryaddcategoryafter" class="anchor" href="#2-modelcatalogcategoryaddcategoryafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. model/catalog/category/addCategory/after</h4>
+
+<h5>
+<a id="category_form_add" class="anchor" href="#category_form_add" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_form_add()</h5>
+
+<p><em>after a new category has been added, you can preform your own actions like update cache</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_form_add($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( 'category_id' =&gt; ...);</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<p>Example:
+<strong>admin/controller/extension/module/d_seo_module_myfeature.php</strong></p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">category_form_add</span>(<span class="pl-smi">$data</span>) {</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//custom model method for updating category cache (it is up to you to implement it.</span></span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">model_extension_module_d_seo_module_myfeature</span><span class="pl-k">-&gt;</span>updateCategoryCache(<span class="pl-smi">$data</span>);</span>
+<span class="pl-s1">}</span>
+<span class="pl-s1"></span></pre></div>
+
+<h4>
+<a id="3-modelcatalogcategoryeditcategoryafter" class="anchor" href="#3-modelcatalogcategoryeditcategoryafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. model/catalog/category/editCategory/after</h4>
+
+<h5>
+<a id="category_form_edit" class="anchor" href="#category_form_edit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_form_edit()</h5>
+
+<p><em>after a new category has been edited, you can preform your own actions like update cache</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_form_edit($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( 'category_id' =&gt; ...);</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<h4>
+<a id="4-viewcatalogproduct_formafter" class="anchor" href="#4-viewcatalogproduct_formafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. view/catalog/product_form/after</h4>
+
+<h5>
+<a id="product_form_tab_general" class="anchor" href="#product_form_tab_general" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_tab_general()</h5>
+
+<p><em>modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_tab_general()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="product_form_tab_general_language" class="anchor" href="#product_form_tab_general_language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_tab_general_language()</h5>
+
+<p><em>You can add html to a language tab, by using the <code>$language_id</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_tab_general_language($language_id)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$language_id</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="product_form_tab_data" class="anchor" href="#product_form_tab_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_tab_data()</h5>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_tab_data()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="product_form_tab_links" class="anchor" href="#product_form_tab_links" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_tab_links()</h5>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_tab_links()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="product_form_tab_seo" class="anchor" href="#product_form_tab_seo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_tab_seo()</h5>
+
+<p><em>This is a custom seo tab. It will be visible if your module adds html to it.</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_tab_seo()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="product_form_style" class="anchor" href="#product_form_style" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_style()</h5>
+
+<p><em>This is a style input. You can use this for adding CSS to the form. We recommended using the default <code>$this-&gt;document-&gt;addStyle($href, $rel = 'stylesheet', $media = 'screen')</code>;</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_style()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="product_form_script" class="anchor" href="#product_form_script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_script()</h5>
+
+<p><em>Add js scripts to the form</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_script()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h4>
+<a id="5-modelcatalogproductaddproductafter" class="anchor" href="#5-modelcatalogproductaddproductafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5. model/catalog/product/addProduct/after</h4>
+
+<h5>
+<a id="product_form_add" class="anchor" href="#product_form_add" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_add()</h5>
+
+<p><em>after a new product has been added, you can preform your own actions like generate empty seo url</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_add($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( 'product_id' =&gt; ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<h4>
+<a id="6-modelcatalogproducteditproductafter" class="anchor" href="#6-modelcatalogproducteditproductafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6. model/catalog/product/editProduct/after</h4>
+
+<h5>
+<a id="product_form_edit" class="anchor" href="#product_form_edit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_form_edit()</h5>
+
+<p><em>after a product has been edited, you can preform your own actions like update product url cache</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_form_edit($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( 'product_id' =&gt; ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<h4>
+<a id="7-viewcatalogmanufacturer_formafter" class="anchor" href="#7-viewcatalogmanufacturer_formafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7. view/catalog/manufacturer_form/after</h4>
+
+<h5>
+<a id="manufacturer_form_tab_general" class="anchor" href="#manufacturer_form_tab_general" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_form_tab_general()</h5>
+
+<p><em>modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_form_tab_general()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="manufacturer_form_tab_general_language" class="anchor" href="#manufacturer_form_tab_general_language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_form_tab_general_language()</h5>
+
+<p><em>You can add html to a language tab, by using the <code>$language_id</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_form_tab_general_language($language_id)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$language_id</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="manufacturer_form_tab_data" class="anchor" href="#manufacturer_form_tab_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_form_tab_data()</h5>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_form_tab_data()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="manufacturer_form_tab_seo" class="anchor" href="#manufacturer_form_tab_seo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_form_tab_seo()</h5>
+
+<p><em>this is a custom seo tab. It will be visible if your module adds html to it.</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_form_tab_seo()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="manufacturer_form_style" class="anchor" href="#manufacturer_form_style" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_form_style()</h5>
+
+<p><em>This is a style input. You can use this for adding CSS to the form. We recommended using the default <code>$this-&gt;document-&gt;addStyle($href, $rel = 'stylesheet', $media = 'screen')</code>;</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_form_style()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="manufacturer_form_script" class="anchor" href="#manufacturer_form_script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_form_script()</h5>
+
+<p><em>Add js scripts to the form</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_form_script()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h4>
+<a id="8-modelcatalogmanufactureraddmanufacturerafter" class="anchor" href="#8-modelcatalogmanufactureraddmanufacturerafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8. model/catalog/manufacturer/addManufacturer/after</h4>
+
+<h5>
+<a id="manufacturer_form_add" class="anchor" href="#manufacturer_form_add" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_form_add()</h5>
+
+<p><em>after a new product has been added, you can preform your own actions like add manufacturer description</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_form_add($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array('manufacturer_id' =&gt; ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<p>Example:
+<strong>controller/extension/module/d_seo_module_myfeature.php</strong></p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">manufacturer_form_add</span>(<span class="pl-smi">$data</span>) {</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">model_extension_module_d_seo_module_myfeature</span><span class="pl-k">-&gt;</span>addManufacturerDescription(<span class="pl-smi">$data</span>);</span>
+<span class="pl-s1">}</span></pre></div>
+
+<p><strong>model/extension/module/d_seo_module_myfeature.php</strong></p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">addManufacturerDescription</span>(<span class="pl-smi">$data</span>) {</span>
+<span class="pl-s1">    <span class="pl-k">foreach</span> (<span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>manufacturer_description<span class="pl-pds">'</span></span>] <span class="pl-k">as</span> <span class="pl-smi">$language_id</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">$manufacturer_description</span>) {</span>
+<span class="pl-s1">        <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">db</span><span class="pl-k">-&gt;</span>query(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s1"><span class="pl-k">INSERT INTO</span> </span><span class="pl-pds">"</span></span> <span class="pl-k">.</span> <span class="pl-c1">DB_PREFIX</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span>manufacturer_description SET manufacturer_id = '<span class="pl-pds">"</span></span> <span class="pl-k">.</span> (<span class="pl-k">int</span>)<span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>manufacturer_id<span class="pl-pds">'</span></span>] <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span>', language_id = '<span class="pl-pds">"</span></span> <span class="pl-k">.</span> (<span class="pl-k">int</span>)<span class="pl-smi">$language_id</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span>'<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">}</span></pre></div>
+
+<h4>
+<a id="9-modelcatalogmanufacturereditmanufacturerafter" class="anchor" href="#9-modelcatalogmanufacturereditmanufacturerafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>9. model/catalog/manufacturer/editManufacturer/after</h4>
+
+<h5>
+<a id="manufacturer_form_edit" class="anchor" href="#manufacturer_form_edit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_form_edit()</h5>
+
+<p><em>after a new product has been added, you can preform your own actions like generate seo url</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_form_edit($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array('manufacturer_id' =&gt; ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<h4>
+<a id="10-viewcataloginformation_formafter" class="anchor" href="#10-viewcataloginformation_formafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>10. view/catalog/information_form/after</h4>
+
+<h5>
+<a id="information_form_tab_general" class="anchor" href="#information_form_tab_general" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_form_tab_general()</h5>
+
+<p><em>modify the HTML output of category form. You simply return an HTML of the input or anything else that you want to place into the form based on the tab</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_form_tab_general()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="information_form_tab_general_language" class="anchor" href="#information_form_tab_general_language" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_form_tab_general_language()</h5>
+
+<p><em>You can add html to a language tab, by using the <code>$language_id</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_form_tab_general_language($language_id)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$language_id</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="information_form_tab_data" class="anchor" href="#information_form_tab_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_form_tab_data()</h5>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_form_tab_data()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="information_form_tab_seo" class="anchor" href="#information_form_tab_seo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_form_tab_seo()</h5>
+
+<p><em>this is a custom seo tab. It will be visible if your module adds html to it.</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_form_tab_seo()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="information_form_style" class="anchor" href="#information_form_style" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_form_style()</h5>
+
+<p><em>This is a style input. You can use this for adding CSS to the form. We recommended using the default <code>$this-&gt;document-&gt;addStyle($href, $rel = 'stylesheet', $media = 'screen')</code>;</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_form_style()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h5>
+<a id="information_form_script" class="anchor" href="#information_form_script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_form_script()</h5>
+
+<p><em>Add js scripts to the form</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_form_script()</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>none</code>
+</li>
+<li>
+<strong>output:</strong> <code>html</code>
+</li>
+</ul>
+
+<h4>
+<a id="11-modelcataloginformationaddinformationafter" class="anchor" href="#11-modelcataloginformationaddinformationafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11. model/catalog/information/addInformation/after</h4>
+
+<h5>
+<a id="information_add_after" class="anchor" href="#information_add_after" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_add_after()</h5>
+
+<p><em>after a product has been edited, you can preform your own actions like update product url cache</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_add_after($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( 'information_id' =&gt; ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<h4>
+<a id="12-modelcataloginformationeditinformationafter" class="anchor" href="#12-modelcataloginformationeditinformationafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12. model/catalog/information/editInformation/after</h4>
+
+<h5>
+<a id="information_edit_after" class="anchor" href="#information_edit_after" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_edit_after()</h5>
+
+<p><em>after a product has been edited, you can preform your own actions like update product url cache</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_edit_after($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( 'information_id' =&gt; ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>none</code>
+</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="catalog-list-of-events-and-their-methods" class="anchor" href="#catalog-list-of-events-and-their-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Catalog list of events and their methods</h2>
+
+<blockquote>
+<h4>
+<a id="how-to-use-it-1" class="anchor" href="#how-to-use-it-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use it?</h4>
+
+<p>For the frontend you have two basic events:
+-<code>data</code> (before event - here you modify the data array)</p>
+
+<ul>
+<li>
+<code>html</code> (after event - here you modify the HTML).</li>
+</ul>
+</blockquote>
+
+<ol>
+<li>
+<code>view/common/home/before</code> is called before the <code>home.tpl</code> is rendered to the screen.</li>
+<li>To subsribe you will need to add the method <code>public function home_data($data)</code> to your controller file <code>catalog/controller/extension/module/d_seo_module_myfeature.php</code> with a parameter <code>$data</code>
+</li>
+<li> You will modify <code>$data</code> accordingly and <code>return $data;</code>
+</li>
+</ol>
+
+<h3>
+<a id="catalog-common" class="anchor" href="#catalog-common" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>catalog common</h3>
+
+<h4>
+<a id="1-viewcommonhomebefore" class="anchor" href="#1-viewcommonhomebefore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. view/common/home/before</h4>
+
+<h5>
+<a id="home_data" class="anchor" href="#home_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>home_data()</h5>
+
+<p><em>modify the data that will be rendered to the <code>home.tpl</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function home_data($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>$data = array( ... )</code>
+</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">private</span> <span class="pl-smi">$codename</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-k">private</span> <span class="pl-smi">$route</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-k">private</span> <span class="pl-smi">$config_file</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">home_data</span>(<span class="pl-smi">$data</span>) {</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">route</span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-s"><span class="pl-pds">'</span>setting/setting<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-smi">$store_id</span> <span class="pl-k">=</span> (<span class="pl-k">int</span>)<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_store_id<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$language_id</span> <span class="pl-k">=</span> (<span class="pl-k">int</span>)<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_language_id<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">// Get settings of d_seo_module_myfeature</span></span>
+<span class="pl-s1">    <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>load(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config_file</span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$config_setting</span> <span class="pl-k">=</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_setting<span class="pl-pds">'</span></span>)) ? <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_setting<span class="pl-pds">'</span></span>) : <span class="pl-c1">array</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-smi">$setting</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">model_setting_setting</span><span class="pl-k">-&gt;</span>getSetting(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span>, <span class="pl-smi">$store_id</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-smi">$status</span> <span class="pl-k">=</span> <span class="pl-c1">isset</span>(<span class="pl-smi">$setting</span>[<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_status<span class="pl-pds">'</span></span>]) ? <span class="pl-smi">$setting</span>[<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_status<span class="pl-pds">'</span></span>] : <span class="pl-c1">false</span>;</span>
+<span class="pl-s1">    <span class="pl-smi">$setting</span> <span class="pl-k">=</span> <span class="pl-c1">isset</span>(<span class="pl-smi">$setting</span>[<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_setting<span class="pl-pds">'</span></span>]) ? <span class="pl-smi">$setting</span>[<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_setting<span class="pl-pds">'</span></span>] : <span class="pl-c1">array</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-c1">empty</span>(<span class="pl-smi">$setting</span>)) {</span>
+<span class="pl-s1">        <span class="pl-smi">$config_setting</span> <span class="pl-k">=</span> <span class="pl-c1">array_replace_recursive</span>(<span class="pl-smi">$config_setting</span>, <span class="pl-smi">$setting</span>);</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-smi">$setting</span> <span class="pl-k">=</span> <span class="pl-smi">$config_setting</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//check for d_seo_module_myfeature_status</span></span>
+<span class="pl-s1">    <span class="pl-k">if</span> (<span class="pl-smi">$status</span>) {</span>
+<span class="pl-s1">        <span class="pl-k">if</span> (<span class="pl-c1">isset</span>(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">request</span><span class="pl-k">-&gt;</span><span class="pl-smi">post</span>[<span class="pl-s"><span class="pl-pds">'</span>config_description<span class="pl-pds">'</span></span>])) {</span>
+<span class="pl-s1">            <span class="pl-smi">$description</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">request</span><span class="pl-k">-&gt;</span><span class="pl-smi">post</span>[<span class="pl-s"><span class="pl-pds">'</span>config_description<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_title</span> <span class="pl-k">=</span> <span class="pl-smi">$description</span>[<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>meta_title<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_description</span><span class="pl-k">=</span> <span class="pl-smi">$description</span>[<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>meta_description<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_keyword</span> <span class="pl-k">=</span> <span class="pl-smi">$description</span>[<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>meta_keyword<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">        } <span class="pl-k">elseif</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_description<span class="pl-pds">'</span></span>)) {</span>
+<span class="pl-s1">            <span class="pl-smi">$description</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_description<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_title</span> <span class="pl-k">=</span> <span class="pl-smi">$description</span>[<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>meta_title<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_description</span> <span class="pl-k">=</span> <span class="pl-smi">$description</span>[<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>meta_description<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_keyword</span> <span class="pl-k">=</span> <span class="pl-smi">$description</span>[<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>meta_keyword<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">        } <span class="pl-k">else</span> {</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_title</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_meta_title<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_description</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_meta_description<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">            <span class="pl-smi">$meta_keyword</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_meta_keyword<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">        }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">document</span><span class="pl-k">-&gt;</span>setTitle(<span class="pl-smi">$meta_title</span>);</span>
+<span class="pl-s1">        <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">document</span><span class="pl-k">-&gt;</span>setDescription(<span class="pl-smi">$meta_description</span>);</span>
+<span class="pl-s1">        <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">document</span><span class="pl-k">-&gt;</span>setKeywords(<span class="pl-smi">$meta_keyword</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-smi">$data</span>[<span class="pl-s"><span class="pl-pds">'</span>header<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>controller(<span class="pl-s"><span class="pl-pds">'</span>common/header<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-k">return</span> <span class="pl-smi">$data</span>;</span>
+<span class="pl-s1">}</span></pre></div>
+
+<h4>
+<a id="2-viewtemplatecommonhomeafter" class="anchor" href="#2-viewtemplatecommonhomeafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. view/*/template/common/home/after</h4>
+
+<h5>
+<a id="home_html" class="anchor" href="#home_html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>home_html()</h5>
+
+<p><em>modify the HTML of the <code>home.tpl</code> before bowser renders it</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function home_html($output)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>(string) $output</code>
+</li>
+<li>
+<strong>output:</strong> <code>(string) $output</code>
+</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">private</span> <span class="pl-smi">$codename</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-k">private</span> <span class="pl-smi">$route</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>extension/module/d_seo_module_myfeature<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-k">private</span> <span class="pl-smi">$config_file</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>d_seo_module_myfeature<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">home_html</span>(<span class="pl-smi">$html</span>) {</span>
+<span class="pl-s1">        <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">route</span>);</span>
+<span class="pl-s1">        <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">load</span><span class="pl-k">-&gt;</span>model(<span class="pl-s"><span class="pl-pds">'</span>setting/setting<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-smi">$store_id</span> <span class="pl-k">=</span> (<span class="pl-k">int</span>)<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_store_id<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">        <span class="pl-smi">$language_id</span> <span class="pl-k">=</span> (<span class="pl-k">int</span>)<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_language_id<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-c">// Setting</span></span>
+<span class="pl-s1">        <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>load(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config_file</span>);</span>
+<span class="pl-s1">        <span class="pl-smi">$config_setting</span> <span class="pl-k">=</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_setting<span class="pl-pds">'</span></span>)) ? <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_setting<span class="pl-pds">'</span></span>) : <span class="pl-c1">array</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-smi">$setting</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">model_setting_setting</span><span class="pl-k">-&gt;</span>getSetting(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span>, <span class="pl-smi">$store_id</span>);</span>
+<span class="pl-s1">        <span class="pl-smi">$status</span> <span class="pl-k">=</span> <span class="pl-c1">isset</span>(<span class="pl-smi">$setting</span>[<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_status<span class="pl-pds">'</span></span>]) ? <span class="pl-smi">$setting</span>[<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_status<span class="pl-pds">'</span></span>] : <span class="pl-c1">false</span>;</span>
+<span class="pl-s1">        <span class="pl-smi">$setting</span> <span class="pl-k">=</span> <span class="pl-c1">isset</span>(<span class="pl-smi">$setting</span>[<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_setting<span class="pl-pds">'</span></span>]) ? <span class="pl-smi">$setting</span>[<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">codename</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>_setting<span class="pl-pds">'</span></span>] : <span class="pl-c1">array</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-c1">empty</span>(<span class="pl-smi">$setting</span>)) {</span>
+<span class="pl-s1">            <span class="pl-smi">$config_setting</span> <span class="pl-k">=</span> <span class="pl-c1">array_replace_recursive</span>(<span class="pl-smi">$config_setting</span>, <span class="pl-smi">$setting</span>);</span>
+<span class="pl-s1">        }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-smi">$setting</span> <span class="pl-k">=</span> <span class="pl-smi">$config_setting</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-k">if</span> (<span class="pl-smi">$status</span>) {</span>
+<span class="pl-s1">            <span class="pl-k">if</span> (<span class="pl-c1">isset</span>(<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">request</span><span class="pl-k">-&gt;</span><span class="pl-smi">post</span>[<span class="pl-s"><span class="pl-pds">'</span>config_description<span class="pl-pds">'</span></span>])) {</span>
+<span class="pl-s1">                <span class="pl-smi">$description</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">request</span><span class="pl-k">-&gt;</span><span class="pl-smi">post</span>[<span class="pl-s"><span class="pl-pds">'</span>config_description<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">                <span class="pl-smi">$meta_robots</span> <span class="pl-k">=</span> <span class="pl-smi">$description</span>[<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>meta_robots<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">            } <span class="pl-k">elseif</span> (<span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_description<span class="pl-pds">'</span></span>)) {</span>
+<span class="pl-s1">                <span class="pl-smi">$description</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span><span class="pl-smi">config</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>config_description<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">                <span class="pl-smi">$meta_robots</span> <span class="pl-k">=</span> <span class="pl-smi">$description</span>[<span class="pl-smi">$language_id</span>][<span class="pl-s"><span class="pl-pds">'</span>meta_robots<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">            } <span class="pl-k">else</span> {</span>
+<span class="pl-s1">                <span class="pl-smi">$meta_robots</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>index,follow<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1">            }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-smi">$html_dom</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">d_simple_html_dom</span>();</span>
+<span class="pl-s1">            <span class="pl-smi">$html_dom</span><span class="pl-k">-&gt;</span>load(<span class="pl-smi">$html</span>, <span class="pl-smi">$lowercase</span><span class="pl-k">=</span><span class="pl-c1">true</span>, <span class="pl-smi">$stripRN</span><span class="pl-k">=</span><span class="pl-c1">false</span>, <span class="pl-smi">$defaultBRText</span><span class="pl-k">=</span><span class="pl-c1">DEFAULT_BR_TEXT</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-smi">$html_dom</span><span class="pl-k">-&gt;</span>find(<span class="pl-s"><span class="pl-pds">'</span>head<span class="pl-pds">'</span></span>, <span class="pl-c1">0</span>)<span class="pl-k">-&gt;</span><span class="pl-smi">innertext</span> <span class="pl-k">.=</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;meta name="robots" content="<span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-smi">$meta_robots</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>" /&gt;<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-k">return</span> <span class="pl-smi">$html_dom</span>;</span>
+<span class="pl-s1">        }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">        <span class="pl-k">return</span> <span class="pl-smi">$html</span>;</span>
+<span class="pl-s1">    }</span></pre></div>
+
+<hr>
+
+<h3>
+<a id="product" class="anchor" href="#product" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product</h3>
+
+<h4>
+<a id="1-viewproductcategorybefore" class="anchor" href="#1-viewproductcategorybefore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. view/product/category/before</h4>
+
+<h5>
+<a id="category_data" class="anchor" href="#category_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_data()</h5>
+
+<p><em>modify the data that will be rendered to the <code>category.tpl</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_data($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>$data = array( ... )</code>
+</li>
+</ul>
+
+<h4>
+<a id="2-viewtemplateproductcategoryafter" class="anchor" href="#2-viewtemplateproductcategoryafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. view/*/template/product/category/after</h4>
+
+<h5>
+<a id="category_html" class="anchor" href="#category_html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>category_html()</h5>
+
+<p><em>modify the HTML of the <code>category.tpl</code> before bowser renders it</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function category_html($output)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>(string) $output</code>
+</li>
+<li>
+<strong>output:</strong> <code>(string) $output</code>
+</li>
+</ul>
+
+<h4>
+<a id="3-viewproductproductbefore" class="anchor" href="#3-viewproductproductbefore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. view/product/product/before</h4>
+
+<h5>
+<a id="product_data" class="anchor" href="#product_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_data()</h5>
+
+<p><em>modify the data that will be rendered to the <code>product.tpl</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_data($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>$data = array( ... )</code>
+</li>
+</ul>
+
+<h4>
+<a id="4-viewtemplateproductproductafter" class="anchor" href="#4-viewtemplateproductproductafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. view/*/template/product/product/after</h4>
+
+<h5>
+<a id="product_html" class="anchor" href="#product_html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>product_html()</h5>
+
+<p><em>modify the HTML of the <code>product.tpl</code> before bowser renders it</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function product_html($output)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>(string) $output</code>
+</li>
+<li>
+<strong>output:</strong> <code>(string) $output</code>
+</li>
+</ul>
+
+<h4>
+<a id="5-viewproductmanufacturer_infobefore" class="anchor" href="#5-viewproductmanufacturer_infobefore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5. view/product/manufacturer_info/before</h4>
+
+<h5>
+<a id="manufacturer_info_data" class="anchor" href="#manufacturer_info_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_info_data()</h5>
+
+<p><em>modify the data that will be rendered to the <code>manufacturer_info.tpl</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_info_data($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>$data = array( ... )</code>
+</li>
+</ul>
+
+<h4>
+<a id="6-viewtemplateproductmanufacturer_infoafter" class="anchor" href="#6-viewtemplateproductmanufacturer_infoafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6. view/*/template/product/manufacturer_info/after</h4>
+
+<h5>
+<a id="manufacturer_info_html" class="anchor" href="#manufacturer_info_html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>manufacturer_info_html()</h5>
+
+<p><em>modify the HTML of the <code>manufacturer_info.tpl</code> before bowser renders it</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function manufacturer_info_html($output)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>(string) $output</code>
+</li>
+<li>
+<strong>output:</strong> <code>(string) $output</code>
+</li>
+</ul>
+
+<hr>
+
+<h3>
+<a id="information" class="anchor" href="#information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information</h3>
+
+<h4>
+<a id="1-viewinformationinformationbefore" class="anchor" href="#1-viewinformationinformationbefore" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. view/information/information/before</h4>
+
+<h5>
+<a id="information_data" class="anchor" href="#information_data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_data()</h5>
+
+<p><em>modify the data that will be rendered to the <code>information.tpl</code></em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_data($data)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>$data = array( ... )</code>
+</li>
+<li>
+<strong>output:</strong> <code>$data = array( ... )</code>
+</li>
+</ul>
+
+<h4>
+<a id="2-viewtemplateinformationinformationafter" class="anchor" href="#2-viewtemplateinformationinformationafter" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. view/*/template/information/information/after</h4>
+
+<h5>
+<a id="information_html" class="anchor" href="#information_html" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>information_html()</h5>
+
+<p><em>modify the HTML of the <code>information.tpl</code> before bowser renders it</em></p>
+
+<ul>
+<li>
+<strong>method:</strong> <code>public function information_html($output)</code>
+</li>
+<li>
+<strong>parameters:</strong> <code>(string) $output</code>
+</li>
+<li>
+<strong>output:</strong> <code>(string) $output</code>
+</li>
+</ul>
+
+<hr>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Dreamvention/2_d_seo_module_230">SEO module</a> is maintained by <a href="https://github.com/Dreamvention">Dreamvention</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
