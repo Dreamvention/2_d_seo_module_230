@@ -1,6 +1,6 @@
 {
     "codename": "d_seo_module",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "name": "SEO Module",
     "description": "SEO module is the core platform, necessary for the installation of other SEO modules.",
 	"index": "module/d_seo_module",

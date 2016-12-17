@@ -6,12 +6,12 @@ class ModelExtensionModuleDSEOModule extends Model {
 	*	Save File Manager.
 	*/
 	public function saveFileData($file, $data) {
-		$dir =  str_replace("system/", "", DIR_SYSTEM);
-		if ($file=='htaccess') {
+		$dir = str_replace("system/", "", DIR_SYSTEM);
+		if ($file == 'htaccess') {
 			$file_on = $dir . '.htaccess';
 			$file_off = $dir . '.htaccess.txt'; 
 		}
-		if ($file=='robots') {
+		if ($file == 'robots') {
 			$file_on = $dir . 'robots.txt';
 			$file_off = $dir . '_robots.txt'; 
 		}
@@ -33,12 +33,12 @@ class ModelExtensionModuleDSEOModule extends Model {
 	*	Return htaccess.
 	*/
 	public function getFileData($file) {
-		$dir =  str_replace("system/", "", DIR_SYSTEM);
-		if ($file=='htaccess') {
+		$dir = str_replace("system/", "", DIR_SYSTEM);
+		if ($file == 'htaccess') {
 			$file_on = $dir . '.htaccess';
 			$file_off = $dir . '.htaccess.txt'; 
 		}
-		if ($file=='robots') {
+		if ($file == 'robots') {
 			$file_on = $dir . 'robots.txt';
 			$file_off = $dir . '_robots.txt'; 
 		}

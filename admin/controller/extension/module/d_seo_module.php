@@ -374,12 +374,12 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		if (reset($html_tab_general_language)) {
 			$html_languages = '<ul class="nav nav-tabs" id="language">';
 			foreach ($languages as $language) {
-				$html_languages .= '<li' . (($language==reset($languages)) ? ' class="active"' : '') . '><a href="#language' . $language['language_id'] . '" data-toggle="tab"><img src="language/' . $language['code'] . '/' . $language['code'] . '.png" title="' . $language['name'] . '" /> ' . $language['name'] . '</a></li>';
+				$html_languages .= '<li' . (($language == reset($languages)) ? ' class="active"' : '') . '><a href="#language' . $language['language_id'] . '" data-toggle="tab"><img src="language/' . $language['code'] . '/' . $language['code'] . '.png" title="' . $language['name'] . '" /> ' . $language['name'] . '</a></li>';
             }
             $html_languages .= '</ul>';
 			$html_languages .= '<div class="tab-language tab-content">';
 			foreach ($languages as $language) {
-				$html_languages .= '<div class="tab-pane' . (($language==reset($languages)) ? ' active' : '') . '" id="language' . $language['language_id'] . '"></div>';
+				$html_languages .= '<div class="tab-pane' . (($language == reset($languages)) ? ' active' : '') . '" id="language' . $language['language_id'] . '"></div>';
             }
 			$html_languages .= '</div>';
 
@@ -621,12 +621,12 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		if (reset($html_tab_general_language)) {
 			$html_languages = '<ul class="nav nav-tabs" id="language">';
 			foreach ($languages as $language) {
-				$html_languages .= '<li' . (($language==reset($languages)) ? ' class="active"' : '') . '><a href="#language' . $language['language_id'] . '" data-toggle="tab"><img src="language/' . $language['code'] . '/' . $language['code'] . '.png" title="' . $language['name'] . '" /> ' . $language['name'] . '</a></li>';
+				$html_languages .= '<li' . (($language == reset($languages)) ? ' class="active"' : '') . '><a href="#language' . $language['language_id'] . '" data-toggle="tab"><img src="language/' . $language['code'] . '/' . $language['code'] . '.png" title="' . $language['name'] . '" /> ' . $language['name'] . '</a></li>';
             }
             $html_languages .= '</ul>';
 			$html_languages .= '<div class="tab-language tab-content">';
 			foreach ($languages as $language) {
-				$html_languages .= '<div class="tab-pane' . (($language==reset($languages)) ? ' active' : '') . '" id="language' . $language['language_id'] . '"></div>';
+				$html_languages .= '<div class="tab-pane' . (($language == reset($languages)) ? ' active' : '') . '" id="language' . $language['language_id'] . '"></div>';
             }
 			$html_languages .= '</div>';
 
@@ -853,7 +853,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			return false;
 		} else {
 			$key = array_search($this->codename, $seo_extensions);
-			if ($key!==false) unset($seo_extensions[$key]);
+			if ($key !== false) unset($seo_extensions[$key]);
 		}
 		$this->{'model_extension_module_' . $this->codename}->saveSEOExtensions($seo_extensions);
 
