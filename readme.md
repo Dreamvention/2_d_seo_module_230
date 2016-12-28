@@ -1,7 +1,7 @@
 Seo Module
 ==========
 The fist professional SEO extension for opencart 2
-Opencart version supported 2.3.x (other versions are in developement)
+Opencart version supported 2.3.x (other versions are in developement. Comming soon...)
 
 ##### Table of content
 1. [Installation & Update](#installation-and-update)
