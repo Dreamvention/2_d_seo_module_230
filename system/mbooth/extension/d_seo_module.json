@@ -1,6 +1,6 @@
 {
     "codename": "d_seo_module",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "name": "SEO Module",
     "description": "SEO module is the core platform, necessary for the installation of other SEO modules.",
 	"index": "module/d_seo_module",
@@ -52,7 +52,9 @@
 		"admin/view/template/extension/dashboard/d_seo_module_url_target_info.tpl",
 		
 		"catalog/controller/extension/module/d_seo_module.php",
-		"catalog/model/extension/module/d_seo_module.php"
+		"catalog/model/extension/module/d_seo_module.php",
+		
+		"readme.md"
     ],
 	"dirs": [
         "admin/view/template/extension/module/d_seo_module"

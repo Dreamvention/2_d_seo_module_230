@@ -26,7 +26,9 @@
 		<file>admin/view/template/extension/dashboard/d_seo_module_url_target_info.tpl</file>
 		
 		<file>catalog/controller/extension/module/d_seo_module.php</file>
-		<file>catalog/model/extension/module/d_seo_module.php</file>		
+		<file>catalog/model/extension/module/d_seo_module.php</file>	
+
+		<file>readme.md</file>
 	</files>
 	<dirs>
 		<dir>admin/view/template/extension/module/d_seo_module</dir>
