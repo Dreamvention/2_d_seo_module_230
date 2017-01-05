@@ -1,6 +1,6 @@
 {
     "codename": "d_seo_module",
-    "version": "2.0.2",
+    "version": "2.0.1",
     "name": "SEO Module",
     "description": "SEO module is the core platform, necessary for the installation of other SEO modules.",
 	"index": "module/d_seo_module",
@@ -36,20 +36,12 @@
     "files": [
         "system/mbooth/extension/d_seo_module.json",
 		"system/mbooth/xml/mbooth_d_seo_module.xml",
-		"system/config/d_seo_module.php",
-		"system/config/d_seo_module_url_target.php",
 						
 		"admin/controller/extension/module/d_seo_module.php",
 		"admin/model/extension/module/d_seo_module.php",
 		"admin/language/en-gb/extension/module/d_seo_module.php",
 		"admin/view/template/extension/module/d_seo_module.tpl",
 		"admin/view/stylesheet/d_seo_module.css",
-		
-		"admin/controller/extension/dashboard/d_seo_module_url_target.php",
-		"admin/model/extension/dashboard/d_seo_module_url_target.php",
-		"admin/language/en-gb/extension/dashboard/d_seo_module_url_target.php",
-		"admin/view/template/extension/dashboard/d_seo_module_url_target.tpl",
-		"admin/view/template/extension/dashboard/d_seo_module_url_target_info.tpl",
 		
 		"catalog/controller/extension/module/d_seo_module.php",
 		"catalog/model/extension/module/d_seo_module.php"

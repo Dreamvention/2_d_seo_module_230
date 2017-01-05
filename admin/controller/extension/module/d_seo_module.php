@@ -34,7 +34,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model($this->route);
 		$this->load->model('setting/setting');
 		$this->load->model('localisation/language');
-		
+
 		if (!$this->d_shopunity) {
 			$this->response->redirect($this->url->link($this->route . '/required', 'codename=d_shopunity&token=' . $this->session->data['token'], true));
 		}
@@ -74,7 +74,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$data['server'] = HTTP_SERVER;
 			$data['catalog'] = HTTP_CATALOG;
 		}
-		
+
 		// Action
 		$data['module_link'] = $this->url->link($this->route, 'token=' . $this->session->data['token'], true);
 		$data['action'] = $this->url->link($this->route . '/save', 'token=' . $this->session->data['token'], true);
@@ -120,6 +120,8 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$store_url = ($this->request->server['HTTPS']) ? HTTPS_CATALOG : HTTP_CATALOG;
 		$store_url_parsed = parse_url($store_url);
 		$data['help_robots'] = sprintf($this->language->get('help_robots'), $store_url, $store_url_parsed['host']);
+
+
 
 		// Notification
 		foreach($this->error as $key => $error){
@@ -200,36 +202,6 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 
 		$this->response->setOutput(json_encode($data));
 	}
-	
-	public function getTargetKeywords() {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$filter_data = array();
-		
-		if (isset($this->request->post['route'])) {
-			$filter_data['filter_route'] = $this->request->post['route'];
-		}
-		
-		if (isset($this->request->post['language_id'])) {
-			$filter_data['filter_language_id'] = $this->request->post['language_id'];
-		}
-		
-		if (isset($this->request->post['sort_order'])) {
-			$filter_data['filter_sort_order'] = $this->request->post['sort_order'];
-		}
-		
-		if (isset($this->request->post['keyword'])) {
-			$filter_data['filter_keyword'] = $this->request->post['keyword'];
-		}
-		
-		$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords($filter_data);
-		
-		$data['error'] = $this->error;
-		
-		$this->response->setOutput(json_encode($data));
-	}
 
 	public function installModule() {
 		$this->load->language($this->route);
@@ -237,8 +209,6 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model($this->route);
 		$this->load->model('setting/setting');
 		$this->load->model('extension/event');
-		$this->load->model('extension/extension');
-		$this->load->model('user/user_group');
 
 		if ($this->validateInstall()) {
 			$this->model_extension_event->deleteEvent($this->codename);
@@ -271,20 +241,6 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/information/information/after', 'extension/module/d_seo_module/information_after');
 
 			$this->{'model_extension_module_' . $this->codename}->installModule();
-			
-			// Install SEO Module URL Target
-			$this->model_extension_extension->install('dashboard', 'd_seo_module_url_target');
-			
-			$setting = array(
-				'dashboard_d_seo_module_url_target_status' => true,
-				'dashboard_d_seo_module_url_target_width' => 12,
-				'dashboard_d_seo_module_url_target_sort_order' => 20,
-			);
-			
-			$this->model_setting_setting->editSetting('dashboard_d_seo_module_url_target', $setting);
-			
-			$this->model_user_user_group->addPermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'access', 'extension/dashboard/d_seo_module_url_target');
-			$this->model_user_user_group->addPermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'modify', 'extension/dashboard/d_seo_module_url_target');
 
 			$this->session->data['success'] = $this->language->get('text_success_install');
 		}
@@ -307,19 +263,11 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model($this->route);
 		$this->load->model('setting/setting');
 		$this->load->model('extension/event');
-		$this->load->model('extension/extension');
-		$this->load->model('user/user_group');
 
 		if ($this->validateUninstall()) {
 			$this->model_extension_event->deleteEvent($this->codename);
 
 			$this->{'model_extension_module_' . $this->codename}->uninstallModule();
-			
-			// Uninstall SEO Module URL Target
-			$this->model_extension_extension->uninstall('dashboard', 'd_seo_module_url_target');
-			$this->model_setting_setting->deleteSetting('dashboard_d_seo_module_url_target');
-			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'access', 'extension/dashboard/d_seo_module_url_target');
-			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'modify', 'extension/dashboard/d_seo_module_url_target');	
 
 			$this->session->data['success'] = $this->language->get('text_success_uninstall');
 		}
@@ -334,13 +282,6 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		}
 
 		$this->response->setOutput(json_encode($data));
-	}
-	
-	public function install() {
-		if ($this->d_shopunity) {
-			$this->load->model('d_shopunity/mbooth');
-			$this->model_d_shopunity_mbooth->installDependencies($this->codename);
-		}
 	}
 
 	public function column_left_before($route, &$data, $output) {
@@ -840,251 +781,26 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 
 		$this->{'model_extension_module_' . $this->codename}->addLanguage($data);
 	}
-	
-	public function setting_script() {	
-		$data['route'] = $this->route;
-				
-		return $this->load->view($this->route . '/setting_script.tpl');
-	}
 
 	public function language_delete($data) {
 		$this->load->model($this->route);
 
 		$this->{'model_extension_module_' . $this->codename}->deleteLanguage($data);
 	}
-	
-	public function category_form_tab_general_language($language_id) {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$data['language_id'] = $language_id;
-		
-		$data['entry_target_keyword'] = $this->language->get('entry_target_keyword');
-				
-		$data['help_target_keyword'] = $this->language->get('help_target_keyword');
-										
-		if (isset($this->request->post['target_keyword'])) {
-			$data['target_keywords'] = $this->request->post['target_keyword'];
-		} elseif (isset($this->request->get['category_id'])) {
-			$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getCategoryTargetKeyword($this->request->get['category_id'], $language_id);
-		} else {
-			$data['target_keywords'] = array();
-		}
-				
-		return $this->load->view($this->route . '/category_form_tab_general_language.tpl', $data);
-	}
-	
-	public function category_form_style() {		
-		return $this->load->view($this->route . '/category_form_style.tpl');
-	}
-	
-	public function category_form_script() {	
-		$data['route'] = $this->route;
-		$data['token'] = $this->session->data['token'];
-		
-		return $this->load->view($this->route . '/category_form_script.tpl', $data);
-	}
-	
-	public function product_form_tab_general_language($language_id) {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$data['language_id'] = $language_id;
-		
-		$data['entry_target_keyword'] = $this->language->get('entry_target_keyword');
-				
-		$data['help_target_keyword'] = $this->language->get('help_target_keyword');
-										
-		if (isset($this->request->post['target_keyword'])) {
-			$data['target_keywords'] = $this->request->post['target_keyword'];
-		} elseif (isset($this->request->get['product_id'])) {
-			$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getProductTargetKeyword($this->request->get['product_id'], $language_id);
-		} else {
-			$data['target_keywords'] = array();
-		}
-				
-		return $this->load->view($this->route . '/product_form_tab_general_language.tpl', $data);
-	}
-	
-	public function product_form_style() {		
-		return $this->load->view($this->route . '/product_form_style.tpl');
-	}
-	
-	public function product_form_script() {	
-		$data['route'] = $this->route;
-		$data['token'] = $this->session->data['token'];
-		
-		return $this->load->view($this->route . '/product_form_script.tpl', $data);
-	}
-	
-	public function manufacturer_form_tab_general_language($language_id) {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$data['language_id'] = $language_id;
-		
-		$data['entry_target_keyword'] = $this->language->get('entry_target_keyword');
-				
-		$data['help_target_keyword'] = $this->language->get('help_target_keyword');
-										
-		if (isset($this->request->post['target_keyword'])) {
-			$data['target_keywords'] = $this->request->post['target_keyword'];
-		} elseif (isset($this->request->get['manufacturer_id'])) {
-			$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getManufacturerTargetKeyword($this->request->get['manufacturer_id'], $language_id);
-		} else {
-			$data['target_keywords'] = array();
-		}
-				
-		return $this->load->view($this->route . '/manufacturer_form_tab_general_language.tpl', $data);
-	}
-	
-	public function manufacturer_form_style() {		
-		return $this->load->view($this->route . '/manufacturer_form_style.tpl');
-	}
-	
-	public function manufacturer_form_script() {	
-		$data['route'] = $this->route;
-		$data['token'] = $this->session->data['token'];
-		
-		return $this->load->view($this->route . '/manufacturer_form_script.tpl', $data);
-	}
-	
-	public function information_form_tab_general_language($language_id) {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$data['language_id'] = $language_id;
-		
-		$data['entry_target_keyword'] = $this->language->get('entry_target_keyword');
-				
-		$data['help_target_keyword'] = $this->language->get('help_target_keyword');
-										
-		if (isset($this->request->post['target_keyword'])) {
-			$data['target_keywords'] = $this->request->post['target_keyword'];
-		} elseif (isset($this->request->get['information_id'])) {
-			$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getInformationTargetKeyword($this->request->get['information_id'], $language_id);
-		} else {
-			$data['target_keywords'] = array();
-		}
-			
-		return $this->load->view($this->route . '/information_form_tab_general_language.tpl', $data);
-	}
-	
-	public function information_form_style() {		
-		return $this->load->view($this->route . '/information_form_style.tpl');
-	}
-	
-	public function information_form_script() {	
-		$data['route'] = $this->route;
-		$data['token'] = $this->session->data['token'];
-		
-		return $this->load->view($this->route . '/information_form_script.tpl', $data);
-	}
-	
-	public function category_form_add($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveCategoryTargetKeyword($data);
-	}
-	
-	public function category_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveCategoryTargetKeyword($data);
-	}
-	
-	public function product_form_add($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveProductTargetKeyword($data);
-	}
-	
-	public function product_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveProductTargetKeyword($data);
-	}
 
 	public function manufacturer_form_add($data) {
 		$this->load->model($this->route);
 
 		$this->{'model_extension_module_' . $this->codename}->addManufacturerDescription($data);
-		$this->{'model_extension_module_' . $this->codename}->saveManufacturerTargetKeyword($data);
 	}
-	
-	public function manufacturer_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveManufacturerTargetKeyword($data);
-	}
-	
-	public function information_form_add($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveInformationTargetKeyword($data);
-	}
-	
-	public function information_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveInformationTargetKeyword($data);
-	}
-	
-	/*
-	*	Functions for SEO Module Manager.
-	*/
-	public function manager_config($data) {	
-		$this->load->language($this->route);
-		
-		$this->config->load($this->config_file);
-		$config_setting = ($this->config->get($this->codename . '_manager')) ? $this->config->get($this->codename . '_manager') : array();
 
-		foreach ($config_setting['sheet'] as &$sheet) {
-			foreach ($sheet['field'] as &$field) {
-				if (substr($field['name'], 0, strlen('text_')) == 'text_') {
-					$field['name'] = $this->language->get($field['name']);
-				}
-			}
+	public function install() {
+		if ($this->d_shopunity) {
+			$this->load->model('d_shopunity/mbooth');
+			$this->model_d_shopunity_mbooth->installDependencies($this->codename);
 		}
-		
-		if (!empty($config_setting['sheet'])) {
-			$data['sheet'] = array_replace_recursive($data['sheet'], $config_setting['sheet']);
-		}
-					
-		return $data;
 	}
-	
-	public function manager_list_elements($filter_data) {	
-		$this->load->model($this->route);
-		
-		return $this->{'model_extension_module_' . $this->codename}->getListElements($filter_data);
-	}
-	
-	public function manager_save_element_field($element_data) {	
-		$this->load->model($this->route);
-		
-		return $this->{'model_extension_module_' . $this->codename}->saveElementField($element_data);
-	}
-	
-	public function manager_export_elements($export_data) {	
-		$this->load->model($this->route);
-		
-		return $this->{'model_extension_module_' . $this->codename}->getExportElements($export_data);
-	}
-	
-	public function manager_import_elements($import_data) {	
-		$this->load->model($this->route);
-		
-		return $this->{'model_extension_module_' . $this->codename}->saveImportElements($import_data);
-	}
-	
-	/*
-	*	Validator Functions.
-	*/		
+
 	private function validate($permission = 'modify') {
 		$this->load->model($this->route);
 

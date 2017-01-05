@@ -9,21 +9,12 @@
     <author>Dreamvention (Artem)</author>
     <files>
 		<file>system/mbooth/xml/mbooth_d_seo_module.xml</file>
-		<file>system/mbooth/extension/d_seo_module.json</file>
-		<file>system/config/d_seo_module.php</file>
-		<file>system/config/d_seo_module_url_target.php</file>
 						
 		<file>admin/controller/extension/module/d_seo_module.php</file>
 		<file>admin/model/extension/module/d_seo_module.php</file>
 		<file>admin/language/en-gb/extension/module/d_seo_module.php</file>
 		<file>admin/view/template/extension/module/d_seo_module.tpl</file>
 		<file>admin/view/stylesheet/d_seo_module.css</file>
-		
-		<file>admin/controller/extension/dashboard/d_seo_module_url_target.php</file>
-		<file>admin/model/extension/dashboard/d_seo_module_url_target.php</file>
-		<file>admin/language/en-gb/extension/dashboard/d_seo_module_url_target.php</file>
-		<file>admin/view/template/extension/dashboard/d_seo_module_url_target.tpl</file>
-		<file>admin/view/template/extension/dashboard/d_seo_module_url_target_info.tpl</file>
 		
 		<file>catalog/controller/extension/module/d_seo_module.php</file>
 		<file>catalog/model/extension/module/d_seo_module.php</file>		
