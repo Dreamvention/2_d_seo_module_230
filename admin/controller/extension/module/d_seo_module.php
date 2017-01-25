@@ -75,6 +75,8 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$data['catalog'] = HTTP_CATALOG;
 		}
 		
+		$data['catalog_parse'] = parse_url($data['catalog']);
+		
 		// Action
 		$data['module_link'] = $this->url->link($this->route, 'token=' . $this->session->data['token'], true);
 		$data['action'] = $this->url->link($this->route . '/save', 'token=' . $this->session->data['token'], true);
@@ -113,14 +115,12 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_uninstall_confirm'] = $this->language->get('text_uninstall_confirm');
 
-		//help
+		// Help
 		$data['help_install'] = $this->language->get('help_install');
 		$data['help_htaccess_setting'] = $this->language->get('help_htaccess_setting');
 		$data['help_htaccess_subfolder'] = $this->language->get('help_htaccess_subfolder');
-		$store_url = ($this->request->server['HTTPS']) ? HTTPS_CATALOG : HTTP_CATALOG;
-		$store_url_parsed = parse_url($store_url);
-		$data['help_robots'] = sprintf($this->language->get('help_robots'), $store_url, $store_url_parsed['host']);
-
+		$data['help_robots'] = sprintf($this->language->get('help_robots'), $data['catalog'], $data['catalog_parse']['host']);
+		
 		// Notification
 		foreach($this->error as $key => $error){
 			$data['error'][$key] = $error;
@@ -351,7 +351,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$info = $this->load->controller('extension/module/' . $seo_extension . '/menu', $menu_data);
+			$info = $this->load->controller($this->codename . '/' . $seo_extension . '/menu', $menu_data);
 			if ($info) $menu_data = $info;
 		}
 
@@ -375,7 +375,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/language_add', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/language_add', $data);
 		}
 	}
 
@@ -389,7 +389,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/language_delete', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/language_delete', $data);
 		}
 	}
 
@@ -399,7 +399,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model($this->route);
 
 		$html_dom = new d_simple_html_dom();
-		$html_dom->load($output, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+		$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 		$html_tab_general = '';
 		$html_tab_general_language = array();
@@ -414,17 +414,20 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$languages = $this->{'model_extension_module_' . $this->codename}->getLanguages();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$html_tab_general .= $this->load->controller('extension/module/' . $seo_extension . '/setting_tab_general');
+			$html_tab_general .= $this->load->controller($this->codename . '/' . $seo_extension . '/setting_tab_general');
+			$info = $this->load->controller($this->codename . '/' . $seo_extension . '/setting_tab_general_language');
 			foreach ($languages as $language) {
 				if (!isset($html_tab_general_language[$language['language_id']])) $html_tab_general_language[$language['language_id']] = '';
-				$html_tab_general_language[$language['language_id']] .= $this->load->controller('extension/module/' . $seo_extension . '/setting_tab_general_language', $language['language_id']);
+				if (isset($info[$language['language_id']])) {
+					$html_tab_general_language[$language['language_id']] .= $info[$language['language_id']];
+				}
 			}
-			$html_tab_store .= $this->load->controller('extension/module/' . $seo_extension . '/setting_tab_store');
-			$html_tab_local .= $this->load->controller('extension/module/' . $seo_extension . '/setting_tab_local');
-			$html_tab_option .= $this->load->controller('extension/module/' . $seo_extension . '/setting_tab_option');
-			$html_tab_seo .= $this->load->controller('extension/module/' . $seo_extension . '/setting_tab_seo');
-			$html_style .= $this->load->controller('extension/module/' . $seo_extension . '/setting_style');
-			$html_script .= $this->load->controller('extension/module/' . $seo_extension . '/setting_script');
+			$html_tab_store .= $this->load->controller($this->codename . '/' . $seo_extension . '/setting_tab_store');
+			$html_tab_local .= $this->load->controller($this->codename . '/' . $seo_extension . '/setting_tab_local');
+			$html_tab_option .= $this->load->controller($this->codename . '/' . $seo_extension . '/setting_tab_option');
+			$html_tab_seo .= $this->load->controller($this->codename . '/' . $seo_extension . '/setting_tab_seo');
+			$html_style .= $this->load->controller($this->codename . '/' . $seo_extension . '/setting_style');
+			$html_script .= $this->load->controller($this->codename . '/' . $seo_extension . '/setting_script');
 		}
 
 		if ($html_tab_general) {
@@ -478,7 +481,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model($this->route);
 
 		$html_dom = new d_simple_html_dom();
-		$html_dom->load($output, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+		$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 		$html_tab_general = '';
 		$html_tab_general_language = array();
@@ -491,15 +494,18 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$languages = $this->{'model_extension_module_' . $this->codename}->getLanguages();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$html_tab_general .= $this->load->controller('extension/module/' . $seo_extension . '/category_form_tab_general');
+			$html_tab_general .= $this->load->controller($this->codename . '/' . $seo_extension . '/category_form_tab_general');
+			$info = $this->load->controller($this->codename . '/' . $seo_extension . '/category_form_tab_general_language');
 			foreach ($languages as $language) {
 				if (!isset($html_tab_general_language[$language['language_id']])) $html_tab_general_language[$language['language_id']] = '';
-				$html_tab_general_language[$language['language_id']] .= $this->load->controller('extension/module/' . $seo_extension . '/category_form_tab_general_language', $language['language_id']);
+				if (isset($info[$language['language_id']])) {
+					$html_tab_general_language[$language['language_id']] .= $info[$language['language_id']];
+				}
 			}
-			$html_tab_data .= $this->load->controller('extension/module/' . $seo_extension . '/category_form_tab_data');
-			$html_tab_seo .= $this->load->controller('extension/module/' . $seo_extension . '/category_form_tab_seo');
-			$html_style .= $this->load->controller('extension/module/' . $seo_extension . '/category_form_style');
-			$html_script .= $this->load->controller('extension/module/' . $seo_extension . '/category_form_script');
+			$html_tab_data .= $this->load->controller($this->codename . '/' . $seo_extension . '/category_form_tab_data');
+			$html_tab_seo .= $this->load->controller($this->codename . '/' . $seo_extension . '/category_form_tab_seo');
+			$html_style .= $this->load->controller($this->codename . '/' . $seo_extension . '/category_form_style');
+			$html_script .= $this->load->controller($this->codename . '/' . $seo_extension . '/category_form_script');
 		}
 		if ($html_tab_general) {
 			$html_dom->find('#tab-general', 0)->innertext .= $html_tab_general;
@@ -535,7 +541,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/category_form_add', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/category_form_add', $data);
 		}
 	}
 
@@ -549,7 +555,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/category_form_edit', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/category_form_edit', $data);
 		}
 	}
 
@@ -559,7 +565,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model($this->route);
 
 		$html_dom = new d_simple_html_dom();
-		$html_dom->load($output, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+		$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 		$html_tab_general = '';
 		$html_tab_general_language = array();
@@ -573,16 +579,19 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$languages = $this->{'model_extension_module_' . $this->codename}->getLanguages();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$html_tab_general .= $this->load->controller('extension/module/' . $seo_extension . '/product_form_tab_general');
+			$html_tab_general .= $this->load->controller($this->codename . '/' . $seo_extension . '/product_form_tab_general');
+			$info = $this->load->controller($this->codename . '/' . $seo_extension . '/product_form_tab_general_language');
 			foreach ($languages as $language) {
 				if (!isset($html_tab_general_language[$language['language_id']])) $html_tab_general_language[$language['language_id']] = '';
-				$html_tab_general_language[$language['language_id']] .= $this->load->controller('extension/module/' . $seo_extension . '/product_form_tab_general_language', $language['language_id']);
+				if (isset($info[$language['language_id']])) {
+					$html_tab_general_language[$language['language_id']] .= $info[$language['language_id']];
+				}
 			}
-			$html_tab_data .= $this->load->controller('extension/module/' . $seo_extension . '/product_form_tab_data');
-			$html_tab_links .= $this->load->controller('extension/module/' . $seo_extension . '/product_form_tab_links');
-			$html_tab_seo .= $this->load->controller('extension/module/' . $seo_extension . '/product_form_tab_seo');
-			$html_style .= $this->load->controller('extension/module/' . $seo_extension . '/product_form_style');
-			$html_script .= $this->load->controller('extension/module/' . $seo_extension . '/product_form_script');
+			$html_tab_data .= $this->load->controller($this->codename . '/' . $seo_extension . '/product_form_tab_data');
+			$html_tab_links .= $this->load->controller($this->codename . '/' . $seo_extension . '/product_form_tab_links');
+			$html_tab_seo .= $this->load->controller($this->codename . '/' . $seo_extension . '/product_form_tab_seo');
+			$html_style .= $this->load->controller($this->codename . '/' . $seo_extension . '/product_form_style');
+			$html_script .= $this->load->controller($this->codename . '/' . $seo_extension . '/product_form_script');
 		}
 		if ($html_tab_general) {
 			$html_dom->find('#tab-general', 0)->innertext .= $html_tab_general;
@@ -621,7 +630,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/product_form_add', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/product_form_add', $data);
 		}
 	}
 
@@ -635,7 +644,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/product_form_edit', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/product_form_edit', $data);
 		}
 	}
 
@@ -655,24 +664,27 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$languages = $this->{'model_extension_module_' . $this->codename}->getLanguages();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$html_tab_general .= $this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_tab_general');
+			$html_tab_general .= $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_form_tab_general');
+			$info = $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_form_tab_general_language');
 			foreach ($languages as $language) {
 				if (!isset($html_tab_general_language[$language['language_id']])) $html_tab_general_language[$language['language_id']] = '';
-				$html_tab_general_language[$language['language_id']] .= $this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_tab_general_language', $language['language_id']);
+				if (isset($info[$language['language_id']])) {
+					$html_tab_general_language[$language['language_id']] .= $info[$language['language_id']];
+				}
 			}
-			$html_tab_data .= $this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_tab_data');
-			$html_tab_seo .= $this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_tab_seo');
-			$html_style .= $this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_style');
-			$html_script .= $this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_script');
+			$html_tab_data .= $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_form_tab_data');
+			$html_tab_seo .= $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_form_tab_seo');
+			$html_style .= $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_form_style');
+			$html_script .= $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_form_script');
 		}
 
 		$html_dom = new d_simple_html_dom();
-		$html_dom->load($output, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+		$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 		$html_manufacturer_name = $html_dom->find('#form-manufacturer .form-group', 0)->outertext;
 		$html_dom->find('#form-manufacturer .form-group', 0)->outertext = '';
 		$html_manufacturer_data = $html_dom->find('#form-manufacturer', 0)->innertext;
 		$html_dom->find('#form-manufacturer', 0)->innertext = '<ul class="nav nav-tabs"><li class="active"><a href="#tab-general" data-toggle="tab">' . $this->language->get('text_general') . '</a></li><li><a href="#tab-data" data-toggle="tab">' . $this->language->get('text_data') . '</a></li></ul><div class="tab-main tab-content"><div class="tab-pane active" id="tab-general">' . $html_manufacturer_name . '</div><div class="tab-pane" id="tab-data">' . $html_manufacturer_data . '</div></div>';
-		$html_dom->load((string)$html_dom, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+		$html_dom->load((string)$html_dom, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 		if ($html_tab_general) {
 			$html_dom->find('#tab-general', 0)->innertext .= $html_tab_general;
@@ -690,7 +702,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_languages .= '</div>';
 
 			$html_dom->find('#tab-general', 0)->innertext .= $html_languages;
-			$html_dom->load((string)$html_dom, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+			$html_dom->load((string)$html_dom, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 			foreach ($languages as $language) {
 				$html_dom->find('#tab-general #language' . $language['language_id'], 0)->innertext .= $html_tab_general_language[$language['language_id']];
@@ -722,7 +734,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_add', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_form_add', $data);
 		}
 	}
 
@@ -736,7 +748,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/manufacturer_form_edit', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_form_edit', $data);
 		}
 	}
 
@@ -746,7 +758,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model($this->route);
 
 		$html_dom = new d_simple_html_dom();
-		$html_dom->load($output, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+		$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 		$html_tab_general = '';
 		$html_tab_general_language = array();
@@ -759,15 +771,18 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$languages = $this->{'model_extension_module_' . $this->codename}->getLanguages();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$html_tab_general .= $this->load->controller('extension/module/' . $seo_extension . '/information_form_tab_general');
+			$html_tab_general .= $this->load->controller($this->codename . '/' . $seo_extension . '/information_form_tab_general');
+			$info = $this->load->controller($this->codename . '/' . $seo_extension . '/information_form_tab_general_language');
 			foreach ($languages as $language) {
 				if (!isset($html_tab_general_language[$language['language_id']])) $html_tab_general_language[$language['language_id']] = '';
-				$html_tab_general_language[$language['language_id']] .= $this->load->controller('extension/module/' . $seo_extension . '/information_form_tab_general_language', $language['language_id']);
+				if (isset($info[$language['language_id']])) {
+					$html_tab_general_language[$language['language_id']] .= $info[$language['language_id']];
+				}
 			}
-			$html_tab_data .= $this->load->controller('extension/module/' . $seo_extension . '/information_form_tab_data');
-			$html_tab_seo .= $this->load->controller('extension/module/' . $seo_extension . '/information_form_tab_seo');
-			$html_style .= $this->load->controller('extension/module/' . $seo_extension . '/information_form_style');
-			$html_script .= $this->load->controller('extension/module/' . $seo_extension . '/information_form_script');
+			$html_tab_data .= $this->load->controller($this->codename . '/' . $seo_extension . '/information_form_tab_data');
+			$html_tab_seo .= $this->load->controller($this->codename . '/' . $seo_extension . '/information_form_tab_seo');
+			$html_style .= $this->load->controller($this->codename . '/' . $seo_extension . '/information_form_style');
+			$html_script .= $this->load->controller($this->codename . '/' . $seo_extension . '/information_form_script');
 		}
 		if ($html_tab_general) {
 			$html_dom->find('#tab-general', 0)->innertext .= $html_tab_general;
@@ -803,7 +818,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/information_form_add', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/information_form_add', $data);
 		}
 	}
 
@@ -817,269 +832,8 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 
 		foreach ($seo_extensions as $seo_extension) {
-			$this->load->controller('extension/module/' . $seo_extension . '/information_form_edit', $data);
+			$this->load->controller($this->codename . '/' . $seo_extension . '/information_form_edit', $data);
 		}
-	}
-
-	public function menu($menu_data) {
-		$this->load->language($this->route);
-
-		if ($this->user->hasPermission('access', $this->route)) {
-			$menu_data[] = array(
-				'name'	   => $this->language->get('heading_title_main'),
-				'href'     => $this->url->link($this->route, 'token=' . $this->session->data['token'], true),
-				'children' => array()
-			);
-		}
-
-		return $menu_data;
-	}
-
-	public function language_add($data) {
-		$this->load->model($this->route);
-
-		$this->{'model_extension_module_' . $this->codename}->addLanguage($data);
-	}
-	
-	public function setting_script() {	
-		$data['route'] = $this->route;
-				
-		return $this->load->view($this->route . '/setting_script.tpl');
-	}
-
-	public function language_delete($data) {
-		$this->load->model($this->route);
-
-		$this->{'model_extension_module_' . $this->codename}->deleteLanguage($data);
-	}
-	
-	public function category_form_tab_general_language($language_id) {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$data['language_id'] = $language_id;
-		
-		$data['entry_target_keyword'] = $this->language->get('entry_target_keyword');
-				
-		$data['help_target_keyword'] = $this->language->get('help_target_keyword');
-										
-		if (isset($this->request->post['target_keyword'])) {
-			$data['target_keywords'] = $this->request->post['target_keyword'];
-		} elseif (isset($this->request->get['category_id'])) {
-			$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getCategoryTargetKeyword($this->request->get['category_id'], $language_id);
-		} else {
-			$data['target_keywords'] = array();
-		}
-				
-		return $this->load->view($this->route . '/category_form_tab_general_language.tpl', $data);
-	}
-	
-	public function category_form_style() {		
-		return $this->load->view($this->route . '/category_form_style.tpl');
-	}
-	
-	public function category_form_script() {	
-		$data['route'] = $this->route;
-		$data['token'] = $this->session->data['token'];
-		
-		return $this->load->view($this->route . '/category_form_script.tpl', $data);
-	}
-	
-	public function product_form_tab_general_language($language_id) {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$data['language_id'] = $language_id;
-		
-		$data['entry_target_keyword'] = $this->language->get('entry_target_keyword');
-				
-		$data['help_target_keyword'] = $this->language->get('help_target_keyword');
-										
-		if (isset($this->request->post['target_keyword'])) {
-			$data['target_keywords'] = $this->request->post['target_keyword'];
-		} elseif (isset($this->request->get['product_id'])) {
-			$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getProductTargetKeyword($this->request->get['product_id'], $language_id);
-		} else {
-			$data['target_keywords'] = array();
-		}
-				
-		return $this->load->view($this->route . '/product_form_tab_general_language.tpl', $data);
-	}
-	
-	public function product_form_style() {		
-		return $this->load->view($this->route . '/product_form_style.tpl');
-	}
-	
-	public function product_form_script() {	
-		$data['route'] = $this->route;
-		$data['token'] = $this->session->data['token'];
-		
-		return $this->load->view($this->route . '/product_form_script.tpl', $data);
-	}
-	
-	public function manufacturer_form_tab_general_language($language_id) {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$data['language_id'] = $language_id;
-		
-		$data['entry_target_keyword'] = $this->language->get('entry_target_keyword');
-				
-		$data['help_target_keyword'] = $this->language->get('help_target_keyword');
-										
-		if (isset($this->request->post['target_keyword'])) {
-			$data['target_keywords'] = $this->request->post['target_keyword'];
-		} elseif (isset($this->request->get['manufacturer_id'])) {
-			$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getManufacturerTargetKeyword($this->request->get['manufacturer_id'], $language_id);
-		} else {
-			$data['target_keywords'] = array();
-		}
-				
-		return $this->load->view($this->route . '/manufacturer_form_tab_general_language.tpl', $data);
-	}
-	
-	public function manufacturer_form_style() {		
-		return $this->load->view($this->route . '/manufacturer_form_style.tpl');
-	}
-	
-	public function manufacturer_form_script() {	
-		$data['route'] = $this->route;
-		$data['token'] = $this->session->data['token'];
-		
-		return $this->load->view($this->route . '/manufacturer_form_script.tpl', $data);
-	}
-	
-	public function information_form_tab_general_language($language_id) {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$data['language_id'] = $language_id;
-		
-		$data['entry_target_keyword'] = $this->language->get('entry_target_keyword');
-				
-		$data['help_target_keyword'] = $this->language->get('help_target_keyword');
-										
-		if (isset($this->request->post['target_keyword'])) {
-			$data['target_keywords'] = $this->request->post['target_keyword'];
-		} elseif (isset($this->request->get['information_id'])) {
-			$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getInformationTargetKeyword($this->request->get['information_id'], $language_id);
-		} else {
-			$data['target_keywords'] = array();
-		}
-			
-		return $this->load->view($this->route . '/information_form_tab_general_language.tpl', $data);
-	}
-	
-	public function information_form_style() {		
-		return $this->load->view($this->route . '/information_form_style.tpl');
-	}
-	
-	public function information_form_script() {	
-		$data['route'] = $this->route;
-		$data['token'] = $this->session->data['token'];
-		
-		return $this->load->view($this->route . '/information_form_script.tpl', $data);
-	}
-	
-	public function category_form_add($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveCategoryTargetKeyword($data);
-	}
-	
-	public function category_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveCategoryTargetKeyword($data);
-	}
-	
-	public function product_form_add($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveProductTargetKeyword($data);
-	}
-	
-	public function product_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveProductTargetKeyword($data);
-	}
-
-	public function manufacturer_form_add($data) {
-		$this->load->model($this->route);
-
-		$this->{'model_extension_module_' . $this->codename}->addManufacturerDescription($data);
-		$this->{'model_extension_module_' . $this->codename}->saveManufacturerTargetKeyword($data);
-	}
-	
-	public function manufacturer_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveManufacturerTargetKeyword($data);
-	}
-	
-	public function information_form_add($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveInformationTargetKeyword($data);
-	}
-	
-	public function information_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_extension_module_' . $this->codename}->saveInformationTargetKeyword($data);
-	}
-	
-	/*
-	*	Functions for SEO Module Manager.
-	*/
-	public function manager_config($data) {	
-		$this->load->language($this->route);
-		
-		$this->config->load($this->config_file);
-		$config_setting = ($this->config->get($this->codename . '_manager')) ? $this->config->get($this->codename . '_manager') : array();
-
-		foreach ($config_setting['sheet'] as &$sheet) {
-			foreach ($sheet['field'] as &$field) {
-				if (substr($field['name'], 0, strlen('text_')) == 'text_') {
-					$field['name'] = $this->language->get($field['name']);
-				}
-			}
-		}
-		
-		if (!empty($config_setting['sheet'])) {
-			$data['sheet'] = array_replace_recursive($data['sheet'], $config_setting['sheet']);
-		}
-					
-		return $data;
-	}
-	
-	public function manager_list_elements($filter_data) {	
-		$this->load->model($this->route);
-		
-		return $this->{'model_extension_module_' . $this->codename}->getListElements($filter_data);
-	}
-	
-	public function manager_save_element_field($element_data) {	
-		$this->load->model($this->route);
-		
-		return $this->{'model_extension_module_' . $this->codename}->saveElementField($element_data);
-	}
-	
-	public function manager_export_elements($export_data) {	
-		$this->load->model($this->route);
-		
-		return $this->{'model_extension_module_' . $this->codename}->getExportElements($export_data);
-	}
-	
-	public function manager_import_elements($import_data) {	
-		$this->load->model($this->route);
-		
-		return $this->{'model_extension_module_' . $this->codename}->saveImportElements($import_data);
 	}
 	
 	/*

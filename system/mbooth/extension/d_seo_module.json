@@ -30,7 +30,8 @@
         "url": "https:/dreamvention.com/support"
     },
     "required": {
-        "d_simple_html_dom": ">= 1.0.0",
+        "d_robots_txt_parser": ">= 1.0.0",
+	    "d_simple_html_dom": ">= 1.0.0",
         "d_shopunity": ">= 3.0.0"
     },
     "files": [
@@ -51,13 +52,30 @@
 		"admin/view/template/extension/dashboard/d_seo_module_url_target.tpl",
 		"admin/view/template/extension/dashboard/d_seo_module_url_target_info.tpl",
 		
+		"admin/controller/d_seo_module/d_seo_module.php",
+		"admin/model/d_seo_module/d_seo_module.php",
+		"admin/language/en-gb/d_seo_module/d_seo_module.php",
+		
+		"admin/controller/d_seo_module_manager/d_seo_module.php",
+		"admin/model/d_seo_module_manager/d_seo_module.php",
+		"admin/language/en-gb/d_seo_module_manager/d_seo_module.php",
+		
+		"admin/controller/d_seo_module_adviser/d_seo_module.php",
+		"admin/model/d_seo_module_adviser/d_seo_module.php",
+		"admin/language/en-gb/d_seo_module_adviser/d_seo_module.php",
+				
 		"catalog/controller/extension/module/d_seo_module.php",
 		"catalog/model/extension/module/d_seo_module.php",
+		
+		"catalog/controller/d_seo_module_adviser/d_seo_module.php",
+		"catalog/model/d_seo_module_adviser/d_seo_module.php",
+		"catalog/language/en-gb/d_seo_module_adviser/d_seo_module.php",
 		
 		"readme.md"
     ],
 	"dirs": [
-        "admin/view/template/extension/module/d_seo_module"
+        "admin/view/template/extension/module/d_seo_module",
+		"admin/view/template/d_seo_module/d_seo_module"
     ],
     "changelog": [
         {

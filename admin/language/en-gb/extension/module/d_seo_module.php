@@ -22,11 +22,7 @@ $_['text_yes'] 									= 'Yes';
 $_['text_no'] 									= 'No';
 $_['text_enabled']								= 'Enabled';
 $_['text_disabled']								= 'Disabled';
-$_['text_target_keyword']						= 'Target Keyword';
 $_['text_uninstall_confirm']					= 'After deinstallation is compleate the SEO Module will delete all additional fields in the product, category, manufacturer and information that have been added after installation.\nAre you sure you want to uninstall the SEO Module? ';
-$_['text_general']								= 'General';
-$_['text_data']									= 'Data';
-$_['text_seo']									= 'SEO';
 $_['text_instructions_full'] 					= '
 <div class="row">
 	<div class="col-sm-2">
@@ -135,7 +131,6 @@ $_['text_not_found'] = '
 $_['entry_status']								= 'Status';
 $_['entry_uninstall']							= 'Uninstall Module';
 $_['entry_text']								= 'Text';
-$_['entry_target_keyword']						= 'Target Keyword';
 
 // Button
 $_['button_save'] 								= 'Save';
@@ -145,7 +140,7 @@ $_['button_install'] 							= 'Install';
 $_['button_uninstall'] 							= 'Uninstall';
 $_['button_edit_store_setting'] 				= 'Edit store settings';
 
-// help
+// Help
 $_['help_install']								= '
 <div class="row">
 	<div class="col-md-6 col-md-offset-3 text-center">
@@ -197,8 +192,7 @@ Sitemap: %ssitemap.xml
 Host: %s
 </pre>';
 
-$_['help_target_keyword']						= 'Target Keyword is multilingual field, which is important for SEO and must be unique for each page and language.';
-
+// Error
 $_['error_warning']          					= 'Warning: Please check the form carefully for errors!';
 $_['error_permission']    						= 'Warning: You do not have permission to modify module SEO Module!';
 $_['error_dependencies']    					= 'Warning: You can not uninstall this module until you uninstall dependencies modules!';

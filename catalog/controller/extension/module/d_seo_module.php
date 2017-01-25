@@ -15,7 +15,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 		
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/home_data', $data);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/home_data', $data);
 				if ($info) $data = $info;
 			}
 		}			
@@ -33,7 +33,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 		
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/home_html', $output);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/home_html', $output);
 				if ($info) $output = $info;
 			}
 		}
@@ -51,7 +51,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 		
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/category_data', $data);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/category_data', $data);
 				if ($info) $data = $info;
 			}
 		}
@@ -67,9 +67,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		
 		if ($status) {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
-		
+			
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/category_html', $output);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/category_html', $output);
 				if ($info) $output = $info;
 			}
 		}
@@ -87,7 +87,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 		
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/product_data', $data);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/product_data', $data);
 				if ($info) $data = $info;
 			}
 		}			
@@ -105,7 +105,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 		
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/product_html', $output);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/product_html', $output);
 				if ($info) $output = $info;
 			}
 		}
@@ -123,7 +123,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 			
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/manufacturer_info_data', $data);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_info_data', $data);
 				if ($info) $data = $info;
 			}	
 		}
@@ -141,7 +141,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 		
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/manufacturer_info_html', $output);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_info_html', $output);
 				if ($info) $output = $info;
 			}
 		}
@@ -159,7 +159,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 		
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/information_data', $data);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/information_data', $data);
 				if ($info) $data = $info;
 			}
 		}
@@ -177,10 +177,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
 		
 			foreach ($seo_extensions as $seo_extension) {
-				$info = $this->load->controller('extension/module/' . $seo_extension . '/information_html', $output);
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/information_html', $output);
 				if ($info) $output = $info;
 			}
 		}
 	}
-		
 }
