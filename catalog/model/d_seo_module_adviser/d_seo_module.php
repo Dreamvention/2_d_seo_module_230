@@ -34,15 +34,15 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		}
 		
 		if (strpos($route, 'product_id') !== false) {
-			$url = $this->url->link('product/category', $route);
+			$url = $this->url->link('product/product', $route);
 		}
 		
 		if (strpos($route, 'manufacturer_id') !== false) {
-			$url = $this->url->link('product/category', $route);
+			$url = $this->url->link('product/manufacturer/info', $route);
 		}
 		
 		if (strpos($route, 'information_id') !== false) {
-			$url = $this->url->link('product/category', $route);
+			$url = $this->url->link('information/information', $route);
 		}
 		
 		$seo_keyword = str_replace($server, '', $url);

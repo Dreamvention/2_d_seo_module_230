@@ -5,6 +5,36 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 	private $config_file = 'd_seo_module';
 	private $error = array();
 	
+	public function getTargetKeywords() {
+		$this->load->language($this->route);
+		
+		$this->load->model($this->route);
+		
+		$filter_data = array();
+		
+		if (isset($this->request->post['route'])) {
+			$filter_data['filter_route'] = $this->request->post['route'];
+		}
+		
+		if (isset($this->request->post['language_id'])) {
+			$filter_data['filter_language_id'] = $this->request->post['language_id'];
+		}
+		
+		if (isset($this->request->post['sort_order'])) {
+			$filter_data['filter_sort_order'] = $this->request->post['sort_order'];
+		}
+		
+		if (isset($this->request->post['keyword'])) {
+			$filter_data['filter_keyword'] = $this->request->post['keyword'];
+		}
+		
+		$data['target_keywords'] = $this->{'model_d_seo_module_' . $this->codename}->getTargetKeywords($filter_data);
+		
+		$data['error'] = $this->error;
+		
+		$this->response->setOutput(json_encode($data));
+	}
+	
 	/*
 	*	Functions for SEO Module.
 	*/

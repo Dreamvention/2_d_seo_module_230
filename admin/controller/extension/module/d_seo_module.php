@@ -38,7 +38,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		if (!$this->d_shopunity) {
 			$this->response->redirect($this->url->link($this->route . '/required', 'codename=d_shopunity&token=' . $this->session->data['token'], true));
 		}
-
+		
 		$this->load->model('d_shopunity/mbooth');
 
 		$this->model_d_shopunity_mbooth->validateDependencies($this->codename);
@@ -201,36 +201,6 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->response->setOutput(json_encode($data));
 	}
 	
-	public function getTargetKeywords() {
-		$this->load->language($this->route);
-		
-		$this->load->model($this->route);
-		
-		$filter_data = array();
-		
-		if (isset($this->request->post['route'])) {
-			$filter_data['filter_route'] = $this->request->post['route'];
-		}
-		
-		if (isset($this->request->post['language_id'])) {
-			$filter_data['filter_language_id'] = $this->request->post['language_id'];
-		}
-		
-		if (isset($this->request->post['sort_order'])) {
-			$filter_data['filter_sort_order'] = $this->request->post['sort_order'];
-		}
-		
-		if (isset($this->request->post['keyword'])) {
-			$filter_data['filter_keyword'] = $this->request->post['keyword'];
-		}
-		
-		$data['target_keywords'] = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords($filter_data);
-		
-		$data['error'] = $this->error;
-		
-		$this->response->setOutput(json_encode($data));
-	}
-
 	public function installModule() {
 		$this->load->language($this->route);
 
@@ -285,6 +255,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			
 			$this->model_user_user_group->addPermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'access', 'extension/dashboard/d_seo_module_url_target');
 			$this->model_user_user_group->addPermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'modify', 'extension/dashboard/d_seo_module_url_target');
+			
+			$this->model_user_user_group->addPermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'access', $this->codename . '/' . $this->codename);
+			$this->model_user_user_group->addPermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'modify', $this->codename . '/' . $this->codename);
 
 			$this->session->data['success'] = $this->language->get('text_success_install');
 		}
@@ -319,7 +292,10 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$this->model_extension_extension->uninstall('dashboard', 'd_seo_module_url_target');
 			$this->model_setting_setting->deleteSetting('dashboard_d_seo_module_url_target');
 			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'access', 'extension/dashboard/d_seo_module_url_target');
-			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'modify', 'extension/dashboard/d_seo_module_url_target');	
+			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'modify', 'extension/dashboard/d_seo_module_url_target');
+			
+			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'access', $this->codename . '/' . $this->codename);
+			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'modify', $this->codename . '/' . $this->codename);	
 
 			$this->session->data['success'] = $this->language->get('text_success_uninstall');
 		}
