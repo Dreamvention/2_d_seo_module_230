@@ -82,7 +82,6 @@
 												<div class="page-header">
 													<h3><span><?php echo $text_htaccess; ?></span></h3>
 												</div>
-
 												<div class="form-group">
 													<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
 													<div class="col-sm-10">
