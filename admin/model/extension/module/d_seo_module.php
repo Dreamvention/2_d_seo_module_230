@@ -201,6 +201,8 @@ class ModelExtensionModuleDSEOModule extends Model {
 	*	Install.
 	*/		
 	public function installModule() {
+		$this->db->query("ALTER TABLE " . DB_PREFIX . "setting MODIFY code VARCHAR(64) NOT NULL");
+		
 		$this->db->query("DROP TABLE IF EXISTS " . DB_PREFIX . "url_target");
 		$this->db->query("CREATE TABLE " . DB_PREFIX . "url_target (route VARCHAR(255) NOT NULL, language_id INT(11) NOT NULL, sort_order INT(3) NOT NULL, keyword VARCHAR(255) NOT NULL, PRIMARY KEY (route, language_id, sort_order), KEY keyword (keyword)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 		

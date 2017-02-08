@@ -1,5 +1,4 @@
 <?php
-
 // Text
 $_['text_target_keyword_empty']					= 'Your Target Keyword is empty. It is best to set 1-3 target for page to focus your SEO on.';
 $_['text_target_keyword_duplicate']				= 'You have duplicate Target Keywords. You should focus one unique keyword per url.';

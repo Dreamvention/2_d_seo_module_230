@@ -2,11 +2,6 @@
 // Heading
 $_['heading_title_main']						= 'SEO Module';
 
-// Text
-$_['text_general']								= 'General';
-$_['text_data']									= 'Data';
-$_['text_seo']									= 'SEO';
-
 // Entry
 $_['entry_target_keyword']						= 'Target Keyword';
 

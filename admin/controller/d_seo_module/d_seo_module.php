@@ -58,16 +58,16 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 		$this->{'model_d_seo_module_' . $this->codename}->addLanguage($data);
 	}
 	
-	public function setting_script() {	
-		$data['route'] = $this->route;
-				
-		return $this->load->view($this->route . '/setting_script.tpl');
-	}
-
 	public function language_delete($data) {
 		$this->load->model($this->route);
 
 		$this->{'model_d_seo_module_' . $this->codename}->deleteLanguage($data);
+	}
+	
+	public function setting_script() {	
+		$data['route'] = $this->route;
+				
+		return $this->load->view($this->route . '/setting_script.tpl');
 	}
 	
 	public function category_form_tab_general_language() {
@@ -109,6 +109,18 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 		return $this->load->view($this->route . '/category_form_script.tpl', $data);
 	}
 	
+	public function category_form_add($data) {
+		$this->load->model($this->route);
+		
+		$this->{'model_d_seo_module_' . $this->codename}->saveCategoryTargetKeyword($data);
+	}
+	
+	public function category_form_edit($data) {
+		$this->load->model($this->route);
+		
+		$this->{'model_d_seo_module_' . $this->codename}->saveCategoryTargetKeyword($data);
+	}
+	
 	public function product_form_tab_general_language() {
 		$this->load->language($this->route);
 		
@@ -146,6 +158,18 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 		$data['token'] = $this->session->data['token'];
 		
 		return $this->load->view($this->route . '/product_form_script.tpl', $data);
+	}
+	
+	public function product_form_add($data) {
+		$this->load->model($this->route);
+		
+		$this->{'model_d_seo_module_' . $this->codename}->saveProductTargetKeyword($data);
+	}
+	
+	public function product_form_edit($data) {
+		$this->load->model($this->route);
+		
+		$this->{'model_d_seo_module_' . $this->codename}->saveProductTargetKeyword($data);
 	}
 	
 	public function manufacturer_form_tab_general_language() {
@@ -187,6 +211,19 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 		return $this->load->view($this->route . '/manufacturer_form_script.tpl', $data);
 	}
 	
+	public function manufacturer_form_add($data) {
+		$this->load->model($this->route);
+
+		$this->{'model_d_seo_module_' . $this->codename}->addManufacturerDescription($data);
+		$this->{'model_d_seo_module_' . $this->codename}->saveManufacturerTargetKeyword($data);
+	}
+	
+	public function manufacturer_form_edit($data) {
+		$this->load->model($this->route);
+		
+		$this->{'model_d_seo_module_' . $this->codename}->saveManufacturerTargetKeyword($data);
+	}
+	
 	public function information_form_tab_general_language() {
 		$this->load->language($this->route);
 		
@@ -224,43 +261,6 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 		$data['token'] = $this->session->data['token'];
 		
 		return $this->load->view($this->route . '/information_form_script.tpl', $data);
-	}
-	
-	public function category_form_add($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_d_seo_module_' . $this->codename}->saveCategoryTargetKeyword($data);
-	}
-	
-	public function category_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_d_seo_module_' . $this->codename}->saveCategoryTargetKeyword($data);
-	}
-	
-	public function product_form_add($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_d_seo_module_' . $this->codename}->saveProductTargetKeyword($data);
-	}
-	
-	public function product_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_d_seo_module_' . $this->codename}->saveProductTargetKeyword($data);
-	}
-
-	public function manufacturer_form_add($data) {
-		$this->load->model($this->route);
-
-		$this->{'model_d_seo_module_' . $this->codename}->addManufacturerDescription($data);
-		$this->{'model_d_seo_module_' . $this->codename}->saveManufacturerTargetKeyword($data);
-	}
-	
-	public function manufacturer_form_edit($data) {
-		$this->load->model($this->route);
-		
-		$this->{'model_d_seo_module_' . $this->codename}->saveManufacturerTargetKeyword($data);
 	}
 	
 	public function information_form_add($data) {

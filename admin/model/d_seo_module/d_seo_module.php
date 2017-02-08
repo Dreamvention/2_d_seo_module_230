@@ -51,7 +51,7 @@ class ModelDSEOModuleDSEOModule extends Model {
 	}
 	
 	/*
-	*	Save Category Target Keyword.
+	*	Save Product Target Keyword.
 	*/
 	public function saveProductTargetKeyword($data) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'product_id=" . (int)$data['product_id'] . "'");
