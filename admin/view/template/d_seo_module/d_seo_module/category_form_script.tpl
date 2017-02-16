@@ -15,7 +15,7 @@
 		
 		if (keyword && !is_keyword) {
 			$.ajax({
-				url: 'index.php?route=<?php echo $route; ?>/getTargetKeywords&token=<?php echo $token; ?>',
+				url: 'index.php?route=extension/module/d_seo_module/getTargetKeywords&token=<?php echo $token; ?>',
 				type: 'post',
 				data: 'keyword=' + keyword,
 				dataType: 'json',

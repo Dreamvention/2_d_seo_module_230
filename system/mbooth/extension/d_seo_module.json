@@ -1,6 +1,6 @@
 {
     "codename": "d_seo_module",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "name": "SEO Module",
     "description": "SEO module is the core platform, necessary for the installation of other SEO modules.",
 	"index": "module/d_seo_module",
@@ -30,6 +30,7 @@
         "url": "https:/dreamvention.com/support"
     },
     "required": {
+		"d_phpexcel": ">= 1.0.0",
         "d_robots_txt_parser": ">= 1.0.0",
 	    "d_simple_html_dom": ">= 1.0.0",
         "d_shopunity": ">= 3.0.0"
@@ -43,7 +44,6 @@
 		"admin/controller/extension/module/d_seo_module.php",
 		"admin/model/extension/module/d_seo_module.php",
 		"admin/language/en-gb/extension/module/d_seo_module.php",
-		"admin/view/template/extension/module/d_seo_module.tpl",
 		"admin/view/stylesheet/d_seo_module.css",
 		
 		"admin/controller/extension/dashboard/d_seo_module_url_target.php",

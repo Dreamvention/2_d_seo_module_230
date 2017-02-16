@@ -46,6 +46,21 @@ class ModelExtensionModuleDSEOModule extends Model {
 								
 		return $target_keywords;
 	}
+	
+	/*
+	*	Return Target Keyword.
+	*/
+	public function getTargetKeyword($route) {
+		$target_keyword = array();
+		
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($route) . "' ORDER BY sort_order");
+		
+		foreach($query->rows as $result) {
+			$target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
+		}
+		
+		return $target_keyword;
+	}
 		
 	/*
 	*	Return list of seo extensions.

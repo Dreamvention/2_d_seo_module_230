@@ -16,7 +16,6 @@
 		<file>admin/controller/extension/module/d_seo_module.php</file>
 		<file>admin/model/extension/module/d_seo_module.php</file>
 		<file>admin/language/en-gb/extension/module/d_seo_module.php</file>
-		<file>admin/view/template/extension/module/d_seo_module.tpl</file>
 		<file>admin/view/stylesheet/d_seo_module.css</file>
 		
 		<file>admin/controller/extension/dashboard/d_seo_module_url_target.php</file>

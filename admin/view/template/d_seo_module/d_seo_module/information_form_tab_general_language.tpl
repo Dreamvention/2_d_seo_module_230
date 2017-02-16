@@ -7,11 +7,11 @@
         </div>
         <div id="target_keywords_<?php echo $language_id; ?>" class="target-keywords well well-sm" language_id="<?php echo $language_id; ?>">
 			<?php if (isset($target_keyword[$language_id])) { ?>
-			<?php foreach ($target_keyword[$language_id] as $keyword) { ?>
+			<?php foreach ($target_keyword[$language_id] as $sort_order => $keyword) { ?>
 			<div class="target-keyword sort-item">
-				<span class="target-keyword-title <?php if (isset($keyword['duplicate'])) { ?>text-danger<?php } ?>"><?php echo $keyword['value']; ?></span>
+				<span class="target-keyword-title <?php if (isset($target_keyword_duplicate[$language_id][$sort_order])) { ?>text-danger<?php } ?>"><?php echo $keyword; ?></span>
 				<span class="icons"><i class="icon-delete fa fa-minus-circle" onclick="$(this).parents('.target-keyword').remove()"></i><i class="icon-drag fa fa-bars"></i></span>
-				<input type="hidden" name="target_keyword[<?php echo $language_id; ?>][]" value="<?php echo $keyword['value']; ?>" />
+				<input type="hidden" name="target_keyword[<?php echo $language_id; ?>][]" value="<?php echo $keyword; ?>" />
 			</div>
 			<?php } ?>
 			<?php } ?>

@@ -8,23 +8,34 @@ $_['text_edit']									= 'Edit SEO Module settings';
 $_['text_install']								= 'Install';
 $_['text_modules']								= 'Modules';
 $_['text_settings']								= 'Settings';
+$_['text_custom_pages']          				= 'Custom Pages';
+$_['text_export_import']          				= 'Export & Import';
 $_['text_instructions']							= 'Instructions';
 $_['text_basic_settings'] 						= 'Basic Settings';
 $_['text_htaccess'] 							= '.htaccess';
 $_['text_robots'] 								= 'robots.txt';
-$_['text_success']								= 'Success: You have modified SEO Module!';
+$_['text_export'] 								= 'Export';
+$_['text_import'] 								= 'Import';
+$_['text_success_save']							= 'Success: You have modified SEO Module!';
 $_['text_success_install']						= 'Success: You have installed SEO Module!';
 $_['text_success_uninstall']					= 'Success: You have uninstalled SEO Module!';
-$_['text_module']								= 'Module';
+$_['text_success_create_default_custom_pages']  = 'Success: You have successfully added Custom Page!';
+$_['text_success_add_custom_page']       		= 'Success: You have successfully added Custom Page!';
+$_['text_success_delete_custom_pages']      	= 'Success: You have successfully deleted Custom Pages!';
+$_['text_success_import']        				= 'Success: You have successfully imported your data!';
 $_['text_all_stores']			 				= 'All Stores';
 $_['text_all_languages']						= 'All Languages';
 $_['text_yes'] 									= 'Yes';
 $_['text_no'] 									= 'No';
 $_['text_enabled']								= 'Enabled';
 $_['text_disabled']								= 'Disabled';
+$_['text_custom_page']          				= 'Custom Page';
+$_['text_add_custom_page']   					= 'Add Custom Page';
 $_['text_general']								= 'General';
 $_['text_data']									= 'Data';
 $_['text_seo']									= 'SEO';
+$_['text_create_default_custom_pages_confirm']	= 'Creation default Custom Pages will delete all old Custom Pages.\nYou sure you want to create default Custom Pages?';
+$_['text_delete_custom_pages_confirm']   		= 'You sure you want to delete selected Custom Pages?';
 $_['text_uninstall_confirm']					= 'After deinstallation is compleate the SEO Module will delete all additional fields in the product, category, manufacturer and information that have been added after installation.\nAre you sure you want to uninstall the SEO Module? ';
 $_['text_instructions_full'] 					= '
 <div class="row">
@@ -32,6 +43,8 @@ $_['text_instructions_full'] 					= '
 		<ul class="nav nav-pills nav-stacked">
 			<li class="active"><a href="#vtab_instruction_install"  data-toggle="tab">Installation and Updating</a></li>
 			<li><a href="#vtab_instruction_setting" data-toggle="tab">Settings</a></li>
+			<li><a href="#vtab_instruction_custom_page" data-toggle="tab">Custom Pages</a></li>
+			<li><a href="#vtab_instruction_export_import" data-toggle="tab">Export & Import</a></li>
 			<li><a href="#vtab_instruction_dashboard" data-toggle="tab">Dashboard</a></li>
 		</ul>
 	</div>
@@ -76,6 +89,7 @@ $_['text_instructions_full'] 					= '
 					<p>Here you can:</p>
 					<ol>
 						<li>Enable/Disable SEO Module on the pages of your shop by click Status.</li>
+						<li>Specify in the field "List Items Per Page" the maximum number of items in the list on the tab "Custom Pages".</li>
 						<li>Uninstall SEO Module.</li>
 					</ol>
 					<div class="bs-callout bs-callout-info">
@@ -108,6 +122,23 @@ $_['text_instructions_full'] 					= '
 					</div>
 				</div>
 			</div>
+			<div id="vtab_instruction_custom_page" class="tab-pane">
+				<div class="tab-body">
+					<h3>Custom Pages</h3>
+					<p>You can add Target Keywords on either custom static page of Opencart, including on homepage. To add the Custom Page, press button <span class="btn btn-primary btn-xs"><i class="fa fa-plus"></i></span> in top right of the page. Then you must specify the field "Route" of the custom static page (example common/home, checkout/cart, account/login, product/special, etc.) and a multilingual field "Target Keyword".</p>
+					<p>You can also create default structure of Custom Pages with their Target Keywords, by press button <span class="btn btn-success btn-xs"><i class="fa fa-cogs"></i></span> in top right of the page.</p>
+					<p>To edit field "Target Keyword", you need to click on the field table cell, change the value of field and press button <span class="btn btn-primary btn-xs"><i class="fa fa-save"></i></span>. If you decide not to save the new value, press button <span class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></span>.</p>
+					<p>To delete Custom Pages, select the pages that you want to delete and press button <span class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></span> in top right of the page.</p>
+				</div>
+			</div>
+			<div id="vtab_instruction_export_import" class="tab-pane">
+				<div class="tab-body">
+					<h3>Export</h3>
+					<p>Export is used to upload a list of Custom Pages to Excel file. To export the Custom Pages on the tab "Export", choose it and press button "Export".</p>
+					<h3>Import</h3>
+					<p>Import is used to download a list of Custom Pages from Excel file. To import the Custom Pages on the tab "Import", choose the xls file and press button "Import".</p>
+				</div>
+			</div>
 			<div id="vtab_instruction_dashboard" class="tab-pane">
 				<div class="tab-body">
 					<h3>Dashboard</h3>
@@ -130,10 +161,21 @@ $_['text_not_found'] = '
 	<p><a class="btn btn-primary btn-lg" href="https://shopunity.net/download" target="_blank">Download</a></p>
 </div>';
 
+// Column	
+$_['column_route']								= 'Route';
+$_['column_target_keyword']						= 'Target Keyword';
+
 // Entry
 $_['entry_status']								= 'Status';
+$_['entry_list_limit']        					= 'List Items Per Page';
 $_['entry_uninstall']							= 'Uninstall Module';
 $_['entry_text']								= 'Text';
+$_['entry_route']								= 'Route';
+$_['entry_target_keyword']						= 'Target Keyword';
+$_['entry_sheet']        						= 'Choose Sheets';
+$_['entry_export']        						= 'Export to File';
+$_['entry_upload']        						= 'Upload File';
+$_['entry_import']        						= 'Import from File';
 
 // Button
 $_['button_save'] 								= 'Save';
@@ -142,6 +184,11 @@ $_['button_cancel'] 							= 'Cancel';
 $_['button_install'] 							= 'Install';
 $_['button_uninstall'] 							= 'Uninstall';
 $_['button_edit_store_setting'] 				= 'Edit store settings';
+$_['button_create_default_custom_page']   		= 'Create Default Custom Pages';
+$_['button_add_custom_page']   					= 'Add Custom Page';
+$_['button_delete_custom_page'] 				= 'Delete Custom Pages';
+$_['button_export'] 							= 'Export';
+$_['button_import'] 							= 'Import';
 
 // Help
 $_['help_install']								= '
@@ -199,5 +246,9 @@ Host: %s
 $_['error_warning']          					= 'Warning: Please check the form carefully for errors!';
 $_['error_permission']    						= 'Warning: You do not have permission to modify module SEO Module!';
 $_['error_dependencies']    					= 'Warning: You can not uninstall this module until you uninstall dependencies modules!';
+$_['error_route']								= 'Warning: Route does not appear to be valid!';
+$_['error_route_exists']						= 'Warning: Route %s is already exists!';
+$_['error_upload_name']							= 'Warning: Missing file name for upload!';
+$_['error_upload_ext']							= 'Warning: Uploaded file has not one of the \'.xls\', \'.xlsx\' or \'.ods\' file name extensions, it might not be a spreadsheet file!';
 
 ?>

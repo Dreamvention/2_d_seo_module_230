@@ -5,12 +5,12 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 	*	Return List Elements for Manager.
 	*/
 	public function getListElements($data) {
-		if ($data['sheet_id'] == 'category') {
+		if ($data['sheet_code'] == 'category') {
 			$implode = array();
 			$implode[] = "c.category_id";
 			
 			foreach ($data['fields'] as $field) {
-				if ($field['id'] == 'target_keyword') {
+				if ($field['code'] == 'target_keyword') {
 					$implode[] = "CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword";
 				}
 			}
@@ -19,9 +19,9 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			
 			$implode = array();
 			
-			foreach ($data['filter'] as $field_id => $filter) {
+			foreach ($data['filter'] as $field_code => $filter) {
 				if (!empty($filter)) {
-					if ($field_id == 'target_keyword') {
+					if ($field_code == 'target_keyword') {
 						$implode[] = "(ut2.keyword LIKE '%" . $this->db->escape($filter) . "%')";
 					}
 				}
@@ -44,12 +44,12 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			return $categories;	
 		}
 		
-		if ($data['sheet_id'] == 'product') {
+		if ($data['sheet_code'] == 'product') {
 			$implode = array();
 			$implode[] = "p.product_id";
 			
 			foreach ($data['fields'] as $field) {
-				if ($field['id'] == 'target_keyword') {
+				if ($field['code'] == 'target_keyword') {
 					$implode[] = "CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword";
 				}
 			}
@@ -58,9 +58,9 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 		
 			$implode = array();
 			
-			foreach ($data['filter'] as $field_id => $filter) {
+			foreach ($data['filter'] as $field_code => $filter) {
 				if (!empty($filter)) {
-					if ($field_id == 'target_keyword') {
+					if ($field_code == 'target_keyword') {
 						$implode[] = "(ut2.keyword LIKE '%" . $this->db->escape($filter) . "%')";
 					}
 				}
@@ -83,12 +83,12 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			return $products;	
 		}
 		
-		if ($data['sheet_id'] == 'manufacturer') {
+		if ($data['sheet_code'] == 'manufacturer') {
 			$implode = array();
 			$implode[] = "m.manufacturer_id";
 			
 			foreach ($data['fields'] as $field) {
-				if ($field['id'] == 'target_keyword') {
+				if ($field['code'] == 'target_keyword') {
 					$implode[] = "CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword";
 				}
 			}
@@ -97,9 +97,9 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			
 			$implode = array();
 			
-			foreach ($data['filter'] as $field_id => $filter) {
+			foreach ($data['filter'] as $field_code => $filter) {
 				if (!empty($filter)) {
-					if ($field_id == 'target_keyword') {
+					if ($field_code == 'target_keyword') {
 						$implode[] = "(ut2.keyword LIKE '%" . $this->db->escape($filter) . "%')";
 					}
 				}
@@ -122,12 +122,12 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			return $manufacturers;	
 		}
 		
-		if ($data['sheet_id'] == 'information') {
+		if ($data['sheet_code'] == 'information') {
 			$implode = array();
 			$implode[] = "i.information_id";
 			
 			foreach ($data['fields'] as $field) {
-				if ($field['id'] == 'target_keyword') {
+				if ($field['code'] == 'target_keyword') {
 					$implode[] = "CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword";
 				}
 			}
@@ -136,9 +136,9 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			
 			$implode = array();
 			
-			foreach ($data['filter'] as $field_id => $filter) {
+			foreach ($data['filter'] as $field_code => $filter) {
 				if (!empty($filter)) {
-					if ($field_id == 'target_keyword') {
+					if ($field_code == 'target_keyword') {
 						$implode[] = "(ut2.keyword LIKE '%" . $this->db->escape($filter) . "%')";
 					}
 				}
@@ -168,8 +168,8 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 	*	Save Element Field for Manager.
 	*/
 	public function saveElementField($element) {		
-		if ($element['sheet_id'] == 'category') {
-			if ($element['field_id'] == 'target_keyword') {
+		if ($element['sheet_code'] == 'category') {
+			if ($element['field_code'] == 'target_keyword') {
 				$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'category_id=" . (int)$element['element_id'] . "' AND language_id = '" . (int)$element['language_id'] . "'");
 				
 				preg_match_all('/\[[^]]+\]/', $element['value'], $keywords);
@@ -186,8 +186,8 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			}
 		}
 		
-		if ($element['sheet_id'] == 'product') {
-			if ($element['field_id'] == 'target_keyword') {
+		if ($element['sheet_code'] == 'product') {
+			if ($element['field_code'] == 'target_keyword') {
 				$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'product_id=" . (int)$element['element_id'] . "' AND language_id = '" . (int)$element['language_id'] . "'");
 				
 				preg_match_all("/\[[^]]+\]/", $element['value'], $keywords);
@@ -204,8 +204,8 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			}
 		}
 		
-		if ($element['sheet_id'] == 'manufacturer') {
-			if ($element['field_id'] == 'target_keyword') {
+		if ($element['sheet_code'] == 'manufacturer') {
+			if ($element['field_code'] == 'target_keyword') {
 				$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'manufacturer_id=" . (int)$element['element_id'] . "' AND language_id = '" . (int)$element['language_id'] . "'");
 				
 				preg_match_all("/\[[^]]+\]/", $element['value'], $keywords);
@@ -222,8 +222,8 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			}
 		}
 		
-		if ($element['sheet_id'] == 'information') {
-			if ($element['field_id'] == 'target_keyword') {
+		if ($element['sheet_code'] == 'information') {
+			if ($element['field_code'] == 'target_keyword') {
 				$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'information_id=" . (int)$element['element_id'] . "' AND language_id = '" . (int)$element['language_id'] . "'");
 				
 				preg_match_all("/\[[^]]+\]/", $element['value'], $keywords);
@@ -249,7 +249,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 	public function getExportElements($data) {
 		$languages = $this->getLanguages();
 				
-		if ($data['sheet_id'] == 'category') {
+		if ($data['sheet_code'] == 'category') {
 			$categories = array();
 			
 			$implode = array();
@@ -257,7 +257,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			$implode[] = "ut.language_id";
 									
 			foreach ($data['fields'] as $field) {
-				if ($field['id'] == 'target_keyword') {
+				if ($field['code'] == 'target_keyword') {
 					$implode[] = "CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword";
 				}
 			}
@@ -281,7 +281,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			return $categories;	
 		}
 		
-		if ($data['sheet_id'] == 'product') {
+		if ($data['sheet_code'] == 'product') {
 			$products = array();
 			
 			$implode = array();
@@ -289,7 +289,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			$implode[] = "ut.language_id";
 			
 			foreach ($data['fields'] as $field) {
-				if ($field['id'] == 'target_keyword') {
+				if ($field['code'] == 'target_keyword') {
 					$implode[] = "CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword";
 				}
 			}
@@ -313,7 +313,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			return $products;	
 		}
 		
-		if ($data['sheet_id'] == 'manufacturer') {
+		if ($data['sheet_code'] == 'manufacturer') {
 			$manufacturers = array();
 						
 			$implode = array();
@@ -321,7 +321,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			$implode[] = "ut.language_id";
 			
 			foreach ($data['fields'] as $field) {
-				if ($field['id'] == 'target_keyword') {
+				if ($field['code'] == 'target_keyword') {
 					$implode[] = "CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword";
 				}
 			}
@@ -345,7 +345,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			return $manufacturers;	
 		}
 		
-		if ($data['sheet_id'] == 'information') {
+		if ($data['sheet_code'] == 'information') {
 			$informations = array();
 			
 			$implode = array();
@@ -353,7 +353,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			$implode[] = "ut.language_id";
 			
 			foreach ($data['fields'] as $field) {
-				if ($field['id'] == 'target_keyword') {
+				if ($field['code'] == 'target_keyword') {
 					$implode[] = "CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword";
 				}
 			}
@@ -386,7 +386,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 	public function saveImportElements($data) {
 		$languages = $this->getLanguages();
 				
-		if ($data['sheet_id'] == 'category') {
+		if ($data['sheet_code'] == 'category') {
 			$categories = array();
 			
 			$query = $this->db->query("SELECT c.category_id, ut.language_id, CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "url_target ut ON (ut.route = CONCAT('category_id=', c.category_id)) GROUP BY c.category_id, ut.language_id");
@@ -424,7 +424,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			}
 		}
 		
-		if ($data['sheet_id'] == 'product') {
+		if ($data['sheet_code'] == 'product') {
 			$products = array();
 			
 			$query = $this->db->query("SELECT p.product_id, ut.language_id, CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "url_target ut ON (ut.route = CONCAT('product_id=', p.product_id)) GROUP BY p.product_id, ut.language_id");
@@ -462,7 +462,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			}
 		}
 		
-		if ($data['sheet_id'] == 'manufacturer') {
+		if ($data['sheet_code'] == 'manufacturer') {
 			$manufacturers = array();
 			
 			$query = $this->db->query("SELECT m.manufacturer_id, ut.language_id, CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "url_target ut ON (ut.route = CONCAT('manufacturer_id=', m.manufacturer_id)) GROUP BY m.manufacturer_id, ut.language_id");
@@ -500,7 +500,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			}
 		}
 		
-		if ($data['sheet_id']=='information') {
+		if ($data['sheet_code']=='information') {
 			$informations = array();
 			
 			$query = $this->db->query("SELECT i.information_id, ut.language_id, CONCAT('[', GROUP_CONCAT(DISTINCT ut.keyword ORDER BY ut.sort_order SEPARATOR ']['), ']') as target_keyword FROM " . DB_PREFIX . "information i LEFT JOIN " . DB_PREFIX . "url_target ut ON (ut.route = CONCAT('information_id=', i.information_id)) GROUP BY i.information_id, ut.language_id");

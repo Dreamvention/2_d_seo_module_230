@@ -63,7 +63,162 @@ class ModelExtensionModuleDSEOModule extends Model {
 				
 		return $data;
 	}
+	
+	/*
+	*	Create Default Custom Page.
+	*/
+	public function createDefaultCustomPage() {
+		$languages = $this->getLanguages();
+		
+		$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route LIKE '%/%'");
+		
+		foreach ($languages as $language) {
+			$this->db->query("INSERT INTO " . DB_PREFIX . "url_target (route, language_id, sort_order, keyword) VALUES
+				('account/account', " . $language['language_id'] . ", '1', 'my-account'),
+				('account/address', " . $language['language_id'] . ", '1', 'address-book'),
+				('account/download', " . $language['language_id'] . ", '1', 'downloads'),
+				('account/edit', " . $language['language_id'] . ", '1', 'edit-account'),
+				('account/forgotten', " . $language['language_id'] . ", '1', 'forgot-password'),
+				('account/login', " . $language['language_id'] . ", '1', 'login'),
+				('account/logout', " . $language['language_id'] . ", '1', 'logout'),
+				('account/newsletter', " . $language['language_id'] . ", '1', 'newsletter'),
+				('account/order', " . $language['language_id'] . ", '1', 'order-history'),
+				('account/password', " . $language['language_id'] . ", '1', 'change-password'),
+				('account/register', " . $language['language_id'] . ", '1', 'create-account'),
+				('account/return', " . $language['language_id'] . ", '1', 'returns'),
+				('account/return/insert', " . $language['language_id'] . ", '1', 'request-return'),
+				('account/reward', " . $language['language_id'] . ", '1', 'reward-points'),
+				('account/transaction', " . $language['language_id'] . ", '1', 'transactions'),
+				('account/voucher', " . $language['language_id'] . ", '1', 'account-voucher'),
+				('account/wishlist', " . $language['language_id'] . ", '1', 'wishlist'),
+				('affiliate/account', " . $language['language_id'] . ", '1', 'affiliates'),
+				('affiliate/edit', " . $language['language_id'] . ", '1', 'edit-affiliate-account'),
+				('affiliate/forgotten', " . $language['language_id'] . ", '1', 'affiliate-forgot-password'),
+				('affiliate/login', " . $language['language_id'] . ", '1', 'affiliate-login'),
+				('affiliate/logout', " . $language['language_id'] . ", '1', 'affiliate-logout'),
+				('affiliate/password', " . $language['language_id'] . ", '1', 'change-affiliate-password'),
+				('affiliate/payment', " . $language['language_id'] . ", '1', 'affiliate-payment-options'),
+				('affiliate/register', " . $language['language_id'] . ", '1', 'create-affiliate-account'),
+				('affiliate/tracking', " . $language['language_id'] . ", '1', 'affiliate-tracking-code'),
+				('affiliate/transaction', " . $language['language_id'] . ", '1', 'affiliate-transactions'),
+				('checkout/cart', " . $language['language_id'] . ", '1', 'cart'),
+				('checkout/checkout', " . $language['language_id'] . ", '1', 'checkout'),
+				('checkout/success', " . $language['language_id'] . ", '1', 'checkout-success'),
+				('checkout/voucher', " . $language['language_id'] . ", '1', 'gift-vouchers'),
+				('common/home', " . $language['language_id'] . ", '1', ''),
+				('product/compare', " . $language['language_id'] . ", '1', 'compare-products'),
+				('product/manufacturer', " . $language['language_id'] . ", '1', 'brands'),
+				('product/search', " . $language['language_id'] . ", '1', 'search'),
+				('product/special', " . $language['language_id'] . ", '1', 'specials'),
+				('information/contact', " . $language['language_id'] . ", '1', 'contact-us'),
+				('information/sitemap', " . $language['language_id'] . ", '1', 'sitemap')
+			");
+		}
+	}
+	
+	/*
+	*	Save Custom Pages.
+	*/
+	public function saveCustomPages($custom_pages) {
+		$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route LIKE '%/%'");
+		
+		foreach ($custom_pages as $custom_page) {
+			foreach ($custom_page['target_keyword'] as $language_id => $target_keyword) {
+				preg_match_all('/\[[^]]+\]/', $target_keyword, $keywords);
+				
+				$sort_order = 1;
+				
+				foreach ($keywords[0] as $keyword) {
+					$keyword = substr($keyword, 1, strlen($keyword)-2);
+					$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = '" . $this->db->escape($custom_page['route']) . "', language_id = '" . (int)$language_id . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
+					
+					$sort_order++;
+				}
+			}
+		}
+	}
 			
+	/*
+	*	Add Custom Page.
+	*/
+	public function addCustomPage($data) {
+		foreach ($data['target_keyword'] as $language_id => $target_keyword) {
+			preg_match_all('/\[[^]]+\]/', $target_keyword, $keywords);
+				
+			$sort_order = 1;
+				
+			foreach ($keywords[0] as $keyword) {
+				$keyword = substr($keyword, 1, strlen($keyword)-2);
+				$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = '" . $this->db->escape($data['route']) . "', language_id = '" . (int)$language_id . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
+					
+				$sort_order++;
+			}
+		}
+	}
+	
+	/*
+	*	Edit Custom Page.
+	*/
+	public function editCustomPage($data) {
+		$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($data['route']) . "' AND language_id = '" . (int)$data['language_id'] . "'");
+				
+		preg_match_all('/\[[^]]+\]/', $data['target_keyword'], $keywords);
+				
+		$sort_order = 1;
+		
+		foreach ($keywords[0] as $keyword) {
+			$keyword = substr($keyword, 1, strlen($keyword)-2);
+			$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = '" . $this->db->escape($data['route']) . "', language_id = '" . (int)$data['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
+					
+			$sort_order++;
+		}
+	}
+	
+	/*
+	*	Delete Custom Page.
+	*/
+	public function deleteCustomPage($route) {
+		$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($route) . "'");
+	}
+	
+	/*
+	*	Return Custom Pages.
+	*/
+	public function getCustomPages($data = array()) {
+		$custom_pages = array();
+		
+		$languages = $this->getLanguages();
+		
+		$sql = "SELECT * FROM " . DB_PREFIX . "url_target WHERE route LIKE '%/%'";
+		
+		$implode = array();
+		
+		if (!empty($data['filter_route'])) {
+			$implode[] = "route = '" . $this->db->escape($data['filter_route']) . "'";
+		}
+		
+		if (!empty($data['filter_keyword'])) {
+			$implode[] = "keyword = '" . $this->db->escape($data['filter_keyword']) . "'";
+		}
+		
+		if ($implode) {
+			$sql .= " AND " . implode(' AND ', $implode);
+		}
+		
+		$sql .= " ORDER BY route, sort_order";
+		
+		$query = $this->db->query($sql);
+		
+		foreach ($query->rows as $result) {
+			$custom_pages[$result['route']]['route'] = $result['route'];
+			if ($result['language_id'] && $result['sort_order'] && $result['keyword']) {
+				$custom_pages[$result['route']]['target_keyword'][$result['language_id']][$result['sort_order']] = $result['keyword'];
+			}
+		}
+					
+		return $custom_pages;
+	}
+				
 	/*
 	*	Return Target Keywords.
 	*/
@@ -107,6 +262,21 @@ class ModelExtensionModuleDSEOModule extends Model {
 		}
 								
 		return $target_keywords;
+	}
+	
+	/*
+	*	Return Target Keyword.
+	*/
+	public function getTargetKeyword($route) {
+		$target_keyword = array();
+		
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($route) . "' ORDER BY sort_order");
+		
+		foreach($query->rows as $result) {
+			$target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
+		}
+		
+		return $target_keyword;
 	}
 		
 	/*

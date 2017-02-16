@@ -13,7 +13,7 @@ class ControllerDSEOModuleManagerDSEOModule extends Controller {
 		
 		$this->config->load($this->config_file);
 		$config_setting = ($this->config->get($this->codename . '_manager')) ? $this->config->get($this->codename . '_manager') : array();
-
+		
 		foreach ($config_setting['sheet'] as &$sheet) {
 			foreach ($sheet['field'] as &$field) {
 				if (substr($field['name'], 0, strlen('text_')) == 'text_') {

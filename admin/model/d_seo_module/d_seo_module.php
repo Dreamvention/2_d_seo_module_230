@@ -105,63 +105,17 @@ class ModelDSEOModuleDSEOModule extends Model {
 	}	
 		
 	/*
-	*	Return Target Keywords.
-	*/
-	public function getTargetKeywords($data = array()) {
-		$target_keywords = array();
-		
-		$languages = $this->getLanguages();
-		
-		$sql = "SELECT * FROM " . DB_PREFIX . "url_target";
-		
-		$implode = array();
-		
-		if (!empty($data['filter_route'])) {
-			$implode[] = "route = '" . $this->db->escape($data['filter_route']) . "'";
-		}
-		
-		if (!empty($data['filter_language_id'])) {
-			$implode[] = "language_id = '" . (int)$data['filter_language_id'] . "'";
-		}
-		
-		if (!empty($data['filter_sort_order'])) {
-			$implode[] = "sort_order = '" . (int)$data['filter_sort_order'] . "'";
-		}
-		
-		if (!empty($data['filter_keyword'])) {
-			$implode[] = "keyword = '" . $this->db->escape($data['filter_keyword']) . "'";
-		}
-		
-		if ($implode) {
-			$sql .= " WHERE " . implode(' AND ', $implode);
-		}
-		
-		$sql .= " ORDER BY sort_order";
-				
-		$query = $this->db->query($sql);
-		
-		foreach ($query->rows as $result) {
-			if ($result['language_id'] && $result['sort_order'] && $result['keyword']) {
-				$target_keywords[$result['route']][$result['language_id']][$result['sort_order']] = $result['keyword'];
-			}
-		}
-								
-		return $target_keywords;
-	}
-	
-	/*
 	*	Return Category Target Keyword.
 	*/
 	public function getCategoryTargetKeyword($category_id) {
+		$this->load->model('extension/module/d_seo_module');
+		
 		$category_target_keyword = array();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = 'category_id=" . (int)$category_id . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$category_target_keyword[$result['language_id']][$result['sort_order']]['value'] = $result['keyword'];
-			if (count($this->getTargetKeywords(array('filter_keyword' => $result['keyword'])))>1) {
-				$category_target_keyword[$result['language_id']][$result['sort_order']]['duplicate'] = 1;
-			}
+			$category_target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
 		}
 		
 		return $category_target_keyword;
@@ -171,15 +125,14 @@ class ModelDSEOModuleDSEOModule extends Model {
 	*	Return Product Target Keyword.
 	*/
 	public function getProductTargetKeyword($product_id) {
+		$this->load->model('extension/module/d_seo_module');
+		
 		$product_target_keyword = array();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = 'product_id=" . (int)$product_id . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$product_target_keyword[$result['language_id']][$result['sort_order']]['value'] = $result['keyword'];
-			if (count($this->getTargetKeywords(array('filter_keyword' => $result['keyword'])))>1) {
-				$product_target_keyword[$result['language_id']][$result['sort_order']]['duplicate'] = 1;
-			}
+			$product_target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
 		}
 		
 		return $product_target_keyword;
@@ -189,15 +142,14 @@ class ModelDSEOModuleDSEOModule extends Model {
 	*	Return Manufacturer Target Keyword.
 	*/
 	public function getManufacturerTargetKeyword($manufacturer_id) {
+		$this->load->model('extension/module/d_seo_module');
+		
 		$manufacturer_target_keyword = array();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = 'manufacturer_id=" . (int)$manufacturer_id . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$manufacturer_target_keyword[$result['language_id']][$result['sort_order']]['value'] = $result['keyword'];
-			if (count($this->getTargetKeywords(array('filter_keyword' => $result['keyword'])))>1) {
-				$manufacturer_target_keyword[$result['language_id']][$result['sort_order']]['duplicate'] = 1;
-			}
+			$manufacturer_target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
 		}
 		
 		return $manufacturer_target_keyword;
@@ -207,15 +159,14 @@ class ModelDSEOModuleDSEOModule extends Model {
 	*	Return Information Target Keyword.
 	*/
 	public function getInformationTargetKeyword($information_id) {
+		$this->load->model('extension/module/d_seo_module');
+		
 		$information_target_keyword = array();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = 'information_id=" . (int)$information_id . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$information_target_keyword[$result['language_id']][$result['sort_order']]['value'] = $result['keyword'];
-			if (count($this->getTargetKeywords(array('filter_keyword' => $result['keyword'])))>1) {
-				$information_target_keyword[$result['language_id']][$result['sort_order']]['duplicate'] = 1;
-			}
+			$information_target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
 		}
 		
 		return $information_target_keyword;
