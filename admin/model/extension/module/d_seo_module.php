@@ -105,7 +105,6 @@ class ModelExtensionModuleDSEOModule extends Model {
 				('checkout/checkout', " . $language['language_id'] . ", '1', 'checkout'),
 				('checkout/success', " . $language['language_id'] . ", '1', 'checkout-success'),
 				('checkout/voucher', " . $language['language_id'] . ", '1', 'gift-vouchers'),
-				('common/home', " . $language['language_id'] . ", '1', ''),
 				('product/compare', " . $language['language_id'] . ", '1', 'compare-products'),
 				('product/manufacturer', " . $language['language_id'] . ", '1', 'brands'),
 				('product/search', " . $language['language_id'] . ", '1', 'search'),

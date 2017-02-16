@@ -248,6 +248,7 @@ $_['error_permission']    						= 'Warning: You do not have permission to modify
 $_['error_dependencies']    					= 'Warning: You can not uninstall this module until you uninstall dependencies modules!';
 $_['error_route']								= 'Warning: Route does not appear to be valid!';
 $_['error_route_exists']						= 'Warning: Route %s is already exists!';
+$_['error_target_keyword']							= 'Warning: Target Keyword does not appear to be valid!';
 $_['error_upload_name']							= 'Warning: Missing file name for upload!';
 $_['error_upload_ext']							= 'Warning: Uploaded file has not one of the \'.xls\', \'.xlsx\' or \'.ods\' file name extensions, it might not be a spreadsheet file!';
 

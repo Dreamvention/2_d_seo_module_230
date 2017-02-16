@@ -728,7 +728,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		
 		$this->load->model($this->route);
 		
-		if (isset($this->request->post['route']) && isset($this->request->post['language_id']) && isset($this->request->post['target_keyword']) && $this->validate()) {
+		if (isset($this->request->post['route']) && isset($this->request->post['language_id']) && isset($this->request->post['target_keyword']) && $this->validateEditCustomPage()) {
 			$custom_page_data = array(
 				'route'				=> $this->request->post['route'],
 				'language_id'		=> $this->request->post['language_id'],
@@ -1623,7 +1623,36 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$this->error['warning'] = sprintf($this->language->get('error_route_exists'), $this->request->post['custom_page']['route']);
 			return false;
 		}
+		
+		foreach ($this->request->post['custom_page']['target_keyword'] as $language_id => $target_keyword) {
+			preg_match_all('/\[[^]]+\]/', $target_keyword, $keywords);
 				
+			if (!$keywords[0]) {
+				$this->error['warning'] = sprintf($this->language->get('error_target_keyword'), $target_keyword);
+				return false;
+			}	
+		}	
+				
+		return true;
+	}
+	
+	private function validateEditCustomPage($permission = 'modify') {
+		if (isset($this->request->post['config'])) {
+			return false;
+		}
+				
+		if (!$this->user->hasPermission($permission, $this->route)) {
+			$this->error['warning'] = $this->language->get('error_permission');
+			return false;
+		}
+		
+		preg_match_all('/\[[^]]+\]/', $this->request->post['target_keyword'], $keywords);
+				
+		if (!$keywords[0]) {
+			$this->error['warning'] = sprintf($this->language->get('error_target_keyword'), $this->request->post['target_keyword']);
+			return false;
+		}	
+						
 		return true;
 	}
 		
