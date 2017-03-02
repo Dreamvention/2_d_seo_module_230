@@ -67,7 +67,8 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 			
 			if (isset($data['target_keyword'][$language['language_id']])) {
 				foreach ($data['target_keyword'][$language['language_id']] as $sort_order => $keyword) {
-					if (count($this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword)))>1) {
+					$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
+					if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
 						$data['target_keyword_duplicate'][$language['language_id']][$sort_order] = 1;
 					}
 				}
@@ -129,7 +130,8 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 			
 			if (isset($data['target_keyword'][$language['language_id']])) {
 				foreach ($data['target_keyword'][$language['language_id']] as $sort_order => $keyword) {
-					if (count($this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword)))>1) {
+					$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
+					if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
 						$data['target_keyword_duplicate'][$language['language_id']][$sort_order] = 1;
 					}
 				}
@@ -191,7 +193,8 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 			
 			if (isset($data['target_keyword'][$language['language_id']])) {
 				foreach ($data['target_keyword'][$language['language_id']] as $sort_order => $keyword) {
-					if (count($this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword)))>1) {
+					$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
+					if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
 						$data['target_keyword_duplicate'][$language['language_id']][$sort_order] = 1;
 					}
 				}
@@ -254,7 +257,8 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 			
 			if (isset($data['target_keyword'][$language['language_id']])) {
 				foreach ($data['target_keyword'][$language['language_id']] as $sort_order => $keyword) {
-					if (count($this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword)))>1) {
+					$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
+					if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
 						$data['target_keyword_duplicate'][$language['language_id']][$sort_order] = 1;
 					}
 				}

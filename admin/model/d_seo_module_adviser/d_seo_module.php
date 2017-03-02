@@ -13,14 +13,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 			$robots_txt_parser = new d_robots_txt_parser(file_get_contents($file_robots));
 		}
 				
-		$target_keyword = array();
-			
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($route) . "' ORDER BY sort_order");
-			
-		foreach($query->rows as $result) {
-			$target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
-		}
-		
+		$target_keyword = $this->{'model_extension_module_' . $this->codename}->getTargetKeyword($route);	
 		$seo_keyword = $this->getSEOKeyword($route);
 																
 		$adviser_elements = array();
@@ -89,7 +82,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 			
 		return $adviser_elements;
 	}
-	
+		
 	/*
 	*	Return SEO Keyword.
 	*/

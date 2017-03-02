@@ -110,15 +110,15 @@ class ModelDSEOModuleDSEOModule extends Model {
 	public function getCategoryTargetKeyword($category_id) {
 		$this->load->model('extension/module/d_seo_module');
 		
-		$category_target_keyword = array();
+		$target_keyword = array();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = 'category_id=" . (int)$category_id . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$category_target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
+			$target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
 		}
 		
-		return $category_target_keyword;
+		return $target_keyword;
 	}
 	
 	/*
@@ -127,15 +127,15 @@ class ModelDSEOModuleDSEOModule extends Model {
 	public function getProductTargetKeyword($product_id) {
 		$this->load->model('extension/module/d_seo_module');
 		
-		$product_target_keyword = array();
+		$target_keyword = array();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = 'product_id=" . (int)$product_id . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$product_target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
+			$target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
 		}
 		
-		return $product_target_keyword;
+		return $target_keyword;
 	}
 	
 	/*
@@ -144,15 +144,15 @@ class ModelDSEOModuleDSEOModule extends Model {
 	public function getManufacturerTargetKeyword($manufacturer_id) {
 		$this->load->model('extension/module/d_seo_module');
 		
-		$manufacturer_target_keyword = array();
+		$target_keyword = array();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = 'manufacturer_id=" . (int)$manufacturer_id . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$manufacturer_target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
+			$target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
 		}
 		
-		return $manufacturer_target_keyword;
+		return $target_keyword;
 	}
 	
 	/*
@@ -161,15 +161,15 @@ class ModelDSEOModuleDSEOModule extends Model {
 	public function getInformationTargetKeyword($information_id) {
 		$this->load->model('extension/module/d_seo_module');
 		
-		$information_target_keyword = array();
+		$target_keyword = array();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = 'information_id=" . (int)$information_id . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$information_target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
+			$target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
 		}
 		
-		return $information_target_keyword;
+		return $target_keyword;
 	}
 		
 	/*

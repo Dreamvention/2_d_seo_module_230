@@ -30,7 +30,7 @@
 						<?php foreach ($languages as $language) { ?>
 						<td class="target-cell text-left">
 							<div id="target_<?php echo $target_row; ?>_target_keyword_<?php echo $language['language_id']; ?>" class="target-field" route="<?php echo $target['route']; ?>" language_id="<?php echo $language['language_id']; ?>">
-								<span class="text-field"><?php if (isset($target['target_keyword'][$language['language_id']])) { ?><?php foreach ($target['target_keyword'][$language['language_id']] as $sort_order => $keyword) { ?><?php if (isset($target['duplicate'][$language['language_id']][$sort_order])) { ?><span class="text-danger">[<?php echo $keyword; ?>]</span><?php } else { ?><span>[<?php echo $keyword; ?>]</span><?php } ?><?php } ?><?php } ?></span>
+								<span class="text-field"><?php if (isset($target['target_keyword'][$language['language_id']])) { ?><?php foreach ($target['target_keyword'][$language['language_id']] as $sort_order => $keyword) { ?><?php if (isset($target['target_keyword_duplicate'][$language['language_id']][$sort_order])) { ?><span class="text-danger">[<?php echo $keyword; ?>]</span><?php } else { ?><span>[<?php echo $keyword; ?>]</span><?php } ?><?php } ?><?php } ?></span>
 								<textarea class="input-field form-control hide"><?php if (isset($target['target_keyword'][$language['language_id']])) { ?><?php foreach ($target['target_keyword'][$language['language_id']] as $sort_order => $keyword) { ?>[<?php echo $keyword; ?>]<?php } ?><?php } ?></textarea>
 							</div>
 						</td>	

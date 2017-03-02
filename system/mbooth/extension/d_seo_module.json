@@ -3,7 +3,7 @@
     "version": "2.0.5",
     "name": "SEO Module",
     "description": "SEO module is the core platform, necessary for the installation of other SEO modules.",
-	"index": "module/d_seo_module",
+	"index": "extension/module/d_seo_module",
 	
     "author": {
         "name": "Dreamvention",
@@ -38,6 +38,7 @@
     "files": [
         "system/mbooth/extension/d_seo_module.json",
 		"system/mbooth/xml/mbooth_d_seo_module.xml",
+		"system/mbooth/install/d_seo_module.xml",
 		"system/config/d_seo_module.php",
 		"system/config/d_seo_module_url_target.php",
 						
@@ -46,15 +47,18 @@
 		"admin/language/en-gb/extension/module/d_seo_module.php",
 		"admin/view/stylesheet/d_seo_module.css",
 		
+		"admin/controller/d_seo_module/d_seo_module.php",
+		"admin/model/d_seo_module/d_seo_module.php",
+		"admin/language/en-gb/d_seo_module/d_seo_module.php",
+		
 		"admin/controller/extension/dashboard/d_seo_module_url_target.php",
 		"admin/model/extension/dashboard/d_seo_module_url_target.php",
 		"admin/language/en-gb/extension/dashboard/d_seo_module_url_target.php",
 		"admin/view/template/extension/dashboard/d_seo_module_url_target.tpl",
 		"admin/view/template/extension/dashboard/d_seo_module_url_target_info.tpl",
-		
-		"admin/controller/d_seo_module/d_seo_module.php",
-		"admin/model/d_seo_module/d_seo_module.php",
-		"admin/language/en-gb/d_seo_module/d_seo_module.php",
+				
+		"admin/controller/d_seo_module_url_target/d_seo_module_url_target.php",
+		"admin/model/d_seo_module_url_target/d_seo_module_url_target.php",
 		
 		"admin/controller/d_seo_module_manager/d_seo_module.php",
 		"admin/model/d_seo_module_manager/d_seo_module.php",

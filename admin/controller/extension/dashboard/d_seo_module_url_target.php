@@ -214,26 +214,34 @@ class ControllerExtensionDashboardDSEOModuleURLTarget extends Controller {
 		
 		$setting = $config_setting;
 		
+		$seo_url_target_extensions = $this->{'model_extension_dashboard_' . $this->codename}->getSEOURLTargetExtensions();
+		
 		$targets = array();
 		$implode = array();
 				
 		if ($setting['duplicate_status']) {
-			$duplicate_targets = $this->{'model_extension_dashboard_' . $this->codename}->getDuplicateTargets();
+			$duplicate_targets = array();
 			
-			if (!empty($duplicate_targets)) {
-				$targets = array_replace_recursive($targets, $duplicate_targets);
+			foreach ($seo_url_target_extensions as $seo_url_target_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_url_target_extension . '/duplicate_targets');
+				if ($info) $duplicate_targets = array_replace_recursive($duplicate_targets, $info);
 			}
 			
+			if ($duplicate_targets) $targets = array_replace_recursive($targets, $duplicate_targets);
+						
 			$implode[] = sprintf($this->language->get('text_heading_info_duplicate'), count($duplicate_targets));
 		}
 		
 		if ($setting['empty_status']) {
-			$empty_targets = $this->{'model_extension_dashboard_' . $this->codename}->getEmptyTargets();
-		
-			if (!empty($empty_targets)) {
-				$targets = array_replace_recursive($targets, $empty_targets);
+			$empty_targets = array();
+			
+			foreach ($seo_url_target_extensions as $seo_url_target_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_url_target_extension . '/empty_targets');
+				if ($info) $empty_targets = array_replace_recursive($empty_targets, $info);
 			}
 			
+			if ($empty_targets) $targets = array_replace_recursive($targets, $empty_targets);
+						
 			$implode[] = sprintf($this->language->get('text_heading_info_empty'), count($empty_targets));
 		}
 		
@@ -248,6 +256,11 @@ class ControllerExtensionDashboardDSEOModuleURLTarget extends Controller {
 			$data['targets'][] = $target;
 			$i++;
 			if ($i==$setting['list_limit']) break;
+		}
+		
+		foreach ($seo_url_target_extensions as $seo_url_target_extension) {
+			$targets = $this->load->controller($this->codename . '/' . $seo_url_target_extension . '/targets_links', $data['targets']);
+			if ($targets) $data['targets'] = $targets;
 		}
 
 		return $this->load->view($this->route . '_info', $data);

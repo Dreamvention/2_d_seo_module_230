@@ -34,8 +34,6 @@
 					
 					$(element).val('');
 					
-					$('.target-keyword-' + keyword).remove();
-		
 					$('#target_keywords_' + language_id).append(html);
 				},
 				error: function(xhr, ajaxOptions, thrownError) {

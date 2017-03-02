@@ -74,43 +74,10 @@ class ModelExtensionModuleDSEOModule extends Model {
 		
 		foreach ($languages as $language) {
 			$this->db->query("INSERT INTO " . DB_PREFIX . "url_target (route, language_id, sort_order, keyword) VALUES
-				('account/account', " . $language['language_id'] . ", '1', 'my-account'),
-				('account/address', " . $language['language_id'] . ", '1', 'address-book'),
-				('account/download', " . $language['language_id'] . ", '1', 'downloads'),
-				('account/edit', " . $language['language_id'] . ", '1', 'edit-account'),
-				('account/forgotten', " . $language['language_id'] . ", '1', 'forgot-password'),
-				('account/login', " . $language['language_id'] . ", '1', 'login'),
-				('account/logout', " . $language['language_id'] . ", '1', 'logout'),
-				('account/newsletter', " . $language['language_id'] . ", '1', 'newsletter'),
-				('account/order', " . $language['language_id'] . ", '1', 'order-history'),
-				('account/password', " . $language['language_id'] . ", '1', 'change-password'),
-				('account/register', " . $language['language_id'] . ", '1', 'create-account'),
-				('account/return', " . $language['language_id'] . ", '1', 'returns'),
-				('account/return/insert', " . $language['language_id'] . ", '1', 'request-return'),
-				('account/reward', " . $language['language_id'] . ", '1', 'reward-points'),
-				('account/transaction', " . $language['language_id'] . ", '1', 'transactions'),
-				('account/voucher', " . $language['language_id'] . ", '1', 'account-voucher'),
-				('account/wishlist', " . $language['language_id'] . ", '1', 'wishlist'),
-				('affiliate/account', " . $language['language_id'] . ", '1', 'affiliates'),
-				('affiliate/edit', " . $language['language_id'] . ", '1', 'edit-affiliate-account'),
-				('affiliate/forgotten', " . $language['language_id'] . ", '1', 'affiliate-forgot-password'),
-				('affiliate/login', " . $language['language_id'] . ", '1', 'affiliate-login'),
-				('affiliate/logout', " . $language['language_id'] . ", '1', 'affiliate-logout'),
-				('affiliate/password', " . $language['language_id'] . ", '1', 'change-affiliate-password'),
-				('affiliate/payment', " . $language['language_id'] . ", '1', 'affiliate-payment-options'),
-				('affiliate/register', " . $language['language_id'] . ", '1', 'create-affiliate-account'),
-				('affiliate/tracking', " . $language['language_id'] . ", '1', 'affiliate-tracking-code'),
-				('affiliate/transaction', " . $language['language_id'] . ", '1', 'affiliate-transactions'),
-				('checkout/cart', " . $language['language_id'] . ", '1', 'cart'),
-				('checkout/checkout', " . $language['language_id'] . ", '1', 'checkout'),
-				('checkout/success', " . $language['language_id'] . ", '1', 'checkout-success'),
-				('checkout/voucher', " . $language['language_id'] . ", '1', 'gift-vouchers'),
-				('product/compare', " . $language['language_id'] . ", '1', 'compare-products'),
-				('product/manufacturer', " . $language['language_id'] . ", '1', 'brands'),
-				('product/search', " . $language['language_id'] . ", '1', 'search'),
-				('product/special', " . $language['language_id'] . ", '1', 'specials'),
-				('information/contact', " . $language['language_id'] . ", '1', 'contact-us'),
-				('information/sitemap', " . $language['language_id'] . ", '1', 'sitemap')
+				('common/home', " . $language['language_id'] . ", '1', 'webshop'),
+				('product/manufacturer', " . $language['language_id'] . ", '1', 'brand'),
+				('product/special', " . $language['language_id'] . ", '1', 'special'),
+				('information/contact', " . $language['language_id'] . ", '1', 'contact')
 			");
 		}
 	}

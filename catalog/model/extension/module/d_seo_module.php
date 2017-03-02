@@ -53,10 +53,10 @@ class ModelExtensionModuleDSEOModule extends Model {
 	public function getTargetKeyword($route) {
 		$target_keyword = array();
 		
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($route) . "' ORDER BY sort_order");
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($route) . "' AND language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY sort_order");
 		
 		foreach($query->rows as $result) {
-			$target_keyword[$result['language_id']][$result['sort_order']] = $result['keyword'];
+			$target_keyword[$result['sort_order']] = $result['keyword'];
 		}
 		
 		return $target_keyword;

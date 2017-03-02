@@ -18,15 +18,8 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		if (file_exists($file_robots)) { 
 			$robots_txt_parser = new d_robots_txt_parser(file_get_contents($file_robots));
 		}
-				
-		$target_keyword = array();
-			
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($route) . "' AND language_id = '" . (int)$language_id . "' ORDER BY sort_order");
-			
-		foreach($query->rows as $result) {
-			$target_keyword[$result['sort_order']] = $result['keyword'];
-		}
 		
+		$target_keyword = $this->{'model_extension_module_' . $this->codename}->getTargetKeyword($route);	
 		$seo_keyword = $this->getSEOKeyword($route);
 												
 		$adviser_elements = array();
@@ -93,12 +86,25 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 	}
 	
 	/*
+	*	Return Target Keyword.
+	*/
+	public function getTargetKeyword($route, $language_id) {
+		$target_keyword = array();
+			
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route = '" . $this->db->escape($route) . "' AND language_id = '" . (int)$language_id . "' ORDER BY sort_order");
+			
+		foreach($query->rows as $result) {
+			$target_keyword[$result['sort_order']] = $result['keyword'];
+		}
+		
+		return $target_keyword;
+	}
+	
+	/*
 	*	Return SEO Keyword.
 	*/
 	public function getSEOKeyword($route) {
 		$seo_keyword = '';
-		
-		$language_id = $this->config->get('config_language_id');
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE query LIKE '" . $this->db->escape($route) . "%'");
 		foreach ($query->rows as $result) {
@@ -109,7 +115,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		}				
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
-			if (isset($query_arr[1]) && $query_arr[1] == $language_id) {
+			if (isset($query_arr[1]) && $query_arr[1] == $this->config->get('config_language_id')) {
 				$seo_keyword = $result['keyword'];
 			}
 		}

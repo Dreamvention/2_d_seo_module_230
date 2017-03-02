@@ -348,7 +348,8 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			if (isset($custom_page['target_keyword'])) {
 				foreach ($custom_page['target_keyword'] as $language_id => $target_keyword) {
 					foreach ($target_keyword as $sort_order => $keyword) {
-						if (count($this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword)))>1) {
+						$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
+						if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
 							$custom_page['target_keyword_duplicate'][$language_id][$sort_order] = 1;
 						}
 					}
@@ -951,6 +952,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model('extension/event');
 		$this->load->model('extension/extension');
 		$this->load->model('user/user_group');
+		$this->load->model('d_shopunity/ocmod');
 
 		if ($this->validateInstall()) {
 			$this->model_extension_event->deleteEvent($this->codename);
@@ -983,6 +985,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/information/information/after', 'extension/module/d_seo_module/information_after');
 
 			$this->{'model_extension_module_' . $this->codename}->installModule();
+			
+			$this->model_d_shopunity_ocmod->setOcmod($this->codename . '.xml', 1);
+			$this->model_d_shopunity_ocmod->refreshCache();
 			
 			// Install SEO Module URL Target
 			$this->model_extension_extension->install('dashboard', 'd_seo_module_url_target');
@@ -1021,11 +1026,15 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->load->model('extension/event');
 		$this->load->model('extension/extension');
 		$this->load->model('user/user_group');
+		$this->load->model('d_shopunity/ocmod');
 
 		if ($this->validateUninstall()) {
 			$this->model_extension_event->deleteEvent($this->codename);
 
 			$this->{'model_extension_module_' . $this->codename}->uninstallModule();
+			
+			$this->model_d_shopunity_ocmod->setOcmod($this->codename . '.xml', 0);
+			$this->model_d_shopunity_ocmod->refreshCache();
 			
 			// Uninstall SEO Module URL Target
 			$this->model_extension_extension->uninstall('dashboard', 'd_seo_module_url_target');
