@@ -2,11 +2,12 @@
 <modification>
     <name>d_seo_module</name>
 	<code>d_seo_module</code>
-	<description>SEO URL Engine</description>
+	<description>SEO Engine</description>
 	<version>2.0.0</version>
 	<author>Dreamvention</author>
 	<link>http://dreamvention.com</link>
 	
+	<!-- SEO URL -->
 	<file path="catalog/controller/startup/seo_url.php">
 		<operation error="skip">
 			<search><![CDATA[if (isset($this->request->get['_route_'])) {]]></search>
@@ -47,5 +48,5 @@
 			 ]]></add>
         </operation>
 	</file>
-			
+				
 </modification>

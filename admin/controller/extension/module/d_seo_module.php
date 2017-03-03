@@ -973,16 +973,26 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$this->model_extension_event->addEvent($this->codename, 'admin/view/catalog/information_form/after', 'extension/module/d_seo_module/information_form_after');
 			$this->model_extension_event->addEvent($this->codename, 'admin/model/catalog/information/addInformation/after', 'extension/module/d_seo_module/information_add_after');
 			$this->model_extension_event->addEvent($this->codename, 'admin/model/catalog/information/editInformation/after', 'extension/module/d_seo_module/information_edit_after');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/common/header/before', 'extension/module/d_seo_module/header_before');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/common/header/after', 'extension/module/d_seo_module/header_after');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/common/footer/before', 'extension/module/d_seo_module/footer_before');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/common/footer/after', 'extension/module/d_seo_module/footer_after');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/common/home/before', 'extension/module/d_seo_module/home_before');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/common/home/after', 'extension/module/d_seo_module/home_after');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/product/category/before', 'extension/module/d_seo_module/category_before');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/product/category/after', 'extension/module/d_seo_module/category_after');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/product/product/before', 'extension/module/d_seo_module/product_before');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/product/product/after', 'extension/module/d_seo_module/product_after');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/product/manufacturer_list/before', 'extension/module/d_seo_module/manufacturer_list_before');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/product/manufacturer_list/after', 'extension/module/d_seo_module/manufacturer_list_after');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/product/manufacturer_info/before', 'extension/module/d_seo_module/manufacturer_info_before');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/product/manufacturer_info/after', 'extension/module/d_seo_module/manufacturer_info_after');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/information/information/before', 'extension/module/d_seo_module/information_before');
 			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/information/information/after', 'extension/module/d_seo_module/information_after');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/product/search/before', 'extension/module/d_seo_module/search_before');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/product/search/after', 'extension/module/d_seo_module/search_after');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/product/special/before', 'extension/module/d_seo_module/special_before');
+			$this->model_extension_event->addEvent($this->codename, 'catalog/view/*/template/product/special/after', 'extension/module/d_seo_module/special_after');
 
 			$this->{'model_extension_module_' . $this->codename}->installModule();
 			

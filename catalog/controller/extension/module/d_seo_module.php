@@ -3,6 +3,78 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 	private $codename = 'd_seo_module';
 	private $route = 'extension/module/d_seo_module';
 	
+	public function header_before($route, &$data, $output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/header_data', $data);
+				if ($info) $data = $info;
+			}
+		}			
+	}
+			
+	public function header_after($route, $data, &$output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/header_html', $output);
+				if ($info) $output = $info;
+			}
+		}
+	}
+	
+	public function footer_before($route, &$data, $output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/footer_data', $data);
+				if ($info) $data = $info;
+			}
+		}			
+	}
+			
+	public function footer_after($route, $data, &$output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/footer_html', $output);
+				if ($info) $output = $info;
+			}
+		}
+	}
+	
 	public function home_before($route, &$data, $output) {
 		$this->load->model($this->route);
 		$this->load->model('setting/setting');
@@ -111,6 +183,42 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		}
 	}
 	
+	public function manufacturer_list_before($route, &$data, $output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+			
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_list_data', $data);
+				if ($info) $data = $info;
+			}	
+		}
+	}
+			
+	public function manufacturer_list_after($route, $data, &$output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/manufacturer_list_html', $output);
+				if ($info) $output = $info;
+			}
+		}
+	}
+	
 	public function manufacturer_info_before($route, &$data, $output) {
 		$this->load->model($this->route);
 		$this->load->model('setting/setting');
@@ -178,6 +286,78 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		
 			foreach ($seo_extensions as $seo_extension) {
 				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/information_html', $output);
+				if ($info) $output = $info;
+			}
+		}
+	}
+	
+	public function search_before($route, &$data, $output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/search_data', $data);
+				if ($info) $data = $info;
+			}
+		}
+	}
+			
+	public function search_after($route, $data, &$output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/search_html', $output);
+				if ($info) $output = $info;
+			}
+		}
+	}
+	
+	public function special_before($route, &$data, $output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/special_data', $data);
+				if ($info) $data = $info;
+			}
+		}
+	}
+			
+	public function special_after($route, $data, &$output) {
+		$this->load->model($this->route);
+		$this->load->model('setting/setting');
+		
+		// Setting 
+		$setting = $this->model_setting_setting->getSetting($this->codename);
+		$status = isset($setting[$this->codename . '_status']) ? $setting[$this->codename . '_status'] : false;
+		
+		if ($status) {
+			$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
+		
+			foreach ($seo_extensions as $seo_extension) {
+				$info = $this->load->controller($this->codename . '/' . $seo_extension . '/special_html', $output);
 				if ($info) $output = $info;
 			}
 		}
