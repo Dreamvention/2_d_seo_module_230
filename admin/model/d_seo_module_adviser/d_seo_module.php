@@ -92,6 +92,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		$languages = $this->getLanguages();
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE query LIKE '" . $this->db->escape($route) . "%'");
+		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
 			if (!isset($query_arr[1])) {
@@ -99,7 +100,8 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 					$seo_keyword[$language['language_id']] = $result['keyword'];
 				}
 			}
-		}				
+		}
+		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
 			if (isset($query_arr[1])) {

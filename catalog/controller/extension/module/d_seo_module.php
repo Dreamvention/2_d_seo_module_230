@@ -391,12 +391,14 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 	public function seo_url_rewrite($link) {
 		$this->load->model($this->route);
 				
-		if (isset($this->session->data[$this->codename])) {
+		if (isset($this->session->data[$this->codename])) {			
 			$cache = md5($link);
+			
+			$language_id = $this->config->get('config_language_id');
 		
 			$rewrite_link = false;
 		
-			$rewrite_link = $this->cache->get('getURLRewrite.' . $cache);
+			$rewrite_link = $this->cache->get('url_rewrite.' . $cache . '.' . $language_id);
 		
 			if (!$rewrite_link) {
 				$seo_extensions = $this->{'model_extension_module_' . $this->codename}->getSEOExtensions();
@@ -406,7 +408,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 					if ($info) $link = $info;
 				}
 				
-				$this->cache->set('getURLRewrite.' . $cache, $link);
+				$this->cache->set('url_rewrite.' . $cache . '.' . $language_id, $link);
 			} else {
 				$link = $rewrite_link;
 			}

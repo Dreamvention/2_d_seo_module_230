@@ -107,12 +107,14 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		$seo_keyword = '';
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE query LIKE '" . $this->db->escape($route) . "%'");
+		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
 			if (!isset($query_arr[1])) {
 				$seo_keyword = $result['keyword'];
 			}
-		}				
+		}		
+		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
 			if (isset($query_arr[1]) && $query_arr[1] == $this->config->get('config_language_id')) {
