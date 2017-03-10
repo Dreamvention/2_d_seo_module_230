@@ -43,6 +43,8 @@
 		<file>catalog/controller/extension/module/d_seo_module.php</file>
 		<file>catalog/model/extension/module/d_seo_module.php</file>	
 		
+		<file>catalog/controller/d_seo_module/d_seo_module.php</file>
+		
 		<file>catalog/controller/d_seo_module_adviser/d_seo_module.php</file>
 		<file>catalog/model/d_seo_module_adviser/d_seo_module.php</file>
 		<file>catalog/language/en-gb/d_seo_module_adviser/d_seo_module.php</file>

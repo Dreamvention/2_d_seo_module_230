@@ -1180,7 +1180,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_languages .= '</div>';
 
 			$html_dom->find('#tab-general', 0)->innertext = $html_languages . $html_dom->find('#tab-general', 0)->innertext;
-			$html_dom->load((string)$html_dom, $lowercase=true, $stripRN=false, $defaultBRText=DEFAULT_BR_TEXT);
+			$html_dom->load((string)$html_dom, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 			foreach ($languages as $language) {
 				$html_dom->find('#tab-general #language' . $language['language_id'], 0)->innertext .= $html_tab_general_language[$language['language_id']];
@@ -1206,7 +1206,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#content', 0)->innertext .= $html_script;
 		}
 
-		$output = $html_dom;
+		$output = (string)$html_dom;
 	}
 
 	public function category_form_after($route, $data, &$output) {
@@ -1263,7 +1263,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#content', 0)->innertext .= $html_script;
 		}
 
-		$output = $html_dom;
+		$output = (string)$html_dom;
 	}
 
 	public function category_add_after($route, $data, $output) {
@@ -1352,7 +1352,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#content', 0)->innertext .= $html_script;
 		}
 
-		$output = $html_dom;
+		$output = (string)$html_dom;
 	}
 
 	public function product_add_after($route, $data, $output) {
@@ -1456,7 +1456,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#content', 0)->innertext .= $html_script;
 		}
 
-		$output = $html_dom;
+		$output = (string)$html_dom;
 	}
 
 	public function manufacturer_add_after($route, $data, $output) {
@@ -1540,7 +1540,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			$html_dom->find('#content', 0)->innertext .= $html_script;
 		}
 
-		$output = $html_dom;
+		$output = (string)$html_dom;
 	}
 
 	public function information_add_after($route, $data, $output) {
