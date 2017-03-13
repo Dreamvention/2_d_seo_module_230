@@ -1078,6 +1078,8 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 	}
 
 	public function column_left_before($route, &$data, $output) {
+		$this->load->language($this->route);
+		
 		$this->load->model($this->route);
 
 		$menu_data = array();
@@ -1092,7 +1094,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		if ($menu_data) {
 			$data['menus'][] = array(
 				'id'       => 'menu-seo',
-				'icon'	   => 'fa-signal',
+				'icon'	   => 'fa-search',
 				'name'	   => $this->language->get('text_seo'),
 				'href'     => '',
 				'children' => $menu_data

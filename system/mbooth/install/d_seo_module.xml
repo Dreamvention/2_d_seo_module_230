@@ -48,5 +48,13 @@
 			 ]]></add>
         </operation>
 	</file>
+	
+	<!-- FIX Pagination -->
+	<file path="system/library/pagination.php">
+		<operation error="skip">
+			<search><![CDATA[str_replace(array('&amp;page={page}', '&page={page}'), '', $this->url)]]></search>
+            <add position="replace"><![CDATA[str_replace(array('&amp;page={page}', '&page={page}', '?page={page}'), '', $this->url)]]></add>
+		</operation>
+	</file>
 					
 </modification>
