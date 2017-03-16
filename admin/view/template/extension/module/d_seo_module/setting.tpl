@@ -71,7 +71,7 @@
 										<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
 										<div class="col-sm-8">
 											<input type="hidden" name="<?php echo $codename; ?>_status" value="0" />
-											<input type="checkbox" name="<?php echo $codename; ?>_status" <?php echo $status ? 'checked="checked"' : ''; ?> value="1"/>
+											<input type="checkbox" name="<?php echo $codename; ?>_status" value="1" data-label-text="<?php echo $text_enabled; ?>" <?php echo $status ? 'checked="checked"' : ''; ?> />
 										</div>
 									</div>
 									<div class="form-group">
@@ -95,7 +95,7 @@
 										<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
 										<div class="col-sm-10">
 											<input type="hidden" name="htaccess[status]" value="0" />
-											<input type="checkbox" name="htaccess[status]" <?php echo $htaccess['status'] ? 'checked="checked"' : ''; ?> value="1"/>
+											<input type="checkbox" name="htaccess[status]" value="1" data-label-text="<?php echo $text_enabled; ?>" <?php echo $htaccess['status'] ? 'checked="checked"' : ''; ?> />
 										</div>
 									</div>
 									<div class="form-group">
@@ -120,7 +120,7 @@
 										<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
 										<div class="col-sm-10">
 											<input type="hidden" name="robots[status]" value="0" />
-											<input type="checkbox" name="robots[status]" <?php echo $robots['status'] ? 'checked="checked"' : ''; ?> value="1"/>
+											<input type="checkbox" name="robots[status]" value="1" data-label-text="<?php echo $text_enabled; ?>" <?php echo $robots['status'] ? 'checked="checked"' : ''; ?> />
 										</div>
 									</div>
 									<div class="form-group">
@@ -143,6 +143,7 @@
 
 $('[type=checkbox]').bootstrapSwitch({
     'onColor': 'success',
+	'labelWidth': '50',
     'onText': '<?php echo $text_yes; ?>',
     'offText': '<?php echo $text_no; ?>'
 });

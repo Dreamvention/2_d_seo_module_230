@@ -1,10 +1,10 @@
 {
     "codename": "d_seo_module",
-    "version": "2.0.5",
+    "version": "2.0.6",
     "name": "SEO Module",
     "description": "SEO module is the core platform, necessary for the installation of other SEO modules.",
 	"index": "extension/module/d_seo_module",
-	
+	"readme": "system/mbooth/readme/d_seo_module.md",
     "author": {
         "name": "Dreamvention",
         "email": "info@dreamvention.com",
@@ -30,15 +30,18 @@
         "url": "https:/dreamvention.com/support"
     },
     "required": {
+		"d_shopunity": ">= 3.0.0",
+		"d_bootstrap_switch": ">= 3.3.3",
+		"d_tinysort": ">= 2.3.6",
+		"d_rubaxa_sortable": ">= 1.4.0",
 		"d_phpexcel": ">= 1.0.0",
         "d_robots_txt_parser": ">= 1.0.0",
-	    "d_simple_html_dom": ">= 1.0.0",
-        "d_shopunity": ">= 3.0.0"
+	    "d_simple_html_dom": ">= 1.0.0"
     },
     "files": [
         "system/mbooth/extension/d_seo_module.json",
-		"system/mbooth/xml/mbooth_d_seo_module.xml",
 		"system/mbooth/install/d_seo_module.xml",
+		"system/mbooth/readme/d_seo_module.md",
 		"system/config/d_seo_module.php",
 		"system/config/d_seo_module_url_target.php",
 						
@@ -75,9 +78,7 @@
 		
 		"catalog/controller/d_seo_module_adviser/d_seo_module.php",
 		"catalog/model/d_seo_module_adviser/d_seo_module.php",
-		"catalog/language/en-gb/d_seo_module_adviser/d_seo_module.php",
-		
-		"readme.md"
+		"catalog/language/en-gb/d_seo_module_adviser/d_seo_module.php"
     ],
 	"dirs": [
         "admin/view/template/extension/module/d_seo_module",

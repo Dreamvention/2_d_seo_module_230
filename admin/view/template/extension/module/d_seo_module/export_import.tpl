@@ -65,7 +65,7 @@
 									<div class="form-group">
 										<label class="col-sm-2 control-label" for="input-sheet"><?php echo $entry_sheet; ?></label>
 										<div class="col-sm-10">
-											<input type="checkbox" data-label-text="<?php echo $text_custom_pages; ?>" name="sheet_codes[]" value="custom_page" checked="checked"/>
+											<input type="checkbox" name="sheet_codes[]" value="custom_page" data-label-text="<?php echo $text_custom_pages; ?>" checked="checked"/>
 										</div>
 									</div>	
 									<div class="form-group">
@@ -106,6 +106,7 @@
 
 $('[type=checkbox]').bootstrapSwitch({
     'onColor': 'success',
+	'labelWidth': '90',
     'onText': '<?php echo $text_yes; ?>',
     'offText': '<?php echo $text_no; ?>'
 });

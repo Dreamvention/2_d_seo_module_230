@@ -48,10 +48,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->model_d_shopunity_mbooth->validateDependencies($this->codename);
 
 		// Styles and Scripts
-		$this->document->addLink('//fonts.googleapis.com/css?family=PT+Sans:400,700,700italic,400italic&subset=latin,cyrillic-ext,latin-ext,cyrillic', "stylesheet");
 		$this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
-		$this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
-		$this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
+		$this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
+        $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
 		$this->document->addStyle('view/stylesheet/' . $this->codename . '.css');
 
 		// Heading
@@ -206,10 +205,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->model_d_shopunity_mbooth->validateDependencies($this->codename);
 
 		// Styles and Scripts
-		$this->document->addLink('//fonts.googleapis.com/css?family=PT+Sans:400,700,700italic,400italic&subset=latin,cyrillic-ext,latin-ext,cyrillic', "stylesheet");
 		$this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
-		$this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
-		$this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
+		$this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
+        $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
 		$this->document->addStyle('view/stylesheet/' . $this->codename . '.css');
 	
 		if (isset($this->request->get['page'])) {
@@ -402,10 +400,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->model_d_shopunity_mbooth->validateDependencies($this->codename);
 
 		// Styles and Scripts
-		$this->document->addLink('//fonts.googleapis.com/css?family=PT+Sans:400,700,700italic,400italic&subset=latin,cyrillic-ext,latin-ext,cyrillic', "stylesheet");
 		$this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
-		$this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
-		$this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
+		$this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
+        $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
 		$this->document->addStyle('view/stylesheet/' . $this->codename . '.css');
 				
 		// Heading
@@ -446,7 +443,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		
 		// Tab
 		$data['text_settings'] = $this->language->get('text_settings');
-		$data['text_custom_url'] = $this->language->get('text_custom_url');
+		$data['text_custom_pages'] = $this->language->get('text_custom_pages');
 		$data['text_export_import'] = $this->language->get('text_export_import');
 		$data['text_instructions'] = $this->language->get('text_instructions');
 		
@@ -546,10 +543,9 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		$this->model_d_shopunity_mbooth->validateDependencies($this->codename);
 
 		// Styles and Scripts
-		$this->document->addLink('//fonts.googleapis.com/css?family=PT+Sans:400,700,700italic,400italic&subset=latin,cyrillic-ext,latin-ext,cyrillic', "stylesheet");
 		$this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
-		$this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
-		$this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
+		$this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
+        $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
 		$this->document->addStyle('view/stylesheet/' . $this->codename . '.css');
 				
 		// Heading
