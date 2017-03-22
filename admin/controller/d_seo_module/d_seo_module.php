@@ -8,18 +8,21 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 	/*
 	*	Functions for SEO Module.
 	*/
-	public function menu($menu_data) {
+	public function menu() {
 		$this->load->language($this->route);
+		
+		$menu = array();
 
 		if ($this->user->hasPermission('access', 'extension/module/' . $this->codename)) {
-			$menu_data[] = array(
-				'name'	   => $this->language->get('heading_title_main'),
-				'href'     => $this->url->link('extension/module/' . $this->codename, 'token=' . $this->session->data['token'], true),
-				'children' => array()
+			$menu[] = array(
+				'name'	   		=> $this->language->get('heading_title_main'),
+				'href'     		=> $this->url->link('extension/module/' . $this->codename, 'token=' . $this->session->data['token'], true),
+				'sort_order' 	=> 1,
+				'children' 		=> array()
 			);
 		}
 
-		return $menu_data;
+		return $menu;
 	}
 
 	public function language_add($data) {
@@ -68,7 +71,8 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 			if (isset($data['target_keyword'][$language['language_id']])) {
 				foreach ($data['target_keyword'][$language['language_id']] as $sort_order => $keyword) {
 					$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
-					if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
+					
+					if ((count($target_keywords) > 1) || (count(reset($target_keywords)) > 1)) {
 						$data['target_keyword_duplicate'][$language['language_id']][$sort_order] = 1;
 					}
 				}
@@ -131,7 +135,8 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 			if (isset($data['target_keyword'][$language['language_id']])) {
 				foreach ($data['target_keyword'][$language['language_id']] as $sort_order => $keyword) {
 					$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
-					if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
+					
+					if ((count($target_keywords) > 1) || (count(reset($target_keywords)) > 1)) {
 						$data['target_keyword_duplicate'][$language['language_id']][$sort_order] = 1;
 					}
 				}
@@ -194,7 +199,8 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 			if (isset($data['target_keyword'][$language['language_id']])) {
 				foreach ($data['target_keyword'][$language['language_id']] as $sort_order => $keyword) {
 					$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
-					if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
+					
+					if ((count($target_keywords) > 1) || (count(reset($target_keywords)) > 1)) {
 						$data['target_keyword_duplicate'][$language['language_id']][$sort_order] = 1;
 					}
 				}
@@ -258,7 +264,8 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 			if (isset($data['target_keyword'][$language['language_id']])) {
 				foreach ($data['target_keyword'][$language['language_id']] as $sort_order => $keyword) {
 					$target_keywords = $this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_keyword' => $keyword));
-					if ((count($target_keywords)>1) || (count(reset($target_keywords))>1)) {
+					
+					if ((count($target_keywords) > 1) || (count(reset($target_keywords)) > 1)) {
 						$data['target_keyword_duplicate'][$language['language_id']][$sort_order] = 1;
 					}
 				}

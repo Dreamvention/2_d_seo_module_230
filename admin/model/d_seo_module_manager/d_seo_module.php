@@ -176,6 +176,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 				
 				$sort_order = 1;
 				$this->request->post['value'] = '';
+				
 				foreach ($keywords[0] as $keyword) {
 					$keyword = substr($keyword, 1, strlen($keyword)-2);
 					$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = 'category_id=" . (int)$element['element_id'] . "', language_id = '" . (int)$element['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
@@ -194,6 +195,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 
 				$sort_order = 1;
 				$this->request->post['value'] = '';
+				
 				foreach ($keywords[0] as $keyword) {
 					$keyword = substr($keyword, 1, strlen($keyword)-2);
 					$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = 'product_id=" . (int)$element['element_id'] . "', language_id = '" . (int)$element['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
@@ -212,6 +214,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 
 				$sort_order = 1;
 				$this->request->post['value'] = '';
+				
 				foreach ($keywords[0] as $keyword) {
 					$keyword = substr($keyword, 1, strlen($keyword)-2);
 					$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = 'manufacturer_id=" . (int)$element['element_id'] . "', language_id = '" . (int)$element['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
@@ -230,6 +233,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 
 				$sort_order = 1;
 				$this->request->post['value'] = '';
+				
 				foreach ($keywords[0] as $keyword) {
 					$keyword = substr($keyword, 1, strlen($keyword)-2);
 					$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = 'information_id=" . (int)$element['element_id'] . "', language_id = '" . (int)$element['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
@@ -267,10 +271,12 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 														
 				foreach ($query->rows as $result) {
 					$categories[$result['category_id']]['category_id'] = $result['category_id'];
+					
 					if (isset($result['target_keyword'])) {
 						if (!isset($categories[$result['category_id']]['target_keyword'])) {
 							$categories[$result['category_id']]['target_keyword'] = array();
 						}
+						
 						if ($result['language_id'] && $result['target_keyword']) {
 							$categories[$result['category_id']]['target_keyword'][$result['language_id']] = $result['target_keyword'];
 						}
@@ -299,10 +305,12 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 					
 				foreach ($query->rows as $result) {
 					$products[$result['product_id']]['product_id'] = $result['product_id'];
+					
 					if (isset($result['target_keyword'])) {
 						if (!isset($products[$result['product_id']]['target_keyword'])) {
 							$products[$result['product_id']]['target_keyword'] = array();
 						}
+						
 						if ($result['language_id'] && $result['target_keyword']) {
 							$products[$result['product_id']]['target_keyword'][$result['language_id']] = $result['target_keyword'];
 						}
@@ -331,10 +339,12 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 					
 				foreach ($query->rows as $result) {
 					$manufacturers[$result['manufacturer_id']]['manufacturer_id'] = $result['manufacturer_id'];
+					
 					if (isset($result['target_keyword'])) {
 						if (!isset($manufacturers[$result['manufacturer_id']]['target_keyword'])) {
 							$manufacturers[$result['manufacturer_id']]['target_keyword'] = array();
 						}
+						
 						if ($result['language_id'] && $result['target_keyword']) {
 							$manufacturers[$result['manufacturer_id']]['target_keyword'][$result['language_id']] = $result['target_keyword'];
 						}
@@ -363,10 +373,12 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 		
 				foreach ($query->rows as $result) {
 					$informations[$result['information_id']]['information_id'] = $result['information_id'];
+					
 					if (isset($result['target_keyword'])) {
 						if (!isset($informations[$result['information_id']]['target_keyword'])) {
 							$informations[$result['information_id']]['target_keyword'] = array();
 						}
+						
 						if ($result['language_id'] && $result['target_keyword']) {
 							$informations[$result['information_id']]['target_keyword'][$result['language_id']] = $result['target_keyword'];
 						}
@@ -393,9 +405,11 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 									
 			foreach ($query->rows as $result) {
 				$categories[$result['category_id']]['category_id'] = $result['category_id'];
+				
 				if (!isset($categories[$result['category_id']]['target_keyword'])) {
 					$categories[$result['category_id']]['target_keyword'] = array();
 				}
+				
 				if ($result['language_id'] && $result['target_keyword']) {
 					$categories[$result['category_id']]['target_keyword'][$result['language_id']] = $result['target_keyword'];
 				}
@@ -404,13 +418,16 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			foreach ($data['elements'] as $element) {
 				if (isset($categories[$element['category_id']])) {
 					$category = $categories[$element['category_id']];
+					
 					foreach ($languages as $language) {
 						if (isset($element['target_keyword'][$language['language_id']])) {
 							if (!isset($category['target_keyword'][$language['language_id']]) || (isset($category['target_keyword'][$language['language_id']]) && ($element['target_keyword'][$language['language_id']] != $category['target_keyword'][$language['language_id']]))) {
-								$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'category_id=" . (int)$category['category_id'] . "' AND language_id = '" . (int)$language['language_id'] . "'");
+								$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'category_id=" . (int)$category['category_id'] . "' AND language_id = '" . (int)$language['language_id'] . "'");	
+								
 								if ($element['target_keyword'][$language['language_id']]) {
 									preg_match_all('/\[[^]]+\]/', $element['target_keyword'][$language['language_id']], $keywords);
 									$sort_order = 1;
+									
 									foreach ($keywords[0] as $keyword) {
 										$keyword = substr($keyword, 1, strlen($keyword)-2);
 										$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = 'category_id=" . (int)$category['category_id'] . "', language_id = '" . (int)$language['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
@@ -431,9 +448,11 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			
 			foreach ($query->rows as $result) {
 				$products[$result['product_id']]['product_id'] = $result['product_id'];
+				
 				if (!isset($products[$result['product_id']]['target_keyword'])) {
 					$products[$result['product_id']]['target_keyword'] = array();
 				}
+				
 				if ($result['language_id'] && $result['target_keyword']) {
 					$products[$result['product_id']]['target_keyword'][$result['language_id']] = $result['target_keyword'];
 				}
@@ -442,13 +461,16 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			foreach ($data['elements'] as $element) {
 				if (isset($products[$element['product_id']])) {
 					$product = $products[$element['product_id']];
+					
 					foreach ($languages as $language) {
 						if (isset($element['target_keyword'][$language['language_id']])) {
 							if (!isset($product['target_keyword'][$language['language_id']]) || (isset($product['target_keyword'][$language['language_id']]) && ($element['target_keyword'][$language['language_id']] != $product['target_keyword'][$language['language_id']]))) {
 								$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'product_id=" . (int)$product['product_id'] . "' AND language_id = '" . (int)$language['language_id'] . "'");
+								
 								if ($element['target_keyword'][$language['language_id']]) {
 									preg_match_all('/\[[^]]+\]/', $element['target_keyword'][$language['language_id']], $keywords);
 									$sort_order = 1;
+									
 									foreach ($keywords[0] as $keyword) {
 										$keyword = substr($keyword, 1, strlen($keyword)-2);
 										$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = 'product_id=" . (int)$product['product_id'] . "', language_id = '" . (int)$language['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
@@ -469,9 +491,11 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			
 			foreach ($query->rows as $result) {
 				$manufacturers[$result['manufacturer_id']]['manufacturer_id'] = $result['manufacturer_id'];
+				
 				if (!isset($manufacturers[$result['manufacturer_id']]['target_keyword'])) {
 					$manufacturers[$result['manufacturer_id']]['target_keyword'] = array();
 				}
+				
 				if ($result['language_id'] && $result['target_keyword']) {
 					$manufacturers[$result['manufacturer_id']]['target_keyword'][$result['language_id']] = $result['target_keyword'];
 				}
@@ -480,13 +504,16 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			foreach ($data['elements'] as $element) {
 				if (isset($manufacturers[$element['manufacturer_id']])) {
 					$manufacturer = $manufacturers[$element['manufacturer_id']];
+					
 					foreach ($languages as $language) {
 						if (isset($element['target_keyword'][$language['language_id']])) {
 							if (!isset($manufacturer['target_keyword'][$language['language_id']]) || (isset($manufacturer['target_keyword'][$language['language_id']]) && ($element['target_keyword'][$language['language_id']] != $manufacturer['target_keyword'][$language['language_id']]))) {
 								$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'manufacturer_id=" . (int)$manufacturer['manufacturer_id'] . "' AND language_id = '" . (int)$language['language_id'] . "'");
+								
 								if ($element['target_keyword'][$language['language_id']]) {
 									preg_match_all('/\[[^]]+\]/', $element['target_keyword'][$language['language_id']], $keywords);
 									$sort_order = 1;
+									
 									foreach ($keywords[0] as $keyword) {
 										$keyword = substr($keyword, 1, strlen($keyword)-2);
 										$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = 'manufacturer_id=" . (int)$manufacturer['manufacturer_id'] . "', language_id = '" . (int)$language['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
@@ -507,9 +534,11 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 						
 			foreach ($query->rows as $result) {
 				$informations[$result['information_id']]['information_id'] = $result['information_id'];
+				
 				if (!isset($informations[$result['information_id']]['target_keyword'])) {
 					$informations[$result['information_id']]['target_keyword'] = array();
 				}
+				
 				if ($result['language_id'] && $result['target_keyword']) {
 					$informations[$result['information_id']]['target_keyword'][$result['language_id']] = $result['target_keyword'];
 				}
@@ -518,13 +547,16 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 			foreach ($data['elements'] as $element) {
 				if (isset($informations[$element['information_id']])) {
 					$information = $informations[$element['information_id']];
+					
 					foreach ($languages as $language) {
 						if (isset($element['target_keyword'][$language['language_id']])) {
 							if (!isset($information['target_keyword'][$language['language_id']]) || (isset($information['target_keyword'][$language['language_id']]) && ($element['target_keyword'][$language['language_id']] != $information['target_keyword'][$language['language_id']]))) {
 								$this->db->query("DELETE FROM " . DB_PREFIX . "url_target WHERE route = 'information_id=" . (int)$information['information_id'] . "' AND language_id = '" . (int)$language['language_id'] . "'");
+								
 								if ($element['target_keyword'][$language['language_id']]) {
 									preg_match_all('/\[[^]]+\]/', $element['target_keyword'][$language['language_id']], $keywords);
 									$sort_order = 1;
+									
 									foreach ($keywords[0] as $keyword) {
 										$keyword = substr($keyword, 1, strlen($keyword)-2);
 										$this->db->query("INSERT INTO " . DB_PREFIX . "url_target SET route = 'information_id=" . (int)$information['information_id'] . "', language_id = '" . (int)$language['language_id'] . "', sort_order = '" . $sort_order . "', keyword = '" .  $this->db->escape($keyword) . "'");
@@ -548,6 +580,7 @@ class ModelDSEOModuleManagerDSEOModule extends Model {
 		$this->load->model('localisation/language');
 		
 		$languages = $this->model_localisation_language->getLanguages();
+		
 		foreach ($languages as $key => $language) {
             $languages[$key]['flag'] = 'language/' . $language['code'] . '/' . $language['code'] . '.png';
         }

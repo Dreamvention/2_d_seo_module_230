@@ -7,10 +7,12 @@ class ModelExtensionModuleDSEOModule extends Model {
 	*/
 	public function saveFileData($file, $data) {
 		$dir = str_replace("system/", "", DIR_SYSTEM);
+		
 		if ($file == 'htaccess') {
 			$file_on = $dir . '.htaccess';
 			$file_off = $dir . '.htaccess.txt'; 
 		}
+		
 		if ($file == 'robots') {
 			$file_on = $dir . 'robots.txt';
 			$file_off = $dir . '_robots.txt'; 
@@ -34,16 +36,19 @@ class ModelExtensionModuleDSEOModule extends Model {
 	*/
 	public function getFileData($file) {
 		$dir = str_replace("system/", "", DIR_SYSTEM);
+		
 		if ($file == 'htaccess') {
 			$file_on = $dir . '.htaccess';
 			$file_off = $dir . '.htaccess.txt'; 
 		}
+		
 		if ($file == 'robots') {
 			$file_on = $dir . 'robots.txt';
 			$file_off = $dir . '_robots.txt'; 
 		}
 		
 		$data = array();
+		
 		if (file_exists($file_on)) { 
 			$data['status'] = true;
 			$fh = fopen($file_on, "r");
@@ -262,7 +267,9 @@ class ModelExtensionModuleDSEOModule extends Model {
 		$this->load->model('setting/setting');
 				
 		$installed_extensions = array();
+		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "extension ORDER BY code");
+		
 		foreach ($query->rows as $result) {
 			$installed_extensions[] = $result['code'];
 		}
@@ -271,10 +278,13 @@ class ModelExtensionModuleDSEOModule extends Model {
 		$installed_seo_extensions = isset($installed_seo_extensions['d_seo_extension_install']) ? $installed_seo_extensions['d_seo_extension_install'] : array();
 		
 		$seo_extensions = array();
+		
 		$files = glob(DIR_APPLICATION . 'controller/' . $this->codename . '/*.php');
+		
 		if ($files) {
 			foreach ($files as $file) {
 				$seo_extension = basename($file, '.php');
+				
 				if (in_array($seo_extension, $installed_extensions) && in_array($seo_extension, $installed_seo_extensions)) {
 					$seo_extensions[] = $seo_extension;
 				}
@@ -291,6 +301,7 @@ class ModelExtensionModuleDSEOModule extends Model {
 		$this->load->model('localisation/language');
 		
 		$languages = $this->model_localisation_language->getLanguages();
+		
 		foreach ($languages as $key => $language) {
             $languages[$key]['flag'] = 'language/' . $language['code'] . '/' . $language['code'] . '.png';
         }
@@ -304,13 +315,16 @@ class ModelExtensionModuleDSEOModule extends Model {
 	public function getStores() {
 		$this->load->model('setting/store');
 		
-		$stores = $this->model_setting_store->getStores();
 		$result = array();
+		
+		$stores = $this->model_setting_store->getStores();
+		
 		if ($stores) {
 			$result[] = array(
 				'store_id' => 0, 
 				'name' => $this->config->get('config_name')
 			);
+			
 			foreach ($stores as $store) {
 				$result[] = array(
 					'store_id' => $store['store_id'],
@@ -332,6 +346,28 @@ class ModelExtensionModuleDSEOModule extends Model {
         
         return $user_group_id;
     }
+	
+	/*
+	*	Sort Array By Column.
+	*/
+	public function sortArrayByColumn($arr, $col, $dir = SORT_ASC) {
+		$sort_col = array();
+		$sort_key = array();
+		
+		foreach ($arr as $key => $row) {
+			$sort_key[$key] = $key;
+			
+			if (isset($row[$col])) {
+				$sort_col[$key] = $row[$col];
+			} else {
+				$sort_col[$key] = '';
+			}
+		}
+		
+		array_multisort($sort_col, $dir, $sort_key, SORT_ASC, $arr);
+		
+		return $arr;
+	}
 				
 	/*
 	*	Install.
@@ -346,8 +382,11 @@ class ModelExtensionModuleDSEOModule extends Model {
 		$this->db->query("CREATE TABLE " . DB_PREFIX . "manufacturer_description (manufacturer_id INT(11) NOT NULL, language_id INT(11) NOT NULL, PRIMARY KEY (manufacturer_id, language_id)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "manufacturer");
+		
 		$manufacturers = $query->rows;
+		
 		$languages = $this->getLanguages();
+		
 		foreach ($manufacturers as $manufacturer) {
 			foreach ($languages as $language) {
 				$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer_description SET manufacturer_id = '" . (int)$manufacturer['manufacturer_id'] . "', language_id = '" . (int)$language['language_id'] . "'");

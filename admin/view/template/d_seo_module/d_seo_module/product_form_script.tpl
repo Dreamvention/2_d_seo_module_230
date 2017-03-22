@@ -13,7 +13,7 @@
 		var is_keyword = 0;
 		
 		$('[name^="target_keyword[' + language_id + ']"]').each(function(index) {
-			if (keyword==$(this).val()) is_keyword = 1;
+			if (keyword == $(this).val()) is_keyword = 1;
 		});
 		
 		if (keyword && !is_keyword) {

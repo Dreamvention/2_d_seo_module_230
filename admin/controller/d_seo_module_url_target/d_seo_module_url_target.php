@@ -24,24 +24,28 @@ class ControllerDSEOModuleURLTargetDSEOModuleURLTarget extends Controller {
 		foreach ($targets as &$target) {
 			if (strpos($target['route'], 'category_id') === 0) {
 				$route_arr = explode("category_id=", $target['route']);
+				
 				if (isset($route_arr[1])) {
 					$category_id = $route_arr[1];
 					$target['link'] = $this->url->link('catalog/category/edit', 'token=' . $this->session->data['token'] . '&category_id=' . $category_id, true);
 				}
 			} elseif (strpos($target['route'], 'product_id') === 0) {
 				$route_arr = explode("product_id=", $target['route']);
+				
 				if (isset($route_arr[1])) {
 					$product_id = $route_arr[1];
 					$target['link'] = $this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . '&product_id=' . $product_id, true);
 				}
 			} elseif (strpos($target['route'], 'manufacturer_id') === 0) {
 				$route_arr = explode("manufacturer_id=", $target['route']);
+				
 				if (isset($route_arr[1])) {
 					$manufacturer_id = $route_arr[1];
 					$target['link'] = $this->url->link('catalog/manufacturer/edit', 'token=' . $this->session->data['token'] . '&manufacturer_id=' . $manufacturer_id, true);
 				}
 			} elseif (strpos($target['route'], 'information_id') === 0) {
 				$route_arr = explode("information_id=", $target['route']);
+				
 				if (isset($route_arr[1])) {
 					$information_id = $route_arr[1];
 					$target['link'] = $this->url->link('catalog/information/edit', 'token=' . $this->session->data['token'] . '&information_id=' . $information_id, true);

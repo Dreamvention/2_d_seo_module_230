@@ -15,7 +15,8 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		}
 		
 		$file_robots = str_replace("system/", "", DIR_SYSTEM) . 'robots.txt';
-		if (file_exists($file_robots)) { 
+		
+		if (file_exists($file_robots) && file_exists(DIR_SYSTEM . 'library/d_robots_txt_parser.php')) { 
 			$robots_txt_parser = new d_robots_txt_parser(file_get_contents($file_robots));
 		}
 		
@@ -28,7 +29,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 			
 		if ($target_keyword) {
 			foreach ($target_keyword as $keyword) {
-				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route NOT LIKE '" . $this->db->escape($route) . "%' AND keyword = '" . $this->db->escape($keyword) . "'");
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE (route <> '" . $this->db->escape($route) . "' OR language_id <> '" . (int)$language_id . "') AND keyword = '" . $this->db->escape($keyword) . "'");
 				
 				$target_keyword_duplicate += $query->num_rows;
 			}
@@ -110,6 +111,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
+			
 			if (!isset($query_arr[1])) {
 				$seo_keyword = $result['keyword'];
 			}
@@ -117,6 +119,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
+			
 			if (isset($query_arr[1]) && $query_arr[1] == $this->config->get('config_language_id')) {
 				$seo_keyword = $result['keyword'];
 			}

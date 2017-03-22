@@ -69,7 +69,9 @@ class ModelExtensionModuleDSEOModule extends Model {
 		$this->load->model('setting/setting');
 				
 		$installed_extensions = array();
+		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "extension ORDER BY code");
+		
 		foreach ($query->rows as $result) {
 			$installed_extensions[] = $result['code'];
 		}
@@ -78,10 +80,13 @@ class ModelExtensionModuleDSEOModule extends Model {
 		$installed_seo_extensions = isset($installed_seo_extensions['d_seo_extension_install']) ? $installed_seo_extensions['d_seo_extension_install'] : array();
 		
 		$seo_extensions = array();
+		
 		$files = glob(DIR_APPLICATION . 'controller/' . $this->codename . '/*.php');
+		
 		if ($files) {
 			foreach ($files as $file) {
 				$seo_extension = basename($file, '.php');
+				
 				if (in_array($seo_extension, $installed_extensions) && in_array($seo_extension, $installed_seo_extensions)) {
 					$seo_extensions[] = $seo_extension;
 				}
@@ -98,6 +103,7 @@ class ModelExtensionModuleDSEOModule extends Model {
 		$this->load->model('localisation/language');
 		
 		$languages = $this->model_localisation_language->getLanguages();
+		
 		foreach ($languages as $key => $language) {
             $languages[$key]['flag'] = 'language/' . $language['code'] . '/' . $language['code'] . '.png';
         }

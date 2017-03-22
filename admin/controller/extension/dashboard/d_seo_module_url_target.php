@@ -252,10 +252,11 @@ class ControllerExtensionDashboardDSEOModuleURLTarget extends Controller {
 		$data['targets'] = array();
 		
 		$i = 0;
+		
 		foreach ($targets as $target) {
 			$data['targets'][] = $target;
 			$i++;
-			if ($i==$setting['list_limit']) break;
+			if ($i == $setting['list_limit']) break;
 		}
 		
 		foreach ($seo_url_target_extensions as $seo_url_target_extension) {

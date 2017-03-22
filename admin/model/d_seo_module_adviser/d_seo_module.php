@@ -9,7 +9,8 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		$languages = $this->getLanguages();
 		
 		$file_robots = str_replace("system/", "", DIR_SYSTEM) . 'robots.txt';
-		if (file_exists($file_robots)) { 
+		
+		if (file_exists($file_robots) && file_exists(DIR_SYSTEM . 'library/d_robots_txt_parser.php')) { 
 			$robots_txt_parser = new d_robots_txt_parser(file_get_contents($file_robots));
 		}
 				
@@ -23,7 +24,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 			
 			if (isset($target_keyword[$language['language_id']])) {
 				foreach ($target_keyword[$language['language_id']] as $keyword) {
-					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE route <> '" . $this->db->escape($route) . "' AND keyword = '" . $this->db->escape($keyword) . "'");
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_target WHERE (route <> '" . $this->db->escape($route) . "' OR language_id <> '" . (int)$language['language_id'] . "') AND keyword = '" . $this->db->escape($keyword) . "'");
 				
 					$target_keyword_duplicate += $query->num_rows;
 				}
@@ -95,6 +96,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
+			
 			if (!isset($query_arr[1])) {
 				foreach($languages as $language) {
 					$seo_keyword[$language['language_id']] = $result['keyword'];
@@ -104,6 +106,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
+			
 			if (isset($query_arr[1])) {
 				$seo_keyword[$query_arr[1]] = $result['keyword'];
 			}
@@ -119,6 +122,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 		$this->load->model('localisation/language');
 		
 		$languages = $this->model_localisation_language->getLanguages();
+		
 		foreach ($languages as $key => $language) {
             $languages[$key]['flag'] = 'language/' . $language['code'] . '/' . $language['code'] . '.png';
         }
