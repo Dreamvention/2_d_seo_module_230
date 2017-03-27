@@ -1072,6 +1072,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			// Uninstall SEO Module URL Target
 			$this->model_extension_extension->uninstall('dashboard', 'd_seo_module_url_target');
 			$this->model_setting_setting->deleteSetting('dashboard_d_seo_module_url_target');
+			
 			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'access', 'extension/dashboard/d_seo_module_url_target');
 			$this->model_user_user_group->removePermission($this->{'model_extension_module_' . $this->codename}->getGroupId(), 'modify', 'extension/dashboard/d_seo_module_url_target');
 			
