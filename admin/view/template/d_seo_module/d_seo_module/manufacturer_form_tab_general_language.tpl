@@ -1,4 +1,4 @@
-<div class="form-group sort-item" data-sort-order="10">
+<div class="form-group sort-item" data-sort-order="20">
     <label class="col-sm-2 control-label" for="input-target-keyword"><span data-toggle="tooltip" title="<?php echo $help_target_keyword; ?>"><?php echo $entry_target_keyword; ?></span></label>
     <div class="col-sm-10">
 		<div class="input-group">

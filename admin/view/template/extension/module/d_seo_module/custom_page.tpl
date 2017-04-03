@@ -187,7 +187,7 @@ $('body').on('click', '.custom-page-cell', function() {
 			placement: 'top',
 			trigger: 'manual',
 			content: function() {
-				return '<button type="button" id="button_save" class="btn btn-primary" custom_page_field_id="'+custom_page.attr('id')+'"><i class="fa fa-save"></i></button> <button type="button" id="button_cancel" class="btn btn-danger" custom_page_field_id="'+custom_page.attr('id')+'"><i class="fa fa-remove"></i></button>';
+				return '<button type="button" id="button_save" class="btn btn-primary" custom_page_field_id="' + custom_page.attr('id') + '"><i class="fa fa-save"></i></button> <button type="button" id="button_cancel" class="btn btn-danger" custom_page_field_id="' + custom_page.attr('id') + '"><i class="fa fa-remove"></i></button>';
 			}
 		});
 
@@ -207,7 +207,7 @@ $('body').on('click', '#button_save', function() {
 	$.ajax({
 		url: 'index.php?route=<?php echo $route; ?>/editCustomPage&token=<?php echo $token; ?>',
 		type: 'post',
-		data: 'route='+route+'&language_id='+language_id+'&target_keyword='+encodeURIComponent(target_keyword),
+		data: 'route=' + route + '&language_id=' + language_id + '&target_keyword=' + encodeURIComponent(target_keyword),
 		dataType: 'json',
 		success: function(json) {
 			showAlert(json);
