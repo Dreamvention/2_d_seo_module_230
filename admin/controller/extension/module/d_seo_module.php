@@ -1190,7 +1190,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			}
 			
 			$html_dom = new d_simple_html_dom();
-			$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+			$html_dom->load((string)$output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 			if ($html_tab_general) {
 				$html_dom->find('#tab-general', 0)->innertext .= $html_tab_general;
@@ -1283,7 +1283,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			}
 			
 			$html_dom = new d_simple_html_dom();
-			$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+			$html_dom->load((string)$output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 			if ($html_tab_general) {
 				$html_dom->find('#tab-general', 0)->innertext .= $html_tab_general;
@@ -1379,7 +1379,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			}
 			
 			$html_dom = new d_simple_html_dom();
-			$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+			$html_dom->load((string)$output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 			
 			if ($html_tab_general) {
 				$html_dom->find('#tab-general', 0)->innertext .= $html_tab_general;
@@ -1477,7 +1477,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			}
 
 			$html_dom = new d_simple_html_dom();
-			$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+			$html_dom->load((string)$output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 			
 			$html_manufacturer_name = $html_dom->find('#form-manufacturer .form-group', 0)->outertext;
 			$html_dom->find('#form-manufacturer .form-group', 0)->outertext = '';
@@ -1596,7 +1596,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 			}
 			
 			$html_dom = new d_simple_html_dom();
-			$html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+			$html_dom->load((string)$output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
 			if ($html_tab_general) {
 				$html_dom->find('#tab-general', 0)->innertext .= $html_tab_general;

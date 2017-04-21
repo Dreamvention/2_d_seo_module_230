@@ -19,7 +19,7 @@ class ControllerDSEOModuleDSEOModule extends Controller {
 		$review = $this->response->getOutput();
 				
 		$html_dom = new d_simple_html_dom();
-		$html_dom->load($html, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+		$html_dom->load((string)$html, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 		
 		foreach ($html_dom->find('#review') as $element) {
 			$element->innertext = $review;
