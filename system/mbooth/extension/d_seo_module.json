@@ -87,7 +87,7 @@
     "changelog": [
         {
             "version": "2.0.8",
-            "change": "Simple HTML Dom validation"
+            "change": "Bugs fixed. Simple HTML Dom validation"
         },
 		{
             "version": "2.0.7",

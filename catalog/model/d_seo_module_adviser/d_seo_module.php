@@ -107,7 +107,7 @@ class ModelDSEOModuleAdviserDSEOModule extends Model {
 	public function getSEOKeyword($route) {
 		$seo_keyword = '';
 		
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE query LIKE '" . $this->db->escape($route) . "%'");
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE query RLIKE '" . $this->db->escape($route) . "(&|$)'");
 		
 		foreach ($query->rows as $result) {
 			$query_arr = explode("&language_id=", $result['query']);
