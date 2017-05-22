@@ -1701,6 +1701,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 
 		if (!$this->user->hasPermission($permission, $this->route)) {
 			$this->error['warning'] = $this->language->get('error_permission');
+			
 			return false;
 		}
 
@@ -1716,16 +1717,19 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 				
 		if (!$this->user->hasPermission($permission, $this->route)) {
 			$this->error['warning'] = $this->language->get('error_permission');
+			
 			return false;
 		}
 		
 		if (!preg_match('/[A-Za-z0-9]+\/[A-Za-z0-9]+/i', $this->request->post['custom_page']['route'])) {
 			$this->error['warning'] = $this->language->get('error_route');
+			
 			return false;
 		}
 				
 		if ($this->{'model_extension_module_' . $this->codename}->getTargetKeywords(array('filter_route' => $this->request->post['custom_page']['route']))) {
 			$this->error['warning'] = sprintf($this->language->get('error_route_exists'), $this->request->post['custom_page']['route']);
+			
 			return false;
 		}
 		
@@ -1734,6 +1738,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 				
 			if (!$keywords[0]) {
 				$this->error['warning'] = sprintf($this->language->get('error_target_keyword'), $target_keyword);
+				
 				return false;
 			}	
 		}	
@@ -1748,6 +1753,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 				
 		if (!$this->user->hasPermission($permission, $this->route)) {
 			$this->error['warning'] = $this->language->get('error_permission');
+			
 			return false;
 		}
 		
@@ -1755,6 +1761,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 				
 		if (!$keywords[0]) {
 			$this->error['warning'] = sprintf($this->language->get('error_target_keyword'), $this->request->post['target_keyword']);
+			
 			return false;
 		}	
 						
@@ -1768,11 +1775,13 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 				
 		if (!$this->user->hasPermission($permission, $this->route)) {
 			$this->error['warning'] = $this->language->get('error_permission');
+			
 			return false;
 		}
 		
 		if (!isset($this->request->files['upload']['name']) || !$this->request->files['upload']['name']) {
 			$this->error['warning'] = $this->language->get('error_upload_name');
+			
 			return false;
 		}
 		
@@ -1780,6 +1789,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		
 		if (($ext != 'xls') && ($ext != 'xlsx') && ($ext != 'ods')) {
 			$this->error['warning'] = $this->language->get('error_upload_ext');
+			
 			return false;
 		}
 
@@ -1795,6 +1805,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 
 		if (!$this->user->hasPermission($permission, $this->route)) {
 			$this->error['warning'] = $this->language->get('error_permission');
+			
 			return false;
 		}
 
@@ -1814,6 +1825,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 
 		if (!$this->user->hasPermission($permission, $this->route)) {
 			$this->error['warning'] = $this->language->get('error_permission');
+			
 			return false;
 		}
 
@@ -1821,6 +1833,7 @@ class ControllerExtensionModuleDSEOModule extends Controller {
 		
 		if (count($seo_extensions)>1) {
 			$this->error['warning'] = $this->language->get('error_dependencies');
+			
 			return false;
 		} else {
 			$key = array_search($this->codename, $seo_extensions);
