@@ -40,7 +40,7 @@
 				<?php } ?>
 				<?php } else { ?>
 					<tr>
-						<td class="text-center" colspan="<?php echo count($languages)+1; ?>"><?php echo $text_no_results; ?></td>
+						<td class="text-center" colspan="<?php echo count($languages) + 1; ?>"><?php echo $text_no_results; ?></td>
 					</tr>
 				<?php } ?>
 				</tbody>
@@ -88,7 +88,7 @@ function <?php echo $codename; ?>_showAlert(json) {
 $('#<?php echo $codename; ?>').on('click', '.target-cell', function() {
 	var target = $(this).children('.target-field');
 		
-	if ($(target).children('.input-field').hasClass('hide') && $(target).children('.input-field').attr('type')!='hidden') {
+	if ($(target).children('.input-field').hasClass('hide') && $(target).children('.input-field').attr('type') != 'hidden') {
 		$('.popover').popover('hide', function() {
 			$('.popover').remove();
 		});
@@ -101,7 +101,7 @@ $('#<?php echo $codename; ?>').on('click', '.target-cell', function() {
 			placement: 'top',
 			trigger: 'manual',
 			content: function() {
-				return '<button type="button" id="button_save" class="btn btn-primary" target_field_id="'+target.attr('id')+'"><i class="fa fa-save"></i></button> <button type="button" id="button_cancel" class="btn btn-danger" target_field_id="'+target.attr('id')+'"><i class="fa fa-remove"></i></button>';
+				return '<button type="button" id="button_save" class="btn btn-primary" target_field_id="' + target.attr('id') + '"><i class="fa fa-save"></i></button> <button type="button" id="button_cancel" class="btn btn-danger" target_field_id="' + target.attr('id') + '"><i class="fa fa-remove"></i></button>';
 			}
 		});
 
@@ -121,7 +121,7 @@ $('#<?php echo $codename; ?>').on('click', '#button_save', function() {
 	$.ajax({
 		url: 'index.php?route=<?php echo $route; ?>/editTarget&token=<?php echo $token; ?>',
 		type: 'post',
-		data: 'route='+route+'&language_id='+language_id+'&target_keyword='+encodeURIComponent(target_keyword),
+		data: 'route=' + route + '&language_id=' + language_id + '&target_keyword=' + encodeURIComponent(target_keyword),
 		dataType: 'json',
 		success: function(json) {
 			<?php echo $codename; ?>_showAlert(json);

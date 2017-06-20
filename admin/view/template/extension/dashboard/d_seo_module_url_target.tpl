@@ -36,7 +36,7 @@
 						<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
 						<div class="col-sm-8">
 							<input type="hidden" name="dashboard_<?php echo $codename; ?>_status" value="0" />
-							<input type="checkbox" name="dashboard_<?php echo $codename; ?>_status" <?php echo $status ? 'checked="checked"' : ''; ?> value="1"/>
+							<input type="checkbox" name="dashboard_<?php echo $codename; ?>_status" value="1" data-label-text="<?php echo $text_enabled; ?>" <?php echo $status ? 'checked="checked"' : ''; ?> />
 						</div>												
 					</div>
 					<div class="form-group">
@@ -69,14 +69,14 @@
 						<label class="col-sm-2 control-label" for="input-duplicate-status"><?php echo $entry_duplicate_status; ?></label>
 						<div class="col-sm-8">
 							<input type="hidden" name="dashboard_<?php echo $codename; ?>_setting[duplicate_status]" value="0" />
-							<input type="checkbox" name="dashboard_<?php echo $codename; ?>_setting[duplicate_status]" <?php echo $setting['duplicate_status'] ? 'checked="checked"' : ''; ?> value="1"/>
+							<input type="checkbox" name="dashboard_<?php echo $codename; ?>_setting[duplicate_status]" value="1" data-label-text="<?php echo $text_enabled; ?>" <?php echo $setting['duplicate_status'] ? 'checked="checked"' : ''; ?> />
 						</div>												
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="input-empty-status"><?php echo $entry_empty_status; ?></label>
 						<div class="col-sm-8">
 							<input type="hidden" name="dashboard_<?php echo $codename; ?>_setting[empty_status]" value="0" />
-							<input type="checkbox" name="dashboard_<?php echo $codename; ?>_setting[empty_status]" <?php echo $setting['empty_status'] ? 'checked="checked"' : ''; ?> value="1"/>
+							<input type="checkbox" name="dashboard_<?php echo $codename; ?>_setting[empty_status]" value="1" data-label-text="<?php echo $text_enabled; ?>" <?php echo $setting['empty_status'] ? 'checked="checked"' : ''; ?> />
 						</div>												
 					</div>
 				</form>
@@ -88,6 +88,7 @@
 
 $('[type=checkbox]').bootstrapSwitch({
     'onColor': 'success',
+	'labelWidth': '50',
     'onText': '<?php echo $text_yes; ?>',
     'offText': '<?php echo $text_no; ?>'
 });

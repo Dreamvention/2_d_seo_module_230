@@ -32,7 +32,6 @@
             <add position="after"><![CDATA[
 				//d_seo_module
 				if (!isset($url_info['query'])) return $link;
-				//return $link;
 				///d_seo_module
             ]]></add>
         </operation>

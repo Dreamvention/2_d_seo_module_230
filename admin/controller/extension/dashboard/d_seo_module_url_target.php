@@ -43,9 +43,8 @@ class ControllerExtensionDashboardDSEOModuleURLTarget extends Controller {
 		$this->model_d_shopunity_mbooth->validateDependencies($this->main_codename);
 
 		// Styles and Scripts
-		$this->document->addLink('//fonts.googleapis.com/css?family=PT+Sans:400,700,700italic,400italic&subset=latin,cyrillic-ext,latin-ext,cyrillic', "stylesheet");
-		$this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
-		$this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
+		$this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
+        $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
 		$this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
 						
 		// Heading
@@ -301,6 +300,7 @@ class ControllerExtensionDashboardDSEOModuleURLTarget extends Controller {
 				
 		if (!$this->user->hasPermission($permission, $this->route)) {
 			$this->error['warning'] = $this->language->get('error_permission');
+			
 			return false;
 		}
 		

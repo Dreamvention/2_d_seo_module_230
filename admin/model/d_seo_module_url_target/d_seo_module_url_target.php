@@ -13,6 +13,7 @@ class ModelDSEOModuleURLTargetDSEOModuleURLTarget extends Model {
 		
 		foreach ($query->rows as $result) {
 			$targets[$result['route']]['route'] = $result['route'];
+			
 			if ($result['language_id'] && $result['sort_order'] && $result['keyword']) {
 				$targets[$result['route']]['target_keyword'][$result['language_id']][$result['sort_order']] = $result['keyword'];
 			}
